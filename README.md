@@ -1,1 +1,1 @@
-# mejai
+# MeJai Charity
