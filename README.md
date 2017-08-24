@@ -1,1 +1,2 @@
-# mejai
+# MeJai Charity
+## Design
