@@ -29,11 +29,14 @@ class UserCreate(APIView):
     """
 
     def post(self, request, format='json'):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            if user:
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_201_CREATED
-                )
+        if request.method == 'POST':
+            serializer = UserSerializer(data=request.data)
+            if serializer.is_valid():
+                user = serializer.save()
+                if user:
+                    return Response(
+                        serializer.data,
+                        status=status.HTTP_201_CREATED
+                    )
+
+        return Response(status=status.HTTP_200_OK)

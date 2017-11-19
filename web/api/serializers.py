@@ -31,8 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
             username=validated_data['username'],
             email=validated_data['email'],
             password=validated_data['password'],
-            firstname=['firstname'],
-            lastname=['lastname'],
+            first_name='first_name',
+            lastname='last_name',
         )
         return user
 
@@ -42,7 +42,7 @@ class UserSerializer(serializers.ModelSerializer):
             'id',
             'username',
             'email',
-            'firstname',
-            'lastname',
+            'first_name',
+            'last_name',
             'password'
         )
