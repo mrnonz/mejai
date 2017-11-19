@@ -1,6 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from .serializers import BucketlistSerializer
 from .models import Bucketlist
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import UserSerializer
 
 
 class CreateView(generics.ListCreateAPIView):
@@ -18,3 +21,19 @@ class DetailsView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Bucketlist.objects.all()
     serializer_class = BucketlistSerializer
+
+
+class UserCreate(APIView):
+    """
+    Creates the user.
+    """
+
+    def post(self, request, format='json'):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            if user:
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
