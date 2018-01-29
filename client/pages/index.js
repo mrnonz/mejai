@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import { Form, Container, Grid } from 'semantic-ui-react'
+import { Form, Container, Grid, Button } from 'semantic-ui-react'
 import styled from 'styled-components'
+import InputBox from 'molecules/InputBox'
 
 const PageWrapper = styled.div`
   background-image: url('/static/loginBG.jpg');
@@ -18,7 +19,7 @@ const PageWrapper = styled.div`
 `
 
 const FormWrapper = styled.div`
-  background: rgba(135,135,135,0.8);
+  background: rgba(80,80,80,0.55);
   padding: 50px 30px;
 `
 const LogoWrapper = styled.div` 
@@ -39,25 +40,34 @@ const LogoWrapper = styled.div`
   }
 `
 
-const InputBox = styled.input`
-  padding-left: 15px !important;
-  box-sizing: border-box !important;
-  font-size: 18px !important;
-  background-color: rgba(0,0,0,0) !important;
-  border-style: solid !important;
-  border-color: rgb(175, 175, 175) !important;
-  border-width: 0 0 1.5px 0 !important;
+const FormButton = styled(Button)`
+  height: 50px !important;
+  font-size: 16px !important;
+  border-radius: 0px !important;
+  background: #38D672 !important;
   color: white !important;
-  outline: 0 !important;
+  position:relative;
+  top:50%; 
+  left:50%;
+  transform: translateX(-50%);
+`
+
+const CustomFormField = styled(Form.Field)`
+  margin-bottom: 25px !important;
+`
+
+const CustomFormGroup = styled(Form.Group)`
+  margin-bottom: 25px !important;
 `
 
 class FormExampleCaptureValues extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', submittedName: '', submittedEmail: '' }
+    this.state = { username: '', email: '', submittedName: '', submittedEmail: '' }
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleChange = (e) => {
+    console.log(e.target.name, e.target.value)}
 
   handleSubmit = () => {
     const { name, email } = this.state
@@ -79,24 +89,24 @@ class FormExampleCaptureValues extends Component {
             <span className="left-logo web-logo">Mejai</span><span className="right-logo web-logo">Charity</span>
           </LogoWrapper>
           <Form onSubmit={this.handleSubmit}>
-            <Form.Field>
-              <InputBox placeholder='Username' name='username' />
-            </Form.Field>
-            <Form.Group widths="equal">
+            <CustomFormField>
+              <InputBox label="Username" name="username" onChange={this.handleChange} />
+            </CustomFormField>
+            <CustomFormGroup widths="equal">
               <Form.Field>
-                <InputBox placeholder='Firstname' name='firstname' />
+                <InputBox label="Firstname" name="firstname" />
               </Form.Field>
               <Form.Field>
-                <InputBox placeholder='Lastname' name='lastname' />
+                <InputBox label="Lastname" name="lastname" />
               </Form.Field>
-            </Form.Group>
-            <Form.Field>
-              <InputBox placeholder='Password' name='password' type='password' />
-            </Form.Field>
-            <Form.Field>
-              <InputBox placeholder='Confirm Password' name='confirmPassword' type='password' />
-            </Form.Field>  
-            <Form.Button content='Register' color="green" />
+            </CustomFormGroup>
+            <CustomFormField>
+              <InputBox label="Password" name="password" type="password" />
+            </CustomFormField>
+            <CustomFormField>
+              <InputBox label="Confirm Password" name="confirmpassword" type="password" />
+            </CustomFormField>
+            <FormButton content='Register' />
           </Form>
         </FormWrapper>
       </PageWrapper>
