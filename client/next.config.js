@@ -1,4 +1,5 @@
 var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   webpack: (config, { dev }) => {

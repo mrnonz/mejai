@@ -81,7 +81,7 @@ class FormExampleCaptureValues extends Component {
     return (
       <PageWrapper>
         <Head>
-            <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"></link>
+            <link rel="stylesheet" href="/static/dist/semantic.min.css"></link>
             <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"></link>
         </Head>
         <FormWrapper>
