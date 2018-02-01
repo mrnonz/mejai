@@ -1,0 +1,21 @@
+.products-page {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 30% 1fr;
+    grid-template-columns: auto;
+    
+    main {
+        display: grid;
+        grid-template-columns: minmax(100px, 15%) 1fr;
+
+        aside{
+            background: blue;
+        }
+        section{
+            background: purple;
+        }
+    }
+    header{
+        background: pink;
+    }
+}
