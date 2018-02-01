@@ -12,7 +12,13 @@
             background: blue;
         }
         section{
+            display: grid;
+            grid-template-rows: min-content 1fr;
+            grid-template-columns: auto auto;
             background: purple;
+            div {
+                align-self: end;
+            }
         }
     }
     header{

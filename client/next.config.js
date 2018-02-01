@@ -37,7 +37,12 @@ module.exports = {
           'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
           'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
       ]
-    }]
+    },
+    {
+      test: /\.json$/,
+      loader: 'json-loader'
+    }
+  ]
     // Important: return the modified config
     return config
   },
