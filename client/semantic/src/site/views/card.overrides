@@ -1,3 +1,12 @@
 /*******************************
     User Variable Overrides
 *******************************/
+.card-price {
+    float: left;
+}
+
+.card-expired {
+    color: #817575;
+
+    float: right;
+}

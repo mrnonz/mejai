@@ -1,3 +1,17 @@
 /*******************************
      User Global Variables
 *******************************/
+/* Font */
+@pageFont: 'Kanit', sans-serif;
+@headerFont: 'Kanit', sans-serif;
+
+@fontSize: 16px;
+
+/* Colors */
+@orange: #F4B333;
+
+/* Page Heading */
+@headerFontWeight: 400;
+
+@h3: unit((24 / 14), rem);
+

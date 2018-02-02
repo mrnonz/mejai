@@ -4,24 +4,58 @@
     grid-template-rows: 30% 1fr;
     grid-template-columns: auto;
     
-    main {
+    >main {
         display: grid;
-        grid-template-columns: minmax(100px, 15%) 1fr;
+        grid-template-columns: minmax(250px, 15%) 1fr;
 
         aside{
-            background: blue;
+            background: $colorWhite;
+            box-shadow: 10px 0px 25px -11px rgba(161,161,161, 1);
+
+            z-index: 2;
         }
-        section{
+        
+        .list-container{
             display: grid;
             grid-template-rows: min-content 1fr;
             grid-template-columns: auto auto;
-            background: purple;
-            div {
+            
+            background: $contentBackgroundColor;
+            padding: 20px 5px 15px 40px;
+
+            z-index: 1;
+
+            >:not(main) {
                 align-self: end;
+            }
+
+            >.product-count {
+                >h3 {
+                    margin: 0 !important;
+                }
+
+                >:not(h3) {
+                    color: $colorGrey;
+                }
+            }
+
+            >.product-sort {
+                justify-self: end;
+                padding-right: 100px;
+            }
+
+            >.product-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 225px);
+                grid-column-gap: 25px;
+                grid-column: 1 / span 2;
+
+
             }
         }
     }
-    header{
+
+    >header{
         background: pink;
     }
 }
