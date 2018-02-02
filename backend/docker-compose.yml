@@ -19,6 +19,11 @@ services:
       - ./web:/code
     ports:
       - "8000:8000"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: mejai
     depends_on:
       - db
   phpmyadmin:
