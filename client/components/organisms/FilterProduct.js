@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Header, Checkbox } from 'semantic-ui-react'
+import { Header, Checkbox, List } from 'semantic-ui-react'
 
 class FilterProduct extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class FilterProduct extends Component {
                     Filter
                 </Header>
                 { categories.map((category) => (
-                    <li><Checkbox label={category} /></li>
+                    <List><List.Item><Checkbox label={category} /></List.Item></List>
                 )) }
             </div>
         )

@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 import ProductCard from 'molecules/ProductCard'
+import Pagination from 'react-paginate';
 import FilterProduct from 'organisms/FilterProduct'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Menu } from 'semantic-ui-react'
 import categories from 'stores/mock/categories.json'
 import products from 'stores/mock/auction_products.json'
 import stylesheet from 'static/styles/main.scss'
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 class Products extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            productPage: 0
+        }
+    }
+
+    handlePageClick = (data) => {
+        this.setState({
+            productPage: data.selected
+        })
     }
 
     render() {
+        const { productPage } = this.state
+        const itemCount = products.data.length
+        const totalPage = Math.ceil(products.data.length / 10)
+        const pageItems = products.data.slice(productPage * 10, productPage * 10 + 10)
         const sortOptions = [
             {
                 text: 'Featured',
@@ -37,7 +52,10 @@ class Products extends Component {
                         <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,500,700" rel="stylesheet" />  
                     </Head>
                     <header>
-                        Header
+                        <div className="background-mask">
+                            <h1>Auction Page</h1>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum , consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum</p>
+                        </div>
                     </header>
                     <main>
                         <aside>
@@ -53,10 +71,17 @@ class Products extends Component {
                                 <Dropdown selection defaultValue="featured" options={sortOptions}/>
                             </div>
                             <main className="product-list">
-                                {products.data.map((product) => (
-                                    <ProductCard name={product.name} price={product.price} />
+                                {pageItems.map((item) => (
+                                    <ProductCard name={item.name} price={item.price} />
                                 ))}
                             </main>
+                            <Pagination 
+                                pageCount={totalPage}
+                                pageRangeDisplayed={4}
+                                onPageChange={(data) => this.handlePageClick(data)}
+                                containerClassName="pagination"
+                                activeClassName="active"
+                            />
                         </section>
                     </main>
                 </div>

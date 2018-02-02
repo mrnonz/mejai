@@ -7,4 +7,5 @@
 @contentDivider: none;
 
 @headerFontWeight: 500;
+@headerFontSize: 16px;
 @headerColor: #3E4442;
