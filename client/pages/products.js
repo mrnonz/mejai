@@ -26,8 +26,8 @@ class Products extends Component {
     render() {
         const { productPage } = this.state
         const itemCount = products.data.length
-        const totalPage = Math.ceil(products.data.length / 10)
-        const pageItems = products.data.slice(productPage * 10, productPage * 10 + 10)
+        const totalPage = Math.ceil(products.data.length / 12)
+        const pageItems = products.data.slice(productPage * 12, productPage * 12 + 12)
         const sortOptions = [
             {
                 text: 'Featured',
@@ -81,6 +81,8 @@ class Products extends Component {
                                 onPageChange={(data) => this.handlePageClick(data)}
                                 containerClassName="pagination"
                                 activeClassName="active"
+                                previousLabel="<"
+                                nextLabel=">"
                             />
                         </section>
                     </main>
