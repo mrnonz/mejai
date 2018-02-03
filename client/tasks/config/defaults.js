@@ -26,18 +26,18 @@ module.exports = {
   // folder paths
   paths: {
     source: {
-      config      : 'semantic/src/theme.config',
-      definitions : 'semantic/src/definitions/',
-      site        : 'semantic/src/site/',
-      themes      : 'semantic/src/themes/'
+      config      : 'src/theme.config',
+      definitions : 'src/definitions/',
+      site        : 'src/site/',
+      themes      : 'src/themes/'
     },
     output: {
-      packaged     : 'static/dist/',
-      uncompressed : 'static/dist/components/',
-      compressed   : 'static/dist/components/',
-      themes       : 'static/dist/themes/'
+      packaged     : 'dist/',
+      uncompressed : 'dist/components/',
+      compressed   : 'dist/components/',
+      themes       : 'dist/themes/'
     },
-    clean : 'static/dist/'
+    clean : 'dist/'
   },
 
   // components to include in package
