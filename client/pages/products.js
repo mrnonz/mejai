@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Head from 'next/head'
 import ProductCard from 'molecules/ProductCard'
 import Pagination from 'react-paginate'
 import FilterProduct from 'organisms/FilterProduct'
