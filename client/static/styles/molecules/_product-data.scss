@@ -1,0 +1,20 @@
+.product-data {
+    .price {
+        color: $colorOrange;
+    }
+
+    p {
+        font-size: $fontSizeExtraBig;
+        font-weight: 500;
+    }
+
+    .data-auction {
+        max-width: 420px;
+        .auction-form {
+            input{
+                text-align: center !important;
+            }
+        }
+    }
+    
+}

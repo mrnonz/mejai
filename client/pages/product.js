@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import ProductDetail from 'organisms/ProductDetail'
+import ProductInfo from 'organisms/ProductInfo'
+import { Container } from 'semantic-ui-react'
 
 class Product extends Component {
     render() {
         return (
-            <div className="product-page">
+            <Container className="product-page">
                 <ProductDetail />
-            </div>
+                <ProductInfo />
+            </Container>
         )
     }
 }

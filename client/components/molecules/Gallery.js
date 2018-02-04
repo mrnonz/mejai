@@ -21,15 +21,16 @@ class Gallery extends Component {
         return (
             <div className="gallery">
                 <div className="main-image">
-                    <Image src={mainImage} size="large" />
+                    <Image src={mainImage} size="large" bordered />
                 </div>
                 <div className="images">
                     {images.map((image) => (
-                        <Image 
+                        <div><Image 
                             src={image} 
                             onClick={() => this.handleImageClick(image)} 
                             size="small"
-                        />
+                            bordered
+                        /></div>
                     ))}
                 </div>
             </div>

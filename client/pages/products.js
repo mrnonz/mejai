@@ -5,7 +5,6 @@ import FilterProduct from 'organisms/FilterProduct'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import categories from 'stores/mock/categories.json'
 import products from 'stores/mock/auction_products.json'
-
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 class Products extends Component {

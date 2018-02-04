@@ -1,3 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
+@maxWidth: 75vw;
+
+@computerWidth: 1200px;
+@largeMonitorWidth: 1200px;
