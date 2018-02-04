@@ -8,11 +8,14 @@
 @fontSize: 16px;
 
 /* Colors */
+@teal: #2CC0E4;
 @orange: #F4B333;
+@grey: #938A8A;
 
 /* Page Heading */
 @headerFontWeight: 400;
 
+@h2: unit((32 / 14), rem);
 @h3: unit((24 / 14), rem);
 
 /* Sizes */

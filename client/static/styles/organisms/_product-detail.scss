@@ -1,0 +1,42 @@
+.product-detail {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 2em;
+    padding-top: 50px;
+    padding-bottom: 25px;
+
+    .breadcrumb {
+        font-size: $fontSizeExtraBig !important;
+        align-self: center;
+    }
+
+    .product-user {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-column-gap: 1em;
+        justify-self: end;
+
+        .user-info {
+            align-self: center;
+
+            span {
+                display: block;
+
+                font-weight: 300;
+                font-size: $fontSizeBig;
+                text-align: end;
+            }
+
+            >.role {
+                color: $colorGrey;
+            }
+
+            >.username {
+                color: $colorDarkBlue;
+
+                font-weight: 500;
+                font-size: $fontSizeExtraBig;
+            }
+        }
+    }
+}

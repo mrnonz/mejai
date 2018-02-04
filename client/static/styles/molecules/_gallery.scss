@@ -1,0 +1,15 @@
+.gallery {
+    display: flex;
+    
+    .main-image {
+        
+    }
+
+    .images {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;        
+
+        margin-left: 1em;
+    }
+}
