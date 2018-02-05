@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^7.2.5",
+    "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-module-resolver": "^3.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -30,6 +31,7 @@
     "react-paginate": "^5.0.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "semantic-ui": "^2.2.14",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-less": "^2.2.14",

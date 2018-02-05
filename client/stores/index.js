@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import mock from './reducers/mock'
+import repository from './reducers/repo'
 
 const storeApp = combineReducers({
-    mock
+    mock,
+    repository
 })
 
 export default storeApp

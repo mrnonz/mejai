@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Progress, Header, Input } from 'semantic-ui-react'
-import { toggleMock } from '../../stores/actions/mock';
+import { fetchRepo } from '../../stores/actions/mock';
 
 class ProductData extends Component {
     constructor(props){
@@ -13,10 +13,6 @@ class ProductData extends Component {
 
     handleToggleAuction = () => {
         this.props.onButtonClick()
-        console.log(this.props.text)
-        this.setState({
-            showPriceInput: true
-        })
     }
 
     render() {
@@ -34,7 +30,7 @@ class ProductData extends Component {
                     <Progress percent={75} size="small" color="orange"/>
                     { showPriceInput ? 
                         <Input className="auction-form" size="huge" action={{ color:"teal", size:"huge", content: "ประมูล" }} placeholder='ราคาของคุณ' /> : 
-                        <Button color="teal" size="huge" fluid onClick={this.handleToggleAuction}>ร่วมประมูล</Button> 
+                        <Button color="teal" size="huge" fluid loading={this.props.repo.isLoading} onClick={this.handleToggleAuction}>ร่วมประมูล</Button> 
                     }
                 </div>
             </div>
@@ -44,14 +40,15 @@ class ProductData extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        text: state.mock
+        text: state.mock,
+        repo: state.repository
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onButtonClick: () => {
-            dispatch(toggleMock('Hello World'))
+            dispatch(fetchRepo('Hello World'))
         }
     }
 }
