@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'product.apps.ProductConfig',
-    'order.apps.OrderConfig'
+    'order.apps.OrderConfig',
+    'auction.apps.AuctionConfig'
 ]
 
 MIDDLEWARE_CLASSES = [
