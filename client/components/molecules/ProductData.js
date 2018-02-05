@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Button, Progress, Header, Input } from 'semantic-ui-react'
+import { toggleMock } from '../../stores/actions/mock';
 
 class ProductData extends Component {
     constructor(props){
@@ -10,6 +12,8 @@ class ProductData extends Component {
     }
 
     handleToggleAuction = () => {
+        this.props.onButtonClick()
+        console.log(this.props.text)
         this.setState({
             showPriceInput: true
         })
@@ -38,4 +42,18 @@ class ProductData extends Component {
     }
 }
 
-export default ProductData
+const mapStateToProps = (state) => {
+    return {
+        text: state.mock
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onButtonClick: () => {
+            dispatch(toggleMock('Hello World'))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductData)

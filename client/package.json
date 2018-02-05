@@ -29,6 +29,7 @@
     "react-dom": "^16.2.0",
     "react-paginate": "^5.0.0",
     "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "semantic-ui": "^2.2.14",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-less": "^2.2.14",
@@ -45,6 +46,7 @@
     "json-loader": "^0.5.7",
     "postcss-loader": "^2.0.10",
     "raw-loader": "^0.5.1",
+    "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6"
   }
 }
