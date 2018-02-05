@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'product.apps.ProductConfig',
     'order.apps.OrderConfig',
-    'auction.apps.AuctionConfig'
+    'auction.apps.AuctionConfig',
+    'customer.apps.CustomerConfig'
 ]
 
 MIDDLEWARE_CLASSES = [
