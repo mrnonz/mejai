@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'auction_customer.apps.AuctionCustomerConfig',
     'organization.apps.OrganizationConfig',
+    'bank.apps.BankConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
