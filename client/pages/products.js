@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ProductCard from 'molecules/ProductCard'
-import Pagination from 'react-paginate'
+import Pagination from 'molecules/Pagination'
 import FilterProduct from 'organisms/FilterProduct'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import categories from 'stores/mock/categories.json'
@@ -15,9 +15,9 @@ class Products extends Component {
         }
     }
 
-    handlePageClick = (data) => {
+    handlePageClick = (page) => {
         this.setState({
-            productPage: data.selected
+            productPage: page.selected
         })
     }
 
@@ -70,11 +70,7 @@ class Products extends Component {
                         <Pagination 
                             pageCount={totalPage}
                             pageRangeDisplayed={4}
-                            onPageChange={(data) => this.handlePageClick(data)}
-                            containerClassName="pagination"
-                            activeClassName="active"
-                            previousLabel="<"
-                            nextLabel=">"
+                            onPageChange={(page) => this.handlePageClick(page)}
                         />
                     </section>
                 </main>

@@ -1,4 +1,30 @@
 .organization-page {
     min-height: 100vh;
     background: $colorLightBlue;
+
+    >.content {
+        padding: 3em 0;
+
+        .page-header {
+            h2 {
+                margin-bottom: 0;
+            }
+
+            span {
+                color: $colorGrey;
+            }
+        }
+    }
+
+    .organization-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(200px, 400px));
+        grid-auto-rows: min-content;
+        grid-column-gap: 20px;
+
+        >.pagination {
+            justify-self: center;
+            grid-column: 1 / span 3;  
+        }
+    }
 }
