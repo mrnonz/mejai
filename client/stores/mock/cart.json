@@ -1,0 +1,28 @@
+{
+    "items": [
+        {
+            "product": {
+                "name": "เสื้อสีดำ",
+                "attribute": {
+                    "name": "ขนาด",
+                    "value": "M"
+                }
+            },
+            "organization": "1 Help 1 Life: น้ำสะอาดให้น้องดื่ม",
+            "price": 150,
+            "quantity": 3
+        },
+        {
+            "product": {
+                "name": "กางเกงสีน้ำเงิน",
+                "attribute": {
+                    "name": "ขนาด",
+                    "value": "S"
+                }
+            },
+            "price": 120,
+            "organization": "หมื่นฝันปันโอกาส",
+            "quantity": 2
+        }
+    ]
+}

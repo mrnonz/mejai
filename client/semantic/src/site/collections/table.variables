@@ -1,3 +1,17 @@
 /*******************************
     User Variable Overrides
 *******************************/
+@headerColor: @grey;
+@headerFontWeight: 400;
+@headerBackground: none;
+@headerBorder: none;
+@headerDivider: none;
+
+@basicTableBorder: none;
+@basicTableCellBackground: @white;
+
+@cellVerticalPadding: 1em;
+@cellHorizontalPadding: 1em;
+
+@internalBorderColor: @grey;
+@rowBorder: 1.5px solid @internalBorderColor;

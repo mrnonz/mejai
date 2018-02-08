@@ -3,7 +3,7 @@
     background: $colorLightBlue;
 
     >.content {
-        padding: 3em 0;
+        @include layout-content;
 
         .page-header {
             h2 {
