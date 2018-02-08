@@ -21,7 +21,7 @@ class Cart extends Component {
                         <ItemTable items={cart.items}/>
                     </div>
                     <div className="cart-summary">
-                        <CartSummary cart={cart.items}/>
+                        <CartSummary items={cart.items}/>
                     </div>
                 </main>
             </Container>

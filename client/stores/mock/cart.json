@@ -23,6 +23,18 @@
             "price": 120,
             "organization": "หมื่นฝันปันโอกาส",
             "quantity": 2
+        },
+        {
+            "product": {
+                "name": "กางเกงสีขาว",
+                "attribute": {
+                    "name": "ขนาด",
+                    "value": "S"
+                }
+            },
+            "price": 120,
+            "organization": "หมื่นฝันปันโอกาส",
+            "quantity": 2
         }
     ]
 }
