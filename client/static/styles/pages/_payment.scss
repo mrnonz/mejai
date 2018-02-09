@@ -1,0 +1,11 @@
+.payment-page {
+    @include layout-content;
+
+    .order-id {
+        color: $colorGrey;
+    }
+    
+    >.button-wrapper {
+        text-align: center;
+    }
+}

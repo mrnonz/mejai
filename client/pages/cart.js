@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Header, Container } from 'semantic-ui-react'
 import ItemTable from 'molecules/ItemTable'
 import CartSummary from 'molecules/CartSummary'
-import cart from 'stores/mock/cart.json'
+import CartModel from 'stores/models/CartModel'
+import cartMock from 'stores/mock/cart_mock.json'
 
 class Cart extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ class Cart extends Component {
     }
 
     render() {
-
+        const userCart = new CartModel(cartMock)
         return (
             <Container className="cart-page">
                 <Header as='h2' dividing color="orange" >
@@ -18,10 +19,10 @@ class Cart extends Component {
                 </Header>
                 <main className="content">
                     <div className="cart-content">
-                        <ItemTable items={cart.items}/>
+                        <ItemTable items={userCart.items}/>
                     </div>
                     <div className="cart-summary">
-                        <CartSummary items={cart.items}/>
+                        <CartSummary organizations={userCart.organizationList}/>
                     </div>
                 </main>
             </Container>

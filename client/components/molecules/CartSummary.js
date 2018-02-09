@@ -2,31 +2,9 @@ import React, { Component } from 'react'
 import { Table, Image, Button } from 'semantic-ui-react'
 import { reduce, find, remove } from 'lodash'
 
-const CartSummary = ({ items }) => {
-    const organizationList = reduce(items, (organizations, item) => {
-        const duplicateItem = find(organizations, (organization) => {
-            return organization.name === item.organization
-        })
-        if(duplicateItem) {
-            remove(organizations, (o) => o.name === duplicateItem.name)
-            duplicateItem.items.push(item.product.name)
-            organizations.push({
-                name: duplicateItem.name,
-                value: duplicateItem.value + item.price * item.quantity,
-                items: duplicateItem.items
-            })
-            
-            return organizations
-        } else {
-            organizations.push({
-                name: item.organization,
-                value: item.price * item.quantity,
-                items: [item.product.name]
-            })
-            return organizations
-        }
-    }, [])
-    const helpSummary = reduce(organizationList, (sum, o) => (sum + o.value), 0)
+const CartSummary = ({ organizations }) => {
+    console.log(organizations)
+    const helpSummary = reduce(organizations, (sum, o) => (sum + o.value), 0)
     return (
         <div className="cart-summary">
             <Table basic>
@@ -36,7 +14,7 @@ const CartSummary = ({ items }) => {
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    { organizationList.map((organization) => (
+                    { organizations.map((organization) => (
                         <Table.Row>
                             <Table.Cell>
                                 <Image src={'static/OrganizationImage1.jpg'} size="small" />
