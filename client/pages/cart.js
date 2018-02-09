@@ -6,7 +6,7 @@ import cart from 'stores/mock/cart.json'
 
 class Cart extends Component {
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
