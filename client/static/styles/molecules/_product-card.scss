@@ -1,0 +1,17 @@
+.product-card {
+    .card-price {
+        float: left;
+        font-size: 14px;
+    }
+    
+    .card-expired {
+        color: #817575;
+        float: right;
+        font-size: 14px;
+    }
+    
+    h5 {
+        white-space: nowrap !important;
+        margin-bottom: 0.5em !important;
+    }
+}

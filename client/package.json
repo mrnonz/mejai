@@ -33,6 +33,7 @@
     "react-inlinesvg": "^0.7.5",
     "react-paginate": "^5.0.0",
     "react-redux": "^5.0.6",
+    "react-slick": "^0.18.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "semantic-ui": "^2.2.14",
@@ -40,6 +41,7 @@
     "semantic-ui-less": "^2.2.14",
     "semantic-ui-react": "^0.76.0",
     "semantic-ui-react-less-loader": "^0.1.6",
+    "slick-carousel": "^1.8.1",
     "style-loader": "^0.19.1",
     "styled-components": "^2.2.3",
     "url-loader": "^0.6.2"

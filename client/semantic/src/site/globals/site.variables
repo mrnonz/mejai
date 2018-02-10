@@ -17,7 +17,7 @@
 @h2: unit((32 / @emSize), rem);
 @h3: unit((24 / @emSize), rem);
 @h4: unit((22 / @emSize), rem);
-@h5: unit((20 / @emSize), rem);
+@h5: unit((18 / @emSize), rem);
 
 /* Sizes */
 /*
