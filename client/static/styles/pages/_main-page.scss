@@ -1,0 +1,89 @@
+.main-page {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 50%;
+    grid-template-columns: 100%;
+
+    >header{
+        min-height: 35%;
+        background: url('static/headerBG.jpg');
+        background-size: 100% auto;
+        background-position: center; 
+
+        >.background-mask{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba($color: #9e9e9e, $alpha: 0.5); 
+
+            >h1 {
+                color: $colorWhite;
+
+                text-align: center;
+                font-size: 4em;
+            }
+
+            >h2 {
+                color: $colorWhite;
+
+                text-align: center; 
+            }
+
+            >p {
+                width: 40%;
+                text-align: center;
+
+                color: $colorLightGrey;
+
+                font-size: 18px;
+            }
+        }
+    }
+
+    >main {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+
+        aside{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+
+            background: $colorLightTeal;
+            box-shadow: 10px 0px 25px -11px rgba(161,161,161, 1);
+            
+            z-index: 2;
+
+            >h3 {
+                color: $colorWhite;
+
+                text-align: center; 
+            }
+
+            >p {
+                width: 80%;
+                text-align: center;
+
+                color: $colorLightGrey;
+
+                font-size: 18px;
+            }
+        }
+
+        .featured-auction {
+            display: flex;
+            overflow-x: auto;
+            padding: 1em 1.5em;
+
+            .product:not(:last-child) {
+                margin-right: 1em;
+            }
+        }
+    }
+}
