@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'organization.apps.OrganizationConfig',
     'bank.apps.BankConfig',
     'organization_bank.apps.OrganizationBankConfig',
+    'order_organization.apps.OrderOrganizationConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
