@@ -1,0 +1,16 @@
+.helping-table {
+    .content {
+        >.header {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        >.description {
+            color: $colorGrey;
+        }
+
+        >.helping {
+            font-weight: 500;
+        }
+    }
+}

@@ -1,0 +1,9 @@
+.order-page {
+    @include layout-content;
+
+    .button-group {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    }
+}
