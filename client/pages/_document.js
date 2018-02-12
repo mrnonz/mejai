@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import storeApp from 'stores'
 import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 import stylesheet from 'static/styles/main.scss'

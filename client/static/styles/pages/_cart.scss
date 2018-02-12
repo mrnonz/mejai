@@ -1,0 +1,16 @@
+.cart-page {
+    @include layout-content;
+
+    >.content {
+        display: flex;
+
+        >.cart-content {
+            flex: 1 2 auto;
+        }
+
+        >.cart-summary {
+            margin-left: 1em;
+            flex: 0 1 450px;
+        }
+    }
+}

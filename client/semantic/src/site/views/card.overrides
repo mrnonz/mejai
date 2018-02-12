@@ -1,16 +1,13 @@
 /*******************************
     User Variable Overrides
 *******************************/
-.card-price {
-    float: left;
-
-    font-size: 14px;
+.ui.cards > .card > .content,
+.ui.card > .content {
+    overflow-x: hidden;
 }
 
-.card-expired {
-    color: #817575;
-
-    float: right;
-
-    font-size: 14px;
+.ui.cards > .card > .content > .description,
+.ui.card > .content > .description {
+    height: 5em;
+    margin-bottom: 1em;
 }

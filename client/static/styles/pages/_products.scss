@@ -45,22 +45,25 @@
         grid-template-columns: 235px 1fr;
 
         aside{
+            @include layout-content;
             background: $colorWhite;
-
-            padding: 20px 20px 15px 20px;
+            
+            padding-left: 10px; 
+            padding-right: 10px; 
             box-shadow: 10px 0px 25px -11px rgba(161,161,161, 1);
-
+            
             z-index: 2;
         }
         
         .list-container{
+            @include layout-content;
             display: grid;
             grid-template-rows: min-content 1fr;
             grid-template-columns: auto auto;
             
+            padding-left: 30px; 
+            padding-right: 10px; 
             background: $contentBackgroundColor;
-            
-            padding: 20px 20px 15px 40px;
 
             z-index: 1;
 
@@ -94,27 +97,6 @@
             >.pagination {
                 justify-self: center;
                 grid-column: 1 / span 2;  
-                
-                padding: 0; 
-
-                li {
-                    display: inline-block;
-                    margin: 0 1em;
-
-                    font-size: 20px;
-                    font-weight: 700;
-
-                    cursor: pointer;
-
-                    a {
-                        color: $colorBlack;
-                    }
-                }
-
-                li.active >a {
-                    color: $colorDarkBlue;
-                }
-
             }
         }
     }
