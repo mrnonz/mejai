@@ -8,7 +8,7 @@ class ItemTable extends Component {
     }
 
     render() {
-        const { items } = this.props
+        const { items, editable } = this.props
         return (
             <div className="item-table">
                 <Table basic>
@@ -32,9 +32,16 @@ class ItemTable extends Component {
                                     </Table.Cell>
                                     <Table.Cell textAlign="center">
                                         <p>จำนวน</p>
-                                        <div className="quantity-input">
-                                            <a>-</a><span>{quantity}</span><a>+</a>
-                                        </div>
+                                        {
+                                            editable ?
+                                            <div className="quantity-input">
+                                                <a>-</a><span>{quantity}</span><a>+</a>
+                                            </div>        
+                                            :
+                                            <div className="quantity-input">
+                                                <span>{quantity}</span>
+                                            </div>
+                                        }
                                     </Table.Cell>
                                     <Table.Cell className="cell-price" textAlign="center">
                                         <p>ราคา</p>

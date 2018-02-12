@@ -19,7 +19,7 @@ class Cart extends Component {
                 </Header>
                 <main className="content">
                     <div className="cart-content">
-                        <ItemTable items={userCart.items}/>
+                        <ItemTable editable items={userCart.items}/>
                     </div>
                     <div className="cart-summary">
                         <CartSummary organizations={userCart.organizationList}/>
