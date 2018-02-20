@@ -9,7 +9,7 @@ class Cart extends Component {
     constructor(props) {
         super(props)
     }
-
+    
     render() {
         const userCart = new CartModel(cartMock)
         return (

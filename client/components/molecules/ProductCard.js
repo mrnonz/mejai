@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Card, Image, Progress, Header } from 'semantic-ui-react'
 
-const ProductCard = ({ name, organization, price, auction }) => {
+const ProductCard = ({ name, organization, price, auction, onCardClick }) => {
     return (
-        <Card className="product-card">
+        <Card className="product-card" onClick={() => onCardClick()}>
             <Image src="static/shirt.jpg" size="small" centered />
                 {
                     auction ? (

@@ -17,6 +17,7 @@ class ProductData extends Component {
 
     render() {
         const { showPriceInput } = this.state
+        
         return (
             <div className="product-data">
                 <Header as="h2">เสื้อสีน้ำเงิน</Header>

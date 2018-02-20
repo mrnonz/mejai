@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
+import Router from 'next/router'
 import ProductCard from 'molecules/ProductCard'
 import Pagination from 'molecules/Pagination'
 import FilterProduct from 'organisms/FilterProduct'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import categories from 'stores/mock/categories.json'
 import products from 'stores/mock/auction_products.json'
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+
+import withRedux from 'next-redux-wrapper'
+import { createStore, applyMiddleware } from 'redux'
+import storeApp from 'stores'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { fetchRepo } from 'stores/actions/mock';
 
 class Products extends Component {
     constructor(props) {
@@ -18,6 +25,13 @@ class Products extends Component {
     handlePageClick = (page) => {
         this.setState({
             productPage: page.selected
+        })
+    }
+
+    handleCardClick = () => {
+        this.props.onButtonClick()
+        Router.push({
+            pathname: '/product'
         })
     }
 
@@ -40,7 +54,7 @@ class Products extends Component {
                 value: 'priceHigh'
             }
         ]
-
+        
         return (
             <div className="products-page">    
                 <header>
@@ -64,7 +78,7 @@ class Products extends Component {
                         </div>
                         <main className="product-list">
                             {pageItems.map((item) => (
-                                <ProductCard name={item.name} price={item.price} />
+                                <ProductCard name={item.name} price={item.price} onCardClick={this.handleCardClick} />
                             ))}
                         </main>
                         <Pagination 
@@ -79,4 +93,18 @@ class Products extends Component {
     }
 }
 
-export default Products
+const mapStateToProps = (state) => ({
+        text: state.mock,
+        repo: state.repository
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onButtonClick: () => {
+            dispatch(fetchRepo('Hello World'))
+        }
+    }
+}
+
+export default withRedux(() => createStore(storeApp, {mock: '', repository: ''}, composeWithDevTools(applyMiddleware(thunk))), mapStateToProps, mapDispatchToProps)(Products)
