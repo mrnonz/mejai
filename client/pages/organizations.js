@@ -49,7 +49,6 @@ class Organizations extends Component {
         const organizationCount = organizations.data.length
         const totalPage = Math.ceil(organizations.data.length / 12)
         const pageItems = organizations.data.slice(organizationPage * 12, organizationPage * 12 + 12)
-        console.log(pageItems)
         const OrganizationList = () => [
             <div className="page-header">
                 <Header as="h2">โครงการ</Header>
