@@ -11,7 +11,7 @@ const PageNav = () => {
         },
         {
             'name': 'องค์กร',
-            'url': '/organization'
+            'url': '/organizations'
         },
         {
             'name': 'ซื้อสินค้า',

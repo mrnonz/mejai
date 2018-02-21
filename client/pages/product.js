@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { makeStore } from '../stores'
 import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import ProductDetail from 'organisms/ProductDetail'
 import ProductInfo from 'organisms/ProductInfo'
 import { Container } from 'semantic-ui-react'
@@ -16,4 +17,4 @@ class Product extends Component {
     }
 }
 
-export default withRedux(makeStore)(Product)
+export default withRedux(makeStore)(withTopbar(Product))

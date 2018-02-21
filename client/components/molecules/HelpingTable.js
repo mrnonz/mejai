@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Image, Header, Progress } from 'semantic-ui-react'
+import { Table, Image, Progress } from 'semantic-ui-react'
 
 const HelpingTable = (props) => {
     return (

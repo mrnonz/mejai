@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import Router from 'next/router'
+import withTopbar from 'hocs/withTopbar'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import ProductCard from 'molecules/ProductCard'
 import Pagination from 'molecules/Pagination'
@@ -9,7 +10,7 @@ import categories from 'stores/mock/categories.json'
 import products from 'stores/mock/auction_products.json'
 import { fetchRepo } from 'stores/actions/mock'
 import { makeStore } from '../stores'
-import withTopbar from 'hocs/withTopbar'
+
 
 class Products extends Component {
     constructor(props) {
@@ -104,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default withRedux(makeStore)(withTopbar(Products))
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Products))

@@ -21,7 +21,7 @@ export default class MyDocument extends Document {
             <link rel="stylesheet" type="text/css" href="/static/dist/semantic.min.css"></link>
             <link href="https://fonts.googleapis.com/css?family=Kanit:200,300,400,500,700" rel="stylesheet" />  
         </Head>
-        <body style={{position: 'relative',  top: '50px',background: '#F5F5F5'}}>
+        <body style={{background: '#F5F5F5'}}>
           <Main />
           <NextScript />
         </body>

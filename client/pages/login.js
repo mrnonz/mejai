@@ -107,4 +107,4 @@ class FormExampleCaptureValues extends Component {
   }
 }
 
-export default withRedux(makeStore)(withTopbar(FormExampleCaptureValues))
+export default withRedux(makeStore)(FormExampleCaptureValues)

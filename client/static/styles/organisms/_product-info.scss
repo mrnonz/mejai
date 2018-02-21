@@ -2,8 +2,12 @@
     .menu{
         justify-content: center;
         width: 100%;
+    }
 
-        position: absolute;
-        left: 0;
+    .helping-content {
+        p {
+            font-size: 1.15em;
+            font-weight: 300;
+        }
     }
 }

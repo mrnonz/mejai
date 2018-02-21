@@ -7,7 +7,9 @@ const withTopbar = (ComposedComponent) => {
     return (props) => (
         <div>
             <Topbar />
-            <ComposedComponent {...props} />
+            <div className="content-with-topbar">
+                <ComposedComponent {...props} />
+            </div>
         </div>
     )
 }
