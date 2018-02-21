@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import ProductCard from 'molecules/ProductCard'
 import Pagination from 'molecules/Pagination'
 import FilterProduct from 'organisms/FilterProduct'
@@ -62,4 +65,4 @@ class MainPage extends Component {
     }
 }
 
-export default MainPage
+export default withRedux(makeStore)(withTopbar(MainPage))

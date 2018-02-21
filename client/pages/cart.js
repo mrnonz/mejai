@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Header, Container } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import ItemTable from 'molecules/ItemTable'
 import CartSummary from 'molecules/CartSummary'
 import CartModel from 'stores/models/CartModel'
@@ -30,4 +33,4 @@ class Cart extends Component {
     }
 }
 
-export default Cart
+export default withRedux(makeStore)(withTopbar(Cart))

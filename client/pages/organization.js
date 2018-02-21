@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Header, Container } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import Pagination from 'molecules/Pagination'
 import OrganizationCategory from 'organisms/OrganizationCategory'
 import OrganizationCard from 'molecules/OrganizationCard'
@@ -57,4 +60,4 @@ class Organization extends Component {
     }
 }
 
-export default Organization
+export default withRedux(makeStore)(withTopbar(Organization))

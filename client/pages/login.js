@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import { Form, Container, Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -104,4 +107,4 @@ class FormExampleCaptureValues extends Component {
   }
 }
 
-export default FormExampleCaptureValues
+export default withRedux(makeStore)(withTopbar(FormExampleCaptureValues))

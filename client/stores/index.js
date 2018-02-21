@@ -1,4 +1,6 @@
-import { combineReducers } from 'redux'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import mock from './reducers/mock'
 import repository from './reducers/repo'
 
@@ -7,4 +9,6 @@ const storeApp = combineReducers({
     repository
 })
 
-export default storeApp
+export const makeStore = () => {
+    return createStore(storeApp, {mock: '', repository: ''}, composeWithDevTools(applyMiddleware(thunk)))
+}

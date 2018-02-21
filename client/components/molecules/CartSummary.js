@@ -3,7 +3,6 @@ import { Table, Image, Button } from 'semantic-ui-react'
 import { reduce, find, remove } from 'lodash'
 
 const CartSummary = ({ organizations }) => {
-    console.log(organizations)
     const helpSummary = reduce(organizations, (sum, o) => (sum + o.value), 0)
     return (
         <div className="cart-summary">

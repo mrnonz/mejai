@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Header, Container, Button } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 import PaymentTable from 'molecules/PaymentTable'
 import CartModel from 'stores/models/CartModel'
 import cartMock from 'stores/mock/cart_mock.json'
@@ -25,4 +28,4 @@ class Payment extends Component {
     }
 }
 
-export default Payment
+export default withRedux(makeStore)(withTopbar(Payment))

@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
+import withRedux from 'next-redux-wrapper'
 import Router from 'next/router'
+import { Dropdown, Menu } from 'semantic-ui-react'
 import ProductCard from 'molecules/ProductCard'
 import Pagination from 'molecules/Pagination'
 import FilterProduct from 'organisms/FilterProduct'
-import { Dropdown, Menu } from 'semantic-ui-react'
 import categories from 'stores/mock/categories.json'
 import products from 'stores/mock/auction_products.json'
-
-import withRedux from 'next-redux-wrapper'
-import { createStore, applyMiddleware } from 'redux'
-import storeApp from 'stores'
-import thunk from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { fetchRepo } from 'stores/actions/mock';
+import { fetchRepo } from 'stores/actions/mock'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
 
 class Products extends Component {
     constructor(props) {
@@ -107,4 +104,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default withRedux(() => createStore(storeApp, {mock: '', repository: ''}, composeWithDevTools(applyMiddleware(thunk))), mapStateToProps, mapDispatchToProps)(Products)
+export default withRedux(makeStore)(withTopbar(Products))

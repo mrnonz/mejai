@@ -11,3 +11,10 @@
     height: 5em;
     margin-bottom: 1em;
 }
+
+.ui.cards a.card,
+.ui.link.cards .card,
+a.ui.card,
+.ui.link.card {
+    color: inherit;
+}
