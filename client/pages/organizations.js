@@ -49,6 +49,7 @@ class Organizations extends Component {
         const organizationCount = organizations.data.length
         const totalPage = Math.ceil(organizations.data.length / 12)
         const pageItems = organizations.data.slice(organizationPage * 12, organizationPage * 12 + 12)
+        console.log(pageItems)
         const OrganizationList = () => [
             <div className="page-header">
                 <Header as="h2">โครงการ</Header>
@@ -59,8 +60,9 @@ class Organizations extends Component {
                     <OrganizationCard data={organization} onInfoClick={this.handleInfoClick}/>
                 ))}
                 <Pagination 
-                    pageCount={totalPage}
+                    pageCount={totalPage}   
                     pageRangeDisplayed={4}
+                    forcePage={organizationPage}
                     onPageChange={(page) => this.handlePageClick(page)}
                 />
             </div>
