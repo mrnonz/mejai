@@ -47,7 +47,7 @@ class ItemTable extends Component {
                                     <p className="price">{quantity * price} บาท</p>
                                 </Table.Cell>
                                 <Table.Cell verticalAlign="top">
-                                    <Svg src={`static/icons/close.svg`} />
+                                    { editable && <Svg src={`static/icons/close.svg`} /> }
                                 </Table.Cell>
                             </Table.Row>
                             )

@@ -1,0 +1,12 @@
+.shipping-page {
+    @include layout-content;
+
+    .shipping-content {        
+        margin-top: 35px !important;
+        background: $colorWhite;
+        
+        .form-wrapper {
+            padding-top: 10px;
+        }
+    }
+}

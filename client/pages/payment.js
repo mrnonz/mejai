@@ -17,7 +17,7 @@ class Payment extends Component {
         return (
             <Container className="payment-page">
                 <Header as='h2' dividing color="orange" >
-                    ตะกร้าสินค้า <span className="order-id">#1458</span>
+                    รายการสั่งซื้อ <span className="order-id">#1458</span>
                 </Header>
                 <PaymentTable organizations={organizationList} />
                 <div className="button-wrapper">

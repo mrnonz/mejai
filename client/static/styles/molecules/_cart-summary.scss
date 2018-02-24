@@ -1,4 +1,8 @@
 .cart-summary {
+    .content-wrapper {
+        height: 340px;
+        overflow-y: auto;
+    }
     .cell-item {
         >.item {
             color: $colorGrey;
