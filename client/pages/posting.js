@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
-import { Container, Menu, Header, Segment } from 'semantic-ui-react'
+import { Container, Menu, Header, Segment, Button } from 'semantic-ui-react'
 import SellingForm from 'molecules/SellingForm';
+import AuctionForm from 'molecules/AuctionForm';
 
 class Posting extends Component {
     constructor(props) {
@@ -21,6 +22,12 @@ class Posting extends Component {
 
     render() {
         const { menuActive } = this.state
+        const renderForm = () => {
+            if(menuActive === 'selling') {
+                return <SellingForm />
+            }
+            return <AuctionForm />
+        }
         return (
             <Container className="posting-page">
                 <Header as='h2' dividing color="orange" >
@@ -42,8 +49,12 @@ class Posting extends Component {
                         ลงประมูล
                     </Menu.Item>
                 </Menu>
-                <Segment attached='bottom'>
-                    <SellingForm />
+                <Segment className="form-wrapper" attached='bottom'>
+                    { renderForm() }
+                    <div className="button-group">
+                        <Button color="green" size="large">ดำเนินการต่อ</Button>
+                        <Button className="back" basic>ย้อนกลับ</Button>
+                    </div>
                 </Segment>
             </Container>
         )

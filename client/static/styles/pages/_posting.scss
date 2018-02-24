@@ -1,4 +1,17 @@
 .posting-page {
     @include layout-content;
 
+    .form-wrapper {
+        padding: 2em 6em !important;
+    }
+
+    .button-group {
+        margin-top: 1.5em;
+
+        .back {
+            border: none !important;
+            box-shadow: none !important;
+        }
+    }
+
 }
