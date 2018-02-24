@@ -11,8 +11,8 @@ class ProductInfo extends Component {
     }
 
     handleMenuClick = (name) => {
-    this.setState({
-            menuActive: name
+        this.setState({
+                menuActive: name
         })
     }
 
