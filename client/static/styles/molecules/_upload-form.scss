@@ -1,0 +1,69 @@
+.upload-form {
+    .upload-zone {
+        width: 100%;
+        height: 200px;
+        border: solid 1px rgba(34,36,38,0.15);
+        border-radius: 4.5px;
+
+        text-align: center;
+        .ui.five.cards {
+            margin: 0;
+        }
+    }
+
+    .warn {
+        margin-top: 5px !important;
+        font-size: 1em !important;
+        font-weight: 400 !important;
+        color: $colorRed !important;
+    }
+
+    .none-msg {
+        display: inline-block;
+        text-align: center;
+        margin-top: 50px;
+        color: $colorGrey;
+
+        >div {
+            margin-bottom: 0.5em;
+        }
+    }
+
+    .preview-card {
+        margin-top: 1em;
+        
+        .card-img {
+            display: block;
+            width: auto;
+            height: 120px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        
+        .content .meta {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .add-card {
+        height: 100px;
+        align-self: center;
+        
+        background: $colorTeal !important;
+        text-align: center;
+        
+        cursor: pointer;
+        transition: all 0.2s ease-out !important;
+
+        &:hover {
+            background-color: darken($colorTeal, 10%) !important;
+        }
+
+        .content {
+            line-height: 55px;
+            color: $colorWhite;
+            font-size: 1.2em !important;
+        }
+    }
+}
