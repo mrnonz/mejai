@@ -1,6 +1,6 @@
 .cart-summary {
     .content-wrapper {
-        height: 340px;
+        max-height: 390px;
         overflow-y: auto;
     }
     .cell-item {
@@ -11,6 +11,10 @@
         >.price {
             text-align: right;
         }
+    }
+
+    .summary-table {
+        margin-top: 0 !important;
     }
 
     .summary-row {

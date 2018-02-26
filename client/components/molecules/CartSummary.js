@@ -29,7 +29,7 @@ const CartSummary = ({ organizations, showButton = true }) => {
                     </Table.Body>
                 </Table>
             </div>
-            <Table basic>
+            <Table basic className="summary-table">
                 <Table.Row />
                 <Table.Row className="summary-row">
                     <Table.Cell verticalAlign="top">
