@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Header } from 'semantic-ui-react'
-import HelpingTable from 'molecules/HelpingTable';
+import { Container, Header, Button } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import withTopbar from 'hocs/withTopbar'
+import HelpingTable from 'molecules/HelpingTable'
+import ProductDataCard from 'molecules/ProductDataCard'
+
 class ConfirmPost extends Component {
     constructor(props) {
         super(props)
@@ -10,7 +15,7 @@ class ConfirmPost extends Component {
         return (
             <Container className="confirm-post-page">
                 <Header as='h2' dividing color="orange" >
-                    ข้อมูลการจัดส่ง
+                    ข้อมูลสินค้า
                 </Header>
                 <Header as='h5' >
                     โครงการที่ช่วยเหลือ
@@ -19,9 +24,13 @@ class ConfirmPost extends Component {
                 <Header as='h5' >
                     สินค้าที่ลงขาย
                 </Header>
+                <ProductDataCard />
+                <div className="button-wrapper">
+                    <Button color="teal" size="large" >ดำเนินการต่อ</Button>
+                </div>
             </Container>
         )
     }
 }
 
-export default ConfirmPost
+export default withRedux(makeStore)(withTopbar(ConfirmPost))

@@ -10,14 +10,8 @@ class ProductData extends Component {
             showPriceInput: false
         }
     }
-
-    handleToggleAuction = () => {
-        this.props.onButtonClick()
-    }
-
     render() {
         const { showPriceInput } = this.state
-        
         return (
             <div className="product-data">
                 <Header as="h2">เสื้อสีน้ำเงิน</Header>
@@ -31,7 +25,7 @@ class ProductData extends Component {
                     <Progress percent={75} size="small" color="orange"/>
                     { showPriceInput ? 
                         <Input className="auction-form" size="huge" action={{ color:"teal", size:"huge", content: "ประมูล" }} placeholder='ราคาของคุณ' /> : 
-                        <Button color="teal" size="huge" fluid loading={this.props.repo.isLoading} onClick={this.handleToggleAuction}>ร่วมประมูล</Button> 
+                        <Button color="teal" size="huge" fluid>ร่วมประมูล</Button> 
                     }
                 </div>
             </div>
@@ -39,19 +33,4 @@ class ProductData extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        text: state.mock,
-        repo: state.repository
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onButtonClick: () => {
-            dispatch(fetchRepo('Hello World'))
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductData)
+export default ProductData
