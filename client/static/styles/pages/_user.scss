@@ -1,0 +1,35 @@
+.user-page {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 100vh;
+
+    .sidebar {
+        background: $colorWhite;
+        .item {
+            padding-top: 1em;
+            padding-bottom: 1em;
+            text-align: center;
+            font-size: 1.2em;
+
+            cursor: pointer;
+            svg {
+                height: 2.4em;
+                width: 2.4em;
+            }
+        }
+
+        .active {
+            background: $colorLightGrey;
+            color: $colorDarkBlue;
+            svg {
+                g {
+                    fill: $colorOrange;
+                }
+            }
+        }
+    }
+
+    .content {
+        @include layout-content;
+    }
+}

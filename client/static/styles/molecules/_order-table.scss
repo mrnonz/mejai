@@ -1,0 +1,32 @@
+.order-table {
+    border-collapse: separate !important;
+    border-spacing: 0 1em !important;
+
+    thead {
+        text-indent: 2.5em;
+    }
+
+    tbody {
+        text-indent: 2.5em;
+        
+        td {
+            border-top: none !important;
+        }
+        
+        tr {
+            cursor: pointer;
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        .wait {
+            color: $colorRed;
+        }
+
+        .success {
+            color: $colorGreen;
+        }
+    }
+}

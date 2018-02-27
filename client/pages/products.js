@@ -27,7 +27,6 @@ class Products extends Component {
     }
 
     handleCardClick = () => {
-        this.props.onButtonClick()
         Router.push({
             pathname: '/product'
         })
