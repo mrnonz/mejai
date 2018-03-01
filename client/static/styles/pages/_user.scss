@@ -36,5 +36,9 @@
     .content {
         @include layout-content;
         overflow-y: auto;
+
+        .button-group {
+            margin-top: 1.5em;
+        }
     }
 }

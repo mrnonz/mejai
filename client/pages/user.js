@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import Svg from 'react-inlinesvg'
-import { Header, Menu, Container } from 'semantic-ui-react'
+import { Header, Menu, Container, Button } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
-import OrderTable from 'molecules/OrderTable';
-import ProductList from 'molecules/ProductList';
+import OrderTable from 'molecules/OrderTable'
+import ProductList from 'molecules/ProductList'
+import IssueForm from 'molecules/IssueForm'
 import products from 'stores/mock/auction_products.json'
 
 class User extends Component {
@@ -42,6 +43,11 @@ class User extends Component {
                 value: 'user-item',
                 title: 'สินค้าของคุณ',
                 icon: 'box'
+            },
+            {
+                value: 'issue',
+                title: 'แจ้งปัญหา',
+                icon: 'issue'
             }
         ]
         const renderContent = () => {
@@ -62,6 +68,18 @@ class User extends Component {
                         </Header>
                         <p>พบ {products.data.length} รายการ</p>
                         <ProductList products={products.data} onCardClick={this.handleCardClick}/>
+                    </Container>
+                )
+            } else if (activeBar === 'issue') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            แจ้งปัญหาการใช้งาน
+                        </Header>
+                        <IssueForm />
+                        <div className="button-group">
+                            <Button color="green" size="large">แจ้งปัญหา</Button>
+                        </div>
                     </Container>
                 )
             }
