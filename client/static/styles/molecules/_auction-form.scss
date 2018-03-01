@@ -1,0 +1,18 @@
+.auction-form {
+    .fields >div:not([class]) {
+        width: 50% !important;
+        padding-left: .5em;
+        padding-right: .5em;
+
+        >div:not(.react-datepicker-popper) {
+            width: 100%;
+
+            >div {
+                width: 100%;
+            }
+        }
+        .react-datepicker__time-list {
+            padding-left: 0;
+        }
+    }
+}
