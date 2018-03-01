@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
 import { Dropdown, Menu } from 'semantic-ui-react'
-import ProductCard from 'molecules/ProductCard'
+import ProductList from 'molecules/ProductList'
 import Pagination from 'molecules/Pagination'
 import FilterProduct from 'organisms/FilterProduct'
 import categories from 'stores/mock/categories.json'
@@ -73,11 +73,7 @@ class Products extends Component {
                             <span>Sort By </span>
                             <Dropdown selection defaultValue="featured" options={sortOptions}/>
                         </div>
-                        <main className="product-list">
-                            {pageItems.map((item) => (
-                                <ProductCard name={item.name} price={item.price} onCardClick={this.handleCardClick} />
-                            ))}
-                        </main>
+                        <ProductList products={pageItems} onCardClick={this.handleCardClick}/>
                         <Pagination 
                             pageCount={totalPage}
                             pageRangeDisplayed={4}

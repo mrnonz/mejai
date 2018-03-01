@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import Router from 'next/router'
 import Svg from 'react-inlinesvg'
 import { Header, Menu, Container } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
 import OrderTable from 'molecules/OrderTable';
+import ProductList from 'molecules/ProductList';
+import products from 'stores/mock/auction_products.json'
 
 class User extends Component {
     constructor(props) {
@@ -14,6 +17,19 @@ class User extends Component {
             activeBar: 'history'
         }
     }
+
+    handleBarClick(value) {
+        this.setState({
+            activeBar: value
+        })
+    }
+
+    handleCardClick = () => {
+        Router.push({
+            pathname: '/product'
+        })
+    }
+
     render() {
         const { activeBar } = this.state
         const SidebarItems = [
@@ -28,23 +44,41 @@ class User extends Component {
                 icon: 'box'
             }
         ]
-        return (
-            <div className="user-page">
-                <div className="sidebar">
-                    { SidebarItems.map((item) => (
-                        <div className={item.value === activeBar ? 'item active' : 'item'}>
-                            <Svg src={`static/icons/${item.icon}.svg`} />
-                            <p>{item.title}</p>
-                        </div>
-                    ))}
-                </div> 
-                <div className="content">
+        const renderContent = () => {
+            if (activeBar === 'history') {
+                return (
                     <Container>
                         <Header as='h2' dividing color="orange" >
                             ประวัติการซื้อของคุณ
                         </Header>
                         <OrderTable />
                     </Container>
+                )
+            } else if (activeBar === 'user-item') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            สินค้าของคุณ
+                        </Header>
+                        <p>พบ {products.data.length} รายการ</p>
+                        <ProductList products={products.data} onCardClick={this.handleCardClick}/>
+                    </Container>
+                )
+            }
+        }
+
+        return (
+            <div className="user-page">
+                <div className="sidebar">
+                    { SidebarItems.map((item) => (
+                        <div onClick={() => this.handleBarClick(item.value)} className={item.value === activeBar ? 'item active' : 'item'}>
+                            <Svg src={`static/icons/${item.icon}.svg`} />
+                            <p>{item.title}</p>
+                        </div>
+                    ))}
+                </div> 
+                <div className="content">
+                    { renderContent() }
                 </div>
             </div>
         )

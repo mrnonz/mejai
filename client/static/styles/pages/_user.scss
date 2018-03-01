@@ -1,7 +1,7 @@
 .user-page {
     display: grid;
     grid-template-columns: 200px 1fr;
-    grid-template-rows: 100vh;
+    grid-template-rows: calc(100vh - 50px);
 
     .sidebar {
         background: $colorWhite;
@@ -25,11 +25,16 @@
                 g {
                     fill: $colorOrange;
                 }
+
+                path {
+                    fill: $colorOrange;
+                }
             }
         }
     }
 
     .content {
         @include layout-content;
+        overflow-y: auto;
     }
 }
