@@ -6,20 +6,26 @@ import Svg from 'react-inlinesvg'
 const PageNav = () => {
     const PageList = [
         {
-            'name': 'หน้าหลัก',
-            'url': '/'
+            name: 'หน้าหลัก',
+            url: '/'
         },
         {
-            'name': 'องค์กร',
-            'url': '/organizations'
+            name: 'องค์กร',
+            url: '/organizations'
         },
         {
-            'name': 'ซื้อสินค้า',
-            'url': '/products'
+            name: 'ซื้อสินค้า',
+            url: {
+                pathname: 'products',
+                query: { type: 'buy' }
+            }
         },
         {
-            'name': 'ประมูล',
-            'url': '/products'
+            name: 'ประมูล',
+            url: {
+                pathname: 'products',
+                query: { type: 'auction' }
+            }
         }
     ]
     return (

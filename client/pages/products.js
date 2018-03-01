@@ -34,6 +34,7 @@ class Products extends Component {
 
     render() {
         const { productPage } = this.state
+        const { url: { query: { type: productType } } } = this.props
         const itemCount = products.data.length
         const totalPage = Math.ceil(products.data.length / 12)
         const pageItems = products.data.slice(productPage * 12, productPage * 12 + 12)
@@ -73,7 +74,7 @@ class Products extends Component {
                             <span>Sort By </span>
                             <Dropdown selection defaultValue="featured" options={sortOptions}/>
                         </div>
-                        <ProductList products={pageItems} onCardClick={this.handleCardClick}/>
+                        <ProductList productType={productType} products={pageItems} onCardClick={this.handleCardClick}/>
                         <Pagination 
                             pageCount={totalPage}
                             pageRangeDisplayed={4}
