@@ -100,3 +100,9 @@ ENV/
 # mypy
 .mypy_cache/
 /backend/db-data
+
+# code
+.settings/
+.vscode/
+tsconfig.json
+jsconfig.json
