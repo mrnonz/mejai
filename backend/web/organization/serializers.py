@@ -10,5 +10,6 @@ class OrganizationSerializer(serializers.ModelSerializer):
         fields = (
             'organizationId',
             'name',
-            'description'
+            'description',
+            'thumbnail'
         )
