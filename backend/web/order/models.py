@@ -11,5 +11,5 @@ class Order(models.Model):
     buyer_id = models.IntegerField(db_column='Buyer_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Order'

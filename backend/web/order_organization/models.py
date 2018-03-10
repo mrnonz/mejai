@@ -12,5 +12,5 @@ class OrderOrganization(models.Model):
     organization_id = models.IntegerField(db_column='Organization_id')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Order_Organization'

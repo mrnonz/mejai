@@ -10,5 +10,5 @@ class Bank(models.Model):
     logo = models.CharField(max_length=1023)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Bank'

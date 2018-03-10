@@ -19,7 +19,7 @@ class Product(models.Model):
     category_id = models.IntegerField(db_column='Category_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Product'
 
 
@@ -31,7 +31,7 @@ class ProductAttribute(models.Model):
     product_id = models.IntegerField(db_column='Product_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Product_Attribute'
 
 
@@ -40,7 +40,7 @@ class ProductCategory(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Product_Category'
 
 
@@ -49,7 +49,7 @@ class ProductImage(models.Model):
     product_id = models.IntegerField(db_column='Product_id')
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Product_Image'
 
 
@@ -59,5 +59,5 @@ class DjangoMigrations(models.Model):
     applied = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'django_migrations'

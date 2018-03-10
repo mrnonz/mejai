@@ -20,5 +20,5 @@ class Customer(models.Model):
     sell_count = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Customer'

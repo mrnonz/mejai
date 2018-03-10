@@ -11,5 +11,5 @@ class AuctionCustomer(models.Model):
     customer_id = models.IntegerField(db_column='Customer_id')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Auction_Customer'

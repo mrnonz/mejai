@@ -12,5 +12,5 @@ class OrganizationBank(models.Model):
     bank_id = models.IntegerField(db_column='Bank_id')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Organization_Bank'

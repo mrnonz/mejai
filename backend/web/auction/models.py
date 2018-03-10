@@ -10,5 +10,5 @@ class Auction(models.Model):
     price_step = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'Auction'
