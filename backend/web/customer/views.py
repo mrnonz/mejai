@@ -3,6 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
+from order.models import Order
+from order.serializers import OrderSerializer
 
 
 @csrf_exempt
@@ -53,5 +55,6 @@ def customer_orders(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = CustomerSerializer(customer)
-        return JsonResponse(serializer.data)
+        order = Order.objects.filter(buyer_id=pk)
+        serializer = OrderSerializer(order, many=True)
+        return JsonResponse(serializer.data, safe=False)
