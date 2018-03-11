@@ -43,3 +43,15 @@ def customer_detail(request, pk):
     elif request.method == 'DELETE':
         customer.delete()
         return HttpResponse(status=204)
+
+
+@csrf_exempt
+def customer_orders(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = CustomerSerializer(customer)
+        return JsonResponse(serializer.data)
