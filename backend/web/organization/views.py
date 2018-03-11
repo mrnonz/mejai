@@ -25,7 +25,7 @@ def organization_list(request):
 def organization_detail(request, pk):
     try:
         organization = Organization.objects.get(pk=pk)
-    except organization.DoesNotExist:
+    except Organization.DoesNotExist:
         return HttpResponse(status=404)
 
     if request.method == 'GET':
