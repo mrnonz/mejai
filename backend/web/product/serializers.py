@@ -5,11 +5,12 @@ from organization.serializers import OrganizationSerializer
 
 class ProductSerializer(serializers.ModelSerializer):
     organization = OrganizationSerializer(read_only=True)
+    productId = serializers.IntegerField(source='id')
 
     class Meta:
         model = Product
         fields = (
-            'id',
+            'productId',
             'name',
             'detail',
             'price',
