@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from organization.models import Organization
 
 
 class Product(models.Model):
@@ -15,8 +16,9 @@ class Product(models.Model):
     hit = models.IntegerField()
     thumbnail = models.CharField(max_length=1023)
     created_time = models.DateTimeField()
-    organization_id = models.IntegerField(db_column='Organization_id')
     category_id = models.IntegerField(db_column='Category_id')
+    organization = models.ForeignKey(
+        Organization, on_delete=models.CASCADE, related_name='organization', default='')
 
     class Meta:
         managed = True
