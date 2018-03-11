@@ -8,7 +8,7 @@ class Organization(models.Model):
     detail = models.TextField(blank=True, null=True)
     time = models.DateTimeField()
     fund = models.DecimalField(max_digits=10, decimal_places=2)
-    thumbnail = models.CharField(max_length=1023)
+    thumbnail = models.CharField(max_length=1023, default='')
 
     class Meta:
         managed = True
