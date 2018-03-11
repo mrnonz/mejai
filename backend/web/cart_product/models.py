@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from cart.models import Cart
+from product.models import Product
 
 
 class CartProduct(models.Model):
@@ -10,9 +11,10 @@ class CartProduct(models.Model):
     time = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
-    product_id = models.IntegerField(db_column='Product_id')
     cart = models.ForeignKey(
         Cart, on_delete=models.CASCADE, related_name='items', default='')
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='products', default='')
 
     class Meta:
         managed = True
