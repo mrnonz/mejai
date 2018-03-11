@@ -70,6 +70,6 @@ def customer_cart(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        cart = Cart.objects.filter(customer_id=pk)
-        serializer = CartSerializer(cart, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        cart = Cart.objects.get(customer_id=pk)
+        serializer = CartSerializer(cart)
+        return JsonResponse(serializer.data)
