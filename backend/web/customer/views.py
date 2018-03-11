@@ -7,6 +7,7 @@ from order.models import Order
 from order.serializers import OrderSerializer
 from cart.models import Cart
 from cart.serializers import CartSerializer
+from cart.serializers import FullCartProductSerializer
 from cart_product.models import CartProduct
 from cart_product.serializers import CartProductSerializer
 
@@ -73,5 +74,7 @@ def customer_cart(request, pk):
 
     if request.method == 'GET':
         cart = Cart.objects.get(customer_id=pk)
-        serializer = CartSerializer(cart)
-        return JsonResponse(serializer.data)
+        cartProduct = CartProduct.objects.filter(cart_id=cart.pk)
+        # serializerCartProduct = CartProductSerializer(cartProduct, many=True)
+        serializerCart = FullCartProductSerializer(cart)
+        return JsonResponse(serializerCart.data)
