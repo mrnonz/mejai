@@ -7,6 +7,8 @@ from order.models import Order
 from order.serializers import OrderSerializer
 from cart.models import Cart
 from cart.serializers import CartSerializer
+from cart_product.models import CartProduct
+from cart_product.serializers import CartProductSerializer
 
 
 @csrf_exempt
