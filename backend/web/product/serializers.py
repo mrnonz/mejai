@@ -1,8 +1,11 @@
 from rest_framework import serializers
 from .models import Product
+from organization.serializers import OrganizationSerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    organization = OrganizationSerializer(read_only=True)
+
     class Meta:
         model = Product
         fields = (
@@ -18,6 +21,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'hit',
             'thumbnail',
             'created_time',
-            'organization_id',
+            'organization',
             'category_id'
         )
