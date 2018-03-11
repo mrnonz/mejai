@@ -9,6 +9,7 @@ class Order(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     product_id = models.IntegerField(db_column='Product_id')
     buyer_id = models.IntegerField(db_column='Buyer_id')
+    status = models.BooleanField(default=False)
 
     class Meta:
         managed = True
