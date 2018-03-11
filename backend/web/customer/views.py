@@ -5,6 +5,8 @@ from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from order.models import Order
 from order.serializers import OrderSerializer
+from cart.models import Cart
+from cart.serializers import CartSerializer
 
 
 @csrf_exempt
@@ -57,4 +59,17 @@ def customer_orders(request, pk):
     if request.method == 'GET':
         order = Order.objects.filter(buyer_id=pk)
         serializer = OrderSerializer(order, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def customer_cart(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        cart = Cart.objects.filter(customer_id=pk)
+        serializer = CartSerializer(cart, many=True)
         return JsonResponse(serializer.data, safe=False)
