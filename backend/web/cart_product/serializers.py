@@ -3,13 +3,13 @@ from .models import CartProduct
 
 
 class CartProductSerializer(serializers.ModelSerializer):
+    itemId = serializers.IntegerField(source='product_id')
+
     class Meta:
         model = CartProduct
         fields = (
-            'id',
             'time',
             'price',
             'quantity',
-            'cart_id',
-            'product_id'
+            'itemId'
         )
