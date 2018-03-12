@@ -12,9 +12,9 @@ class CartProduct(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
     cart = models.ForeignKey(
-        Cart, on_delete=models.CASCADE, related_name='items', default='')
+        Cart, on_delete=models.CASCADE, related_name='cart_product_cart', default='')
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name='product', default='')
+        Product, on_delete=models.CASCADE, related_name='cart_product_product', default='')
 
     class Meta:
         managed = True
