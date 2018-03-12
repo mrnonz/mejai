@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'cart_Product.apps.CartProductConfig',
     'product_image.apps.ProductImageConfig',
+    'product_attribute.apps.ProductAttributeConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
