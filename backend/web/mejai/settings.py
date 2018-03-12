@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'order_organization.apps.OrderOrganizationConfig',
     'cart.apps.CartConfig',
     'cart_Product.apps.CartProductConfig',
+    'product_image.apps.ProductImageConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
