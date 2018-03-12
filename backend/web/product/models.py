@@ -17,8 +17,6 @@ class Product(models.Model):
     thumbnail = models.CharField(max_length=1023)
     created_time = models.DateTimeField()
     category_id = models.IntegerField(db_column='Category_id')
-    organization = models.ForeignKey(
-        Organization, on_delete=models.CASCADE, related_name='organization', default='')
 
     class Meta:
         managed = True
