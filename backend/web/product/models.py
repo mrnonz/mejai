@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from organization.models import Organization
 from product_category.models import ProductCategory
+from customer.models import Customer
 
 
 class Product(models.Model):
@@ -12,7 +13,8 @@ class Product(models.Model):
     quantity = models.IntegerField()
     auction = models.IntegerField()
     type = models.IntegerField()
-    user_id = models.IntegerField(db_column='User_id')
+    owner = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name='product_customer', default='')
     viewer = models.IntegerField()
     hit = models.IntegerField()
     thumbnail = models.CharField(max_length=1023)
