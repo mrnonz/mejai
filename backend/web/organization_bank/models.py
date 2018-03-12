@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from organization.models import Organization
+from bank.models import Bank
 
 
 class OrganizationBank(models.Model):
@@ -8,8 +10,10 @@ class OrganizationBank(models.Model):
     type = models.CharField(max_length=255)
     number = models.CharField(max_length=32)
     branch = models.CharField(max_length=255)
-    organization_id = models.IntegerField(db_column='Organization_id')  # Field name made lowercase.
-    bank_id = models.IntegerField(db_column='Bank_id')  # Field name made lowercase.
+    organization = models.ForeignKey(
+        Organization, on_delete=models.CASCADE, related_name='organization_bank', default='')
+    bank = models.ForeignKey(
+        Bank, on_delete=models.CASCADE, related_name='organization_bank_bank', default='')
 
     class Meta:
         managed = True
