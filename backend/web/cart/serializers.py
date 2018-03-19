@@ -19,14 +19,11 @@ class CartSerializer(serializers.ModelSerializer):
 class FullCartProductSerializer(serializers.ModelSerializer):
     cartId = serializers.IntegerField(source='id')
     customerId = serializers.IntegerField(source='customer_id')
-    items = CartProductSerializer(
-        many=True, read_only=True)
 
     class Meta:
         model = Cart
         fields = (
             'cartId',
             'time',
-            'customerId',
-            'items'
+            'customerId'
         )
