@@ -10,6 +10,10 @@ from cart.serializers import CartSerializer
 from cart.serializers import FullCartProductSerializer
 from cart_product.models import CartProduct
 from cart_product.serializers import CartProductSerializer
+from product.models import Product
+
+
+from datetime import datetime
 
 
 @csrf_exempt
@@ -80,6 +84,29 @@ def customer_cart(request, pk):
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
         return JsonResponse(data)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        itemId = data['itemId']
+        quantity = data['quantity']
+
+        cart, created = Cart.objects.get_or_create(customer_id=pk)
+        product = Product.objects.get(pk=itemId)
+
+        try:
+            cartProduct = CartProduct.objects.get(
+                cart_id=cart.id,
+                product_id=itemId)
+            cartProduct.quantity += quantity
+        except CartProduct.DoesNotExist:
+            cartProduct = CartProduct(cart_id=cart.id,
+                                      product_id=itemId,
+                                      price=product.price,
+                                      quantity=quantity,
+                                      time=datetime.now())
+
+        cartProduct.save()
+
+        return HttpResponse(status=201)
 
 
 @csrf_exempt
