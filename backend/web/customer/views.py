@@ -74,7 +74,7 @@ def customer_cart(request, pk):
 
     if request.method == 'GET':
         cart = Cart.objects.get(customer_id=pk)
-        cartProduct = CartProduct.objects.filter(cart_id=cart.pk)
+        # cartProduct = CartProduct.objects.filter(cart_id=cart.pk)
         # serializerCartProduct = CartProductSerializer(cartProduct, many=True)
         serializerCart = FullCartProductSerializer(cart)
         return JsonResponse(serializerCart.data)

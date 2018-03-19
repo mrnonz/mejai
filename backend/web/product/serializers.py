@@ -17,7 +17,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'quantity',
             'auction',
             'type',
-            'user_id',
+            'owner_id',
             'viewer',
             'hit',
             'thumbnail',
