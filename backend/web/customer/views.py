@@ -99,3 +99,22 @@ def customer_cart_auction(request, pk):
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
         return JsonResponse(data)
+
+
+@csrf_exempt
+def customer_cart_buy(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        cart = Cart.objects.get(customer_id=pk)
+        cartProduct = CartProduct.objects.filter(
+            cart_id=cart.pk).filter(product__auction=0)
+        serializerCartProduct = CartProductSerializer(
+            cartProduct, many=True)
+        serializerCart = FullCartProductSerializer(cart)
+        data = serializerCart.data
+        data['items'] = serializerCartProduct.data
+        return JsonResponse(data)
