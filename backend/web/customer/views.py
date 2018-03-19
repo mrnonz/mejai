@@ -107,6 +107,20 @@ def customer_cart(request, pk):
         cartProduct.save()
 
         return HttpResponse(status=201)
+    elif request.method == 'DELETE':
+        data = JSONParser().parse(request)
+        itemId = data['itemId']
+
+        cart, created = Cart.objects.get_or_create(customer_id=pk)
+        product = Product.objects.get(pk=itemId)
+
+        cartProduct = CartProduct.objects.get(
+            cart_id=cart.id,
+            product_id=itemId)
+
+        cartProduct.delete()
+
+        return HttpResponse(status=202)
 
 
 @csrf_exempt
