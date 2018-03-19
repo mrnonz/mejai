@@ -1,14 +1,10 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-class Customer(models.Model):
-    firstname = models.CharField(max_length=255, blank=True, null=True)
-    lastname = models.CharField(max_length=255, blank=True, null=True)
-    email = models.CharField(max_length=255)
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
+class Customer(AbstractUser):
     line_id = models.CharField(max_length=255, blank=True, null=True)
     sex = models.CharField(max_length=1, blank=True, null=True)
     address = models.CharField(max_length=1023, blank=True, null=True)
