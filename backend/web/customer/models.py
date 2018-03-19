@@ -10,9 +10,9 @@ class Customer(AbstractUser):
     address = models.CharField(max_length=1023, blank=True, null=True)
     tel = models.CharField(max_length=15, blank=True, null=True)
     picture = models.CharField(max_length=1023)
-    order_count = models.IntegerField()
-    buy_count = models.IntegerField()
-    sell_count = models.IntegerField()
+    order_count = models.IntegerField(default=0)
+    buy_count = models.IntegerField(default=0)
+    sell_count = models.IntegerField(default=0)
 
     class Meta:
         managed = True
