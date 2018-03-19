@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^', include('product.urls')),
     url(r'^', include('organization.urls')),
     url(r'^', include('customer.urls')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
 ]
