@@ -10,13 +10,13 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     detail = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.IntegerField()
-    auction = models.IntegerField()
-    type = models.IntegerField()
+    quantity = models.IntegerField(default=0)
+    auction = models.IntegerField(default=0)
+    type = models.IntegerField(default=0)
     owner = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='product_customer', default='')
-    viewer = models.IntegerField()
-    hit = models.IntegerField()
+    viewer = models.IntegerField(default=0)
+    hit = models.IntegerField(default=0)
     thumbnail = models.CharField(max_length=1023)
     created_time = models.DateTimeField()
     category = models.ForeignKey(
