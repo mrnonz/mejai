@@ -22,6 +22,24 @@ def product_list(request):
 
 
 @csrf_exempt
+def product_buy(request):
+    if request.method == 'GET':
+        product = Product.objects.all().filter(auction=0)
+        serializer = ProductSerializer(product, many=True)
+        data = {}
+        data['data'] = serializer.data
+        return JsonResponse(data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ProductSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
 def product_detail(request, pk):
     try:
         product = Product.objects.get(pk=pk)
