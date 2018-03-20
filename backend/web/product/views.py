@@ -3,6 +3,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from product.models import Product
 from product.serializers import ProductSerializer
+from customer.models import Customer
+from customer.serializers import CustomerSerializer
 
 
 @csrf_exempt
@@ -65,8 +67,14 @@ def product_detail(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = ProductSerializer(product)
-        return JsonResponse(serializer.data)
+        serializerProduct = ProductSerializer(product)
+        seller = Customer.objects.get(pk=product.owner_id)
+        serializerSeller = CustomerSerializer(seller)
+
+        data = serializerProduct.data
+        data['seller'] = serializerSeller.data
+
+        return JsonResponse(data)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
