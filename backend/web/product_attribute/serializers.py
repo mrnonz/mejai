@@ -3,7 +3,7 @@ from .models import ProductAttribute
 
 
 class ProductAttributeSerializer(serializers.ModelSerializer):
-    productId = serializers.IntegerField(source='id')
+    productId = serializers.IntegerField(source='product_id')
 
     class Meta:
         model = ProductAttribute

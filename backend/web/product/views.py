@@ -7,6 +7,8 @@ from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from product_attribute.models import ProductAttribute
 from product_attribute.serializers import ProductAttributeSerializer
+from product_image.models import ProductImage
+from product_image.serializers import ProductImageSerializer
 
 
 @csrf_exempt
@@ -74,10 +76,13 @@ def product_detail(request, pk):
         serializerSeller = CustomerSerializer(seller)
         attribute = ProductAttribute.objects.filter(product_id=product.id)
         serializerAttibute = ProductAttributeSerializer(attribute, many=True)
+        image = ProductImage.objects.filter(product_id=product.id)
+        serializerImage = ProductImageSerializer(image, many=True)
 
         data = serializerProduct.data
         data['seller'] = serializerSeller.data
         data['attributes'] = serializerAttibute.data
+        data['images'] = serializerImage.data
 
         return JsonResponse(data)
 
