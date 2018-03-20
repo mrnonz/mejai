@@ -5,6 +5,8 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
+from product_attribute.models import ProductAttribute
+from product_attribute.serializers import ProductAttributeSerializer
 
 
 @csrf_exempt
@@ -70,9 +72,12 @@ def product_detail(request, pk):
         serializerProduct = ProductSerializer(product)
         seller = Customer.objects.get(pk=product.owner_id)
         serializerSeller = CustomerSerializer(seller)
+        attribute = ProductAttribute.objects.filter(product_id=product.id)
+        serializerAttibute = ProductAttributeSerializer(attribute, many=True)
 
         data = serializerProduct.data
         data['seller'] = serializerSeller.data
+        data['attributes'] = serializerAttibute.data
 
         return JsonResponse(data)
 
