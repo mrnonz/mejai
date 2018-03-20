@@ -10,7 +10,9 @@ def organization_list(request):
     if request.method == 'GET':
         organization = Organization.objects.all()
         serializer = OrganizationSerializer(organization, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        data = {}
+        data['data'] = serializer.data
+        return JsonResponse(data, safe=False)
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)

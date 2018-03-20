@@ -5,6 +5,7 @@ from .models import Organization
 class OrganizationSerializer(serializers.ModelSerializer):
     organizationId = serializers.IntegerField(source='id')
     description = serializers.CharField(source='detail')
+    contribution = serializers.FloatField(source='fund')
 
     class Meta:
         model = Organization
@@ -12,5 +13,6 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'organizationId',
             'name',
             'description',
-            'thumbnail'
+            'thumbnail',
+            'contribution'
         )
