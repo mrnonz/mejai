@@ -7,12 +7,13 @@ class OrderSerializer(serializers.ModelSerializer):
     productId = serializers.IntegerField(source='product_id')
     buyerId = serializers.IntegerField(source='buyer_id')
     orderStatus = serializers.BooleanField(source='status')
+    created_by = serializers.DateTimeField(source='time')
 
     class Meta:
         model = Order
         fields = (
             'orderId',
-            'time',
+            'created_by',
             'quantity',
             'price',
             'productId',

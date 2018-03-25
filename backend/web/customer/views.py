@@ -66,7 +66,9 @@ def customer_orders(request, pk):
     if request.method == 'GET':
         order = Order.objects.filter(buyer_id=pk)
         serializer = OrderSerializer(order, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        data = {}
+        data['data'] = serializer.data
+        return JsonResponse(data, safe=False)
 
 
 @csrf_exempt
