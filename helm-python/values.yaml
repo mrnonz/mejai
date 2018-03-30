@@ -16,9 +16,15 @@ containerPorts:
 
 environments:
   - name: MYSQL_ROOT_PASSWORD
-    value: k8s-production
+    valueFrom:
+      secretKeyRef:
+        name: mejai
+        key: MYSQL_ROOT_PASSWORD
   - name: MYSQL_PASSWORD
-    value: k8s-production
+    valueFrom:
+      secretKeyRef:
+        name: mejai
+        key: MYSQL_PASSWORD
   - name: MYSQL_DATABASE
     value: mejai
   - name: MYSQL_HOST
