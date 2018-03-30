@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'organization_bank.apps.OrganizationBankConfig',
     'order_organization.apps.OrderOrganizationConfig',
     'cart.apps.CartConfig',
-    'cart_Product.apps.CartProductConfig',
+    'cart_product.apps.CartProductConfig',
     'product_image.apps.ProductImageConfig',
     'product_attribute.apps.ProductAttributeConfig',
     'product_category.apps.ProductCategoryConfig',

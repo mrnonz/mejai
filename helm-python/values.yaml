@@ -16,19 +16,17 @@ containerPorts:
 
 environments:
   - name: MYSQL_ROOT_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: mejai
-        key: MYSQL_ROOT_PASSWORD
+    secret:
+      name: mejai
+      key: MYSQL_ROOT_PASSWORD
   - name: MYSQL_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: mejai
-        key: MYSQL_PASSWORD
+    secret:
+      name: mejai
+      key: MYSQL_PASSWORD
   - name: MYSQL_DATABASE
     value: mejai
   - name: MYSQL_HOST
-    value: 10.148.0.5
+    value: 35.198.231.7
   - name: MYSQL_USER
     value: root
 
