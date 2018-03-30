@@ -99,7 +99,7 @@ if 'MYSQL_DATABASE' in os.environ:
             'NAME': os.environ['MYSQL_DATABASE'],
             'USER': os.environ['MYSQL_USER'],
             'PASSWORD': os.environ['MYSQL_PASSWORD'],
-            'HOST': 'db',
+            'HOST': os.environ['MYSQL_HOST'],
             'PORT': 3306
         }
     }

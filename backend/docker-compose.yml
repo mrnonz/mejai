@@ -24,6 +24,7 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: mejai
+      MYSQL_HOST: db
     depends_on:
       - db
   phpmyadmin:

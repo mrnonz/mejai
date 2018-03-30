@@ -14,7 +14,15 @@ image:
 containerPorts:
   - 80
 
-environments: {}
+environments:
+  - name: MYSQL_ROOT_PASSWORD
+    value: k8s-production
+  - name: MYSQL_PASSWORD
+    value: k8s-production
+  - name: MYSQL_DATABASE
+    value: mejai
+  - name: MYSQL_HOST
+    value: 10.148.0.5
 
 healthCheck: {}
 
