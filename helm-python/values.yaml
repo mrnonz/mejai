@@ -23,6 +23,8 @@ environments:
     value: mejai
   - name: MYSQL_HOST
     value: 10.148.0.5
+  - name: MYSQL_USER
+    value: root
 
 healthCheck: {}
 
