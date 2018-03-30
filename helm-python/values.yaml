@@ -26,7 +26,7 @@ environments:
   - name: MYSQL_DATABASE
     value: mejai
   - name: MYSQL_HOST
-    value: 35.198.231.7
+    value: 10.148.0.5
   - name: MYSQL_USER
     value: root
   - name: ALLOWED_HOSTS
