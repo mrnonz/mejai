@@ -1,0 +1,43 @@
+nameOverride: mejai
+
+serviceNameSuffix: service
+
+replicaCount: 5
+
+imagePullSecrets: {}
+
+image:
+  repository: mrnonz/mejai
+  tag: latest
+  pullPolicy: Always
+
+containerPorts:
+  - 80
+
+environments: {}
+
+healthCheck: {}
+
+annotations: {}
+
+service:
+  type: LoadBalancer
+  ports:
+    - name: mejai-http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+resources: {}
+nodeSelector: {}
+livenessProbe:
+  initialDelaySeconds: 180
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
