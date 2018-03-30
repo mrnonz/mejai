@@ -29,6 +29,8 @@ environments:
     value: 35.198.231.7
   - name: MYSQL_USER
     value: root
+  - name: ALLOWED_HOSTS
+    value: 35.187.233.55
 
 healthCheck: {}
 
