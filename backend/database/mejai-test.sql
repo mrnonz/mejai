@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 03, 2018 at 10:29 AM
+-- Generation Time: Apr 03, 2018 at 12:37 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -622,8 +622,7 @@ CREATE TABLE `Organization_Bank` (
 --
 
 INSERT INTO `Organization_Bank` (`id`, `name`, `type`, `number`, `branch`, `organization_id`, `bank_id`) VALUES
-(1, 'John Doe', 'Savings Account', '123-4-56789-0', 'Bangkok', 1, 1),
-(2, 'John Doe', 'PromptPay', '123-4-56789-0', 'Bangkok', 1, 2);
+(1, 'John Doe', 'Savings Account', '123-4-56789-0', 'Bangkok', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -637,6 +636,13 @@ CREATE TABLE `Organization_Promptpay` (
   `number` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `organization_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `Organization_Promptpay`
+--
+
+INSERT INTO `Organization_Promptpay` (`id`, `name`, `number`, `organization_id`) VALUES
+(1, 'John ...', '098765432', 1);
 
 -- --------------------------------------------------------
 
@@ -668,7 +674,9 @@ CREATE TABLE `Product` (
 INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `type`, `viewer`, `hit`, `thumbnail`, `created_time`, `organization_id`, `category_id`, `owner_id`) VALUES
 (1, 'เสื้อสีดำ', 'เสื้อสีดำมาก', '125.66', 30, 0, 0, 0, 0, '/path/ab.jpg', '2018-03-19 10:29:30', 2, 1, 1),
 (2, 'เสื้อสีขาว', 'ขาวมากกกก', '345.66', 30, 0, 0, 0, 0, '/path/bbb.jpg', '2018-03-19 10:35:20', 1, 1, 1),
-(3, 'เสื้อดำประมูล', 'ประมูลเสื้อดำกันนนนน', '55.10', 1, 1, 0, 0, 0, '/path/ab.jps', '2018-03-19 10:36:50', 2, 1, 1);
+(3, 'เสื้อดำประมูล', 'ประมูลเสื้อดำกันนนนน', '55.10', 1, 1, 0, 0, 0, '/path/ab.jps', '2018-03-19 10:36:50', 2, 1, 1),
+(5, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-03 12:23:28', 1, 1, 2),
+(6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -693,7 +701,10 @@ CREATE TABLE `Product_Attribute` (
 INSERT INTO `Product_Attribute` (`id`, `color`, `size`, `price`, `quantity`, `product_id`, `name`) VALUES
 (1, 'ดำ', 'S', '199.99', 5, 1, 'ขนาด'),
 (2, 'ดำ', 'M', '999.99', 10, 1, 'ขนาด'),
-(3, 'ดำ', 'S', '99.99', 23, 2, 'ขนาด');
+(3, 'ดำ', 'S', '99.99', 23, 2, 'ขนาด'),
+(4, 'ดำ', 'S', '420.00', 3, 6, 'ขนาด'),
+(5, 'แดง', 'M', '420.00', 15, 6, 'ขนาด'),
+(6, 'เขียว', 'L', '420.00', 5, 6, 'ขนาด');
 
 -- --------------------------------------------------------
 
@@ -732,7 +743,13 @@ CREATE TABLE `Product_Image` (
 INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (1, 'path/img1.jpg', 1),
 (2, 'path/img2.jpg', 1),
-(3, 'path/img3.jpg', 2);
+(3, 'path/img3.jpg', 2),
+(4, 'path1', 5),
+(5, 'path2', 5),
+(6, 'path3', 5),
+(7, 'path1', 6),
+(8, 'path2', 6),
+(9, 'path3', 6);
 
 --
 -- Indexes for dumped tables
@@ -1065,19 +1082,19 @@ ALTER TABLE `Organization_Bank`
 -- AUTO_INCREMENT for table `Organization_Promptpay`
 --
 ALTER TABLE `Organization_Promptpay`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
 --
 ALTER TABLE `Product_Attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `Product_Category`
@@ -1089,7 +1106,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
