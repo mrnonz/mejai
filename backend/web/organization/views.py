@@ -3,6 +3,12 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from organization.models import Organization
 from organization.serializers import OrganizationSerializer
+from organization_bank.models import OrganizationBank
+from organization_bank.serializers import OrganizationBankSerializer
+from organization_promptpay.models import OrganizationPromptpay
+from organization_promptpay.serializers import OrganizationPromptpaySerializer
+from bank.models import Bank
+from bank.serializers import BankSerializer
 
 
 @csrf_exempt
@@ -55,11 +61,18 @@ def organization_bank(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        serializer = OrganizationSerializer(organization)
+        organization_bank = OrganizationBank.objects.filter(
+            organization_id=organization.id)
+        organization_promptpay = OrganizationPromptpay.objects.filter(
+            organization_id=organization.id)
+        bank = Bank.objects.get(
+            pk=organization.id
+        )
         # organizationId
         # bankAccount
         # promptPay
         # return JsonResponse(serializer.data)
+        serializerOrganization = OrganizationSerializer(organization)
 
         # serializerProduct = ProductSerializer(product)
         # seller = Customer.objects.get(pk=product.owner_id)
@@ -69,7 +82,7 @@ def organization_bank(request, pk):
         # image = ProductImage.objects.filter(product_id=product.id)
         # serializerImage = ProductImageSerializer(image, many=True)
 
-        # data = serializerProduct.data
+        data = serializerOrganization.data
         # data['seller'] = serializerSeller.data
         # data['attributes'] = serializerAttibute.data
         # data['images'] = serializerImage.data
