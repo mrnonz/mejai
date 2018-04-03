@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import Svg from 'react-inlinesvg'
-import { Table, Image, Header } from 'semantic-ui-react'
-
+import { Table, Image, Header, Loader } from 'semantic-ui-react'
+import QuantityInput from 'molecules/QuantityInput'
 class ItemTable extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { items, editable } = this.props
+        const { items, editable, onEdit, onDelete, isUpdating = false } = this.props
         return (
             <Table basic className="item-table">
                 <Table.Header>
@@ -18,7 +18,7 @@ class ItemTable extends Component {
                 </Table.Header>
                 <Table.Body>
                     { items.map((item) => {
-                        const { product: { name, attribute }, organization, price, quantity } = item
+                        const { product: { itemId, name, attribute }, organization, price, quantity } = item
                         return (
                             <Table.Row>
                                 <Table.Cell>
@@ -31,23 +31,20 @@ class ItemTable extends Component {
                                 </Table.Cell>
                                 <Table.Cell textAlign="center">
                                     <p>จำนวน</p>
-                                    {
-                                        editable ?
-                                        <div className="quantity-input">
-                                            <a>-</a><span>{quantity}</span><a>+</a>
-                                        </div>        
-                                        :
-                                        <div className="quantity-input">
-                                            <span>{quantity}</span>
-                                        </div>
-                                    }
+                                    <QuantityInput
+                                        item={item}
+                                        onEdit={onEdit}
+                                        editable={editable}
+                                        quantity={quantity} 
+                                        isUpdating = {isUpdating}
+                                    />
                                 </Table.Cell>
                                 <Table.Cell className="cell-price" textAlign="center">
                                     <p>ราคา</p>
-                                    <p className="price">{quantity * price} บาท</p>
+                                    <p className="price">{(quantity * price).toFixed(2)} บาท</p>
                                 </Table.Cell>
                                 <Table.Cell verticalAlign="top">
-                                    { editable && <Svg src={`static/icons/close.svg`} /> }
+                                    { editable && <a onClick={() => onDelete(item)}><Svg src={`static/icons/close.svg`} /></a> }
                                 </Table.Cell>
                             </Table.Row>
                             )
