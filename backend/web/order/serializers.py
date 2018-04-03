@@ -17,5 +17,6 @@ class OrderSerializer(serializers.ModelSerializer):
             'price',
             'productId',
             'buyerId',
-            'status'
+            'status',
+            'slip'
         )
