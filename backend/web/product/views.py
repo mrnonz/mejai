@@ -97,3 +97,43 @@ def product_detail(request, pk):
     elif request.method == 'DELETE':
         product.delete()
         return HttpResponse(status=204)
+
+
+@csrf_exempt
+def product_create(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        name = data['name']
+        price = data['price']
+        userId = data['userId']
+        organizationId = data['organizationId']
+        categoryId = data['categoryId']
+        quantity = data['quantity']
+        info = data['info']
+        images = data['images']
+
+        newProduct = Product(name=name,
+                             detail=info,
+                             price=price,
+                             quantity=quantity,
+                             auction=0,
+                             owner_id=userId,
+                             organization_id=organizationId,
+                             category_id=categoryId)
+        newProduct.save()
+
+        for image in images:
+            newImage = ProductImage(url=image,
+                                    product_id=newProduct.id)
+            newImage.save()
+
+        return HttpResponse(status=201)
+
+
+@csrf_exempt
+def product_create_attribute(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        return HttpResponse(status=201)
