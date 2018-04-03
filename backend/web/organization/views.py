@@ -65,26 +65,20 @@ def organization_bank(request, pk):
             organization_id=organization.id)
         organization_promptpay = OrganizationPromptpay.objects.filter(
             organization_id=organization.id)
-        bank = Bank.objects.get(
+        bank = Bank.objects.filter(
             pk=organization.id
         )
-        # organizationId
-        # bankAccount
-        # promptPay
-        # return JsonResponse(serializer.data)
-        serializerOrganization = OrganizationSerializer(organization)
 
-        # serializerProduct = ProductSerializer(product)
-        # seller = Customer.objects.get(pk=product.owner_id)
-        # serializerSeller = CustomerSerializer(seller)
-        # attribute = ProductAttribute.objects.filter(product_id=product.id)
-        # serializerAttibute = ProductAttributeSerializer(attribute, many=True)
-        # image = ProductImage.objects.filter(product_id=product.id)
-        # serializerImage = ProductImageSerializer(image, many=True)
+        serializerOrganization = OrganizationSerializer(organization)
+        serializerOrganizationBank = OrganizationBankSerializer(
+            organization_bank, many=True)
+        serializerBank = BankSerializer(bank, many=True)
+        serializerOrganizationPromptpay = OrganizationPromptpaySerializer(
+            organization_promptpay, many=True)
 
         data = serializerOrganization.data
-        # data['seller'] = serializerSeller.data
-        # data['attributes'] = serializerAttibute.data
-        # data['images'] = serializerImage.data
+        data['bankAccount'] = serializerOrganizationBank.data
+        data['bank'] = serializerBank.data
+        data['promptPay'] = serializerOrganizationPromptpay.data
 
         return JsonResponse(data)
