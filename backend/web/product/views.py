@@ -136,4 +136,37 @@ def product_create_attribute(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
 
+        name = data['name']
+        price = data['price']
+        sellerId = data['sellerId']
+        organizationId = data['organizationId']
+        categoryId = data['categoryId']
+        # quantity = sum()
+        attributes = data['attributes']
+        info = data['info']
+        images = data['images']
+
+        newProduct = Product(name=name,
+                             detail=info,
+                             price=price,
+                             auction=0,
+                             owner_id=sellerId,
+                             organization_id=organizationId,
+                             category_id=categoryId)
+        newProduct.save()
+
+        for attribute in attributes['values']:
+            newAttribute = ProductAttribute(name=attributes['name'],
+                                            product_id=newProduct.id,
+                                            quantity=attribute['quantity'],
+                                            size=attribute['value'],
+                                            price=price,
+                                            color=attribute['color'])
+            newAttribute.save()
+
+        for image in images:
+            newImage = ProductImage(url=image,
+                                    product_id=newProduct.id)
+            newImage.save()
+
         return HttpResponse(status=201)
