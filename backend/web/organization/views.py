@@ -45,3 +45,33 @@ def organization_detail(request, pk):
     elif request.method == 'DELETE':
         organization.delete()
         return HttpResponse(status=204)
+
+
+@csrf_exempt
+def organization_bank(request, pk):
+    try:
+        organization = Organization.objects.get(pk=pk)
+    except Organization.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = OrganizationSerializer(organization)
+        # organizationId
+        # bankAccount
+        # promptPay
+        # return JsonResponse(serializer.data)
+
+        # serializerProduct = ProductSerializer(product)
+        # seller = Customer.objects.get(pk=product.owner_id)
+        # serializerSeller = CustomerSerializer(seller)
+        # attribute = ProductAttribute.objects.filter(product_id=product.id)
+        # serializerAttibute = ProductAttributeSerializer(attribute, many=True)
+        # image = ProductImage.objects.filter(product_id=product.id)
+        # serializerImage = ProductImageSerializer(image, many=True)
+
+        # data = serializerProduct.data
+        # data['seller'] = serializerSeller.data
+        # data['attributes'] = serializerAttibute.data
+        # data['images'] = serializerImage.data
+
+        return JsonResponse(data)
