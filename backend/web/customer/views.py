@@ -68,6 +68,7 @@ def customer_orders(request, pk):
         serializer = OrderSerializer(order, many=True)
         data = {}
         data['data'] = serializer.data
+        data['userId_update'] = int(pk)
         return JsonResponse(data, safe=False)
 
 
