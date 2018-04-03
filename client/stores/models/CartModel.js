@@ -1,4 +1,4 @@
-import { reduce, find, remove } from 'lodash'
+import { isNil, reduce, find, remove } from 'lodash'
 
 export default class CartModel {
     constructor(userCart) {
@@ -6,6 +6,9 @@ export default class CartModel {
     }
 
     get items() {
+        if(isNil(this._cart.items)) {
+            return []
+        }
         return this._cart.items
     }
 

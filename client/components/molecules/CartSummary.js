@@ -22,7 +22,7 @@ const CartSummary = ({ organizations, showButton = true }) => {
                                 <Table.Cell className="cell-item">
                                     <p>{ organization.name }</p>
                                     <p className="item">จาก: { organization.items.join(', ') }</p>
-                                    <p className="price">{ organization.value } บาท</p>
+                                    <p className="price">{ organization.value.toFixed(2) } บาท</p>
                                 </Table.Cell>
                             </Table.Row>
                         )) }
@@ -36,7 +36,7 @@ const CartSummary = ({ organizations, showButton = true }) => {
                         <p>ยอดสุทธิ</p>
                     </Table.Cell>
                     <Table.Cell textAlign="right">
-                        <p className="price">{ helpSummary } บาท</p>
+                        <p className="price">{ helpSummary.toFixed(2) } บาท</p>
                         { showButton && <Button color="teal">ดำเนินการต่อ</Button> }
                     </Table.Cell>
                 </Table.Row>
