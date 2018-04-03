@@ -54,11 +54,13 @@ INSTALLED_APPS = [
     'product_image.apps.ProductImageConfig',
     'product_attribute.apps.ProductAttributeConfig',
     'product_category.apps.ProductCategoryConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -150,3 +152,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'customer.Customer'
+CORS_ORIGIN_ALLOW_ALL = True
