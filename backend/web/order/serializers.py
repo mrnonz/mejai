@@ -5,7 +5,7 @@ from .models import Order
 class OrderSerializer(serializers.ModelSerializer):
     orderId = serializers.IntegerField(source='id')
     productId = serializers.IntegerField(source='product_id')
-    userId_update = serializers.IntegerField(source='buyer_id')
+    buyerId = serializers.IntegerField(source='buyer_id')
     created_by = serializers.DateTimeField(source='time')
 
     class Meta:
@@ -16,6 +16,6 @@ class OrderSerializer(serializers.ModelSerializer):
             'quantity',
             'price',
             'productId',
-            'userId_update',
+            'buyerId',
             'status'
         )

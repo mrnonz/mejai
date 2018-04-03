@@ -5,6 +5,8 @@ from order.models import Order
 from order.serializers import OrderSerializer
 from product.models import Product
 from product.serializers import ProductSerializer
+from customer.models import Customer
+from customer.serializers import CustomerSerializer
 
 
 @csrf_exempt
