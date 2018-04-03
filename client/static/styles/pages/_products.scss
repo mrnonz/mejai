@@ -54,6 +54,12 @@
             
             z-index: 2;
         }
+
+        .loader-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         
         .list-container{
             @include layout-content;

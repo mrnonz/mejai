@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
 import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
 import { Dropdown, Menu } from 'semantic-ui-react'
 import ProductList from 'molecules/ProductList'
 import Pagination from 'molecules/Pagination'
+import Loader from 'molecules/Loader'
 import FilterProduct from 'organisms/FilterProduct'
 import categories from 'stores/mock/categories.json'
-import products from 'stores/mock/auction_products.json'
-import { fetchRepo } from 'stores/actions/mock'
-import { makeStore } from '../stores'
-
+import { fetchBuyProducts } from 'stores/actions/product'
 
 class Products extends Component {
     constructor(props) {
@@ -32,12 +31,17 @@ class Products extends Component {
         })
     }
 
+    componentDidMount() {
+        this.props.fetchBuyProducts()
+    }
+
     render() {
         const { productPage } = this.state
+        const { products: { data: products, isLoading } } = this.props
         const { url: { query: { type: productType } } } = this.props
-        const itemCount = products.data.length
-        const totalPage = Math.ceil(products.data.length / 12)
-        const pageItems = products.data.slice(productPage * 12, productPage * 12 + 12)
+        const itemCount = products.length
+        const totalPage = Math.ceil(itemCount / 12)
+        const pageItems = products.slice(productPage * 12, productPage * 12 + 12)
         const sortOptions = [
             {
                 text: 'Featured',
@@ -65,10 +69,11 @@ class Products extends Component {
                     <aside>
                         <FilterProduct categories={categories.list} />
                     </aside>
+                    { isLoading ? <section className="loader-wrapper"><Loader /></section> :
                     <section className="list-container">
                         <div className="product-count">
                             <h3>List All</h3>
-                            <p>Found {products.data.length} Items</p>
+                            <p>Found {products.length} Items</p>
                         </div>
                         <div className="product-sort">
                             <span>Sort By </span>
@@ -81,6 +86,7 @@ class Products extends Component {
                             onPageChange={(page) => this.handlePageClick(page)}
                         />
                     </section>
+                    }
                 </main>
             </div>
         )
@@ -88,15 +94,14 @@ class Products extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        text: state.mock,
-        repo: state.repository
+        products: state.product
     }
 )
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onButtonClick: () => {
-            dispatch(fetchRepo('Hello World'))
+        fetchBuyProducts: () => {
+            dispatch(fetchBuyProducts())
         }
     }
 }
