@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'organization.apps.OrganizationConfig',
     'bank.apps.BankConfig',
     'organization_bank.apps.OrganizationBankConfig',
+    'organization_promptpay.apps.OrganizationPromptpayConfig',
     'order_organization.apps.OrderOrganizationConfig',
     'cart.apps.CartConfig',
     'cart_product.apps.CartProductConfig',
