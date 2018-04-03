@@ -25,6 +25,7 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: mejai
       MYSQL_HOST: db
+      ALLOWED_HOSTS: 127.0.0.1
     depends_on:
       - db
   phpmyadmin:
