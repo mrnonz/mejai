@@ -13,7 +13,7 @@ const OrganizationCard = ({ data, onInfoClick }) => {
                     { data.description }
                 </Card.Description>
                 <div className="button-group">
-                    <Button basic color="orange" fluid onClick={() => onInfoClick()}>รายละเอียด</Button>
+                    <Button basic color="orange" fluid onClick={() => onInfoClick(data.organizationId)}>รายละเอียด</Button>
                     <Button color="teal" fluid>ช่วยเหลือ</Button>
                 </div>
             </Card.Content>

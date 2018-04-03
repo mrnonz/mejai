@@ -4,9 +4,11 @@ import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
 import Pagination from 'molecules/Pagination'
+import Loader from 'molecules/Loader'
 import OrganizationCategory from 'organisms/OrganizationCategory'
 import OrganizationCard from 'molecules/OrganizationCard'
 import organizations from 'stores/mock/organization.json'
+import { fetchOrganizations, fetchOrganizationInfo } from 'stores/actions/organization'
 
 class Organizations extends Component {
     constructor(props){
@@ -32,7 +34,8 @@ class Organizations extends Component {
         })
     }
 
-    handleInfoClick = () => {
+    handleInfoClick = (id) => {
+        this.props.fetchOrganizationInfo(id)
         this.setState({
             showInfo: true
         })
@@ -44,12 +47,18 @@ class Organizations extends Component {
         })
     }
 
+    componentDidMount() {
+        this.props.fetchOrganizations()
+    }
+
     render() {
         const { activeCategory, organizationPage, showInfo } = this.state
-        const organizationCount = organizations.data.length
-        const totalPage = Math.ceil(organizations.data.length / 12)
-        const pageItems = organizations.data.slice(organizationPage * 12, organizationPage * 12 + 12)
-        const OrganizationList = () => [
+        const { organization: { data: organizations, isLoading, info: { name: infoName, info } }  } = this.props
+        const organizationCount = organizations.length
+        const totalPage = Math.ceil(organizations.length / 12)
+        const pageItems = organizations.slice(organizationPage * 12, organizationPage * 12 + 12)
+
+        const OrganizationList = () => (
             <div className="page-header">
                 <Header as="h2">โครงการ</Header>
                 <span>พบ { organizationCount } รายการ</span>
@@ -65,12 +74,12 @@ class Organizations extends Component {
                     onPageChange={(page) => this.handlePageClick(page)}
                 />
             </div>
-        ]
+        )
 
         const OrganizationInfo = () => (
             <Grid container>
                 <Grid.Row>
-                    <Header as="h3">1 Help 1 Life : น้ำสะอาดให้น้องดื่ม</Header>
+                    <Header as="h3">{infoName}</Header>
                 </Grid.Row>
                 <Grid.Row centered columns={2}>
                     <Grid.Column>
@@ -79,12 +88,10 @@ class Organizations extends Component {
                 </Grid.Row>
                 <Grid.Row>
                     <Segment className="helping-content">
-                        {pageItems[0].info.map((paragraph) => (
-                            <p>{paragraph}</p>
-                        ))}
+                        {info}
                     </Segment>    
                 </Grid.Row>
-                <Grid.Row centered columns={7}>
+                <Grid.Row centered columns={4}>
                     <Grid.Column>
                         <Button color="red" size="large" onClick={this.handleHideInfo}>ย้อนกลับ</Button>
                     </Grid.Column>
@@ -96,11 +103,29 @@ class Organizations extends Component {
             <div className="organization-page">
                 <OrganizationCategory activeIndex={activeCategory} categoryClick={this.handleCategoryClick} />
                 <Container className="content">
-                    { showInfo ? <OrganizationInfo /> : <OrganizationList /> }
+                {   isLoading ? <Loader wrapped /> :
+                    ( showInfo ? <OrganizationInfo /> : <OrganizationList /> ) 
+                }
                 </Container>
             </div>
         )
     }
 }
 
-export default withRedux(makeStore)(withTopbar(Organizations))
+const mapStateToProps = (state) => ({
+    organization: state.organization
+}
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOrganizations: () => {
+            dispatch(fetchOrganizations())
+        },
+        fetchOrganizationInfo: (id) => {
+            dispatch(fetchOrganizationInfo(id))
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Organizations))
