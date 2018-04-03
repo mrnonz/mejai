@@ -25,8 +25,13 @@ def order_detail(request, pk):
 
         data = serializerOrder.data
         data['item'] = serializerProduct.data
+        data['userId_update'] = data['buyerId']
         data['organizationId'] = data['item']['organization']['organizationId']
         data['address_update'] = "address_update"
         data['slip_update'] = "slip_update"
         data['sellerId_update'] = data['item']['owner_id']
+
+        # clean data
+        data.pop('buyerId')
+
         return JsonResponse(data)
