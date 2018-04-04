@@ -46,3 +46,20 @@ def order_detail(request, pk):
         data.pop('buyerId')
         data.pop('slip')
         return JsonResponse(data)
+
+
+@csrf_exempt
+def order_status(request, pk):
+    try:
+        order = Order.objects.get(pk=pk)
+    except Order.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'PUT':
+        if order.status < 3:
+            order.status += 1
+
+        order.save()
+        serializerOrder = OrderSerializer(order)
+
+        return JsonResponse(serializerOrder.data)

@@ -9,7 +9,7 @@ class Order(models.Model):
     time = models.DateTimeField()
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.BooleanField(default=False)
+    status = models.IntegerField(default=0)
     slip = models.CharField(max_length=1023, default='')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='order_product', default='')
