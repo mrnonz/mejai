@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 04, 2018 at 03:16 PM
+-- Generation Time: Apr 04, 2018 at 05:35 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -337,7 +337,7 @@ CREATE TABLE `Customer` (
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
 (1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', '123/33 ไทย 10500', '0812345678', 'http://url.com', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
 (2, 'admin@mejai.com', 'admin', 'pbkdf2_sha256$36000$WmaOVKDus7tA$ezRsG5L1vWXzclNVaw523YeEyn28ZWNnrYdb51+5n0k=', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-03-19 08:50:23.092870', '', 1, 1, 1, '2018-03-19 09:10:59.152542', ''),
-(3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-03-19 12:01:09.225324', '', 1, 1, 0, NULL, '');
+(3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', 'asdf', 'M', 'John\\Doe\\ladkrabang\\ladkrabang\\bangkok\\10220\\087-64543214', '08123456', '/url/pic.jpg', 5, 10, 20, '2018-03-19 12:01:09.225324', 'นายไก่', 1, 1, 0, NULL, 'นอน');
 
 -- --------------------------------------------------------
 
@@ -516,8 +516,7 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (77, 'organization', '0005_organization_info', '2018-03-20 12:23:35.977818'),
 (78, 'product_attribute', '0002_productattribute_name', '2018-03-20 16:54:40.126964'),
 (79, 'organization_promptpay', '0001_initial', '2018-04-03 10:28:40.377673'),
-(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602'),
-(81, 'order', '0007_auto_20180404_2215', '2018-04-04 15:15:15.837069');
+(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602');
 
 -- --------------------------------------------------------
 
@@ -664,7 +663,7 @@ CREATE TABLE `Product` (
   `viewer` int(11) NOT NULL,
   `hit` int(11) NOT NULL,
   `thumbnail` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_time` timestamp NOT NULL DEFAULT '2018-04-04 15:25:29' ON UPDATE CURRENT_TIMESTAMP,
   `organization_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
@@ -681,7 +680,8 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 (5, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-03 12:23:28', 1, 1, 2),
 (6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2),
 (7, 'เสื้อสีดำจริงๆนะ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-04 14:33:21', 1, 1, 2),
-(10, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 14:36:03', 1, 1, 2);
+(10, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 14:36:03', 1, 1, 2),
+(11, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 15:36:36', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -763,7 +763,10 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (12, 'path3', 7),
 (13, 'path1', 10),
 (14, 'path2', 10),
-(15, 'path3', 10);
+(15, 'path3', 10),
+(16, 'path1', 11),
+(17, 'path2', 11),
+(18, 'path3', 11);
 
 --
 -- Indexes for dumped tables
@@ -1072,7 +1075,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -1102,7 +1105,7 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
@@ -1120,7 +1123,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
