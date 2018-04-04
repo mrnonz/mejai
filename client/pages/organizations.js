@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Header, Container, Grid, Segment, Image, Button } from 'semantic-ui-react'
+import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
@@ -47,6 +48,22 @@ class Organizations extends Component {
         })
     }
 
+    handleHelpClick = (id) => {
+        const { url: { query: { type: userType } } } = this.props
+        if(userType === 'seller') {
+            Router.push({
+                pathname: '/posting',
+                query: { organization: id }
+            })
+        } else {
+            // TODO Change query type
+            Router.push({
+                pathname: '/products',
+                query: { type: 'buy' }
+            })
+        }
+    }
+
     componentDidMount() {
         this.props.fetchOrganizations()
     }
@@ -54,18 +71,25 @@ class Organizations extends Component {
     render() {
         const { activeCategory, organizationPage, showInfo } = this.state
         const { organization: { data: organizations, isLoading, info: { name: infoName, info } }  } = this.props
+        const { url: { query: { type: userType } } } = this.props
         const organizationCount = organizations.length
         const totalPage = Math.ceil(organizations.length / 12)
         const pageItems = organizations.slice(organizationPage * 12, organizationPage * 12 + 12)
 
-        const OrganizationList = () => (
+        const OrganizationList = () => ([
             <div className="page-header">
-                <Header as="h2">โครงการ</Header>
+                {   userType === "seller" ? <Header as="h2">เลือกองค์กรการกุศลที่ต้องการช่วยเหลือ</Header> :
+                    <Header as="h2">องค์กรการกุศล</Header>
+                }
                 <span>พบ { organizationCount } รายการ</span>
             </div>,
             <div className="organization-list">
                 { pageItems.map((organization) => (
-                    <OrganizationCard data={organization} onInfoClick={this.handleInfoClick}/>
+                    <OrganizationCard 
+                        data={organization} 
+                        onInfoClick={this.handleInfoClick} 
+                        onHelpClick={this.handleHelpClick} 
+                    />
                 ))}
                 <Pagination 
                     pageCount={totalPage}   
@@ -74,7 +98,7 @@ class Organizations extends Component {
                     onPageChange={(page) => this.handlePageClick(page)}
                 />
             </div>
-        )
+        ])
 
         const OrganizationInfo = () => (
             <Grid container>
