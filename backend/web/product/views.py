@@ -128,7 +128,9 @@ def product_create(request):
                                     product_id=newProduct.id)
             newImage.save()
 
-        return HttpResponse(status=201)
+        serializerNewProduct = ProductSerializer(newProduct)
+
+        return JsonResponse(serializerNewProduct.data, status=201)
 
 
 @csrf_exempt
@@ -169,4 +171,6 @@ def product_create_attribute(request):
                                     product_id=newProduct.id)
             newImage.save()
 
-        return HttpResponse(status=201)
+        serializerNewProduct = ProductSerializer(newProduct)
+
+        return JsonResponse(serializerNewProduct.data, status=201)
