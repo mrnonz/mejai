@@ -1,4 +1,6 @@
 .product-data {
+    position: relative;
+
     .price {
         color: $colorOrange;
     }
@@ -17,4 +19,8 @@
         }
     }
     
+    >button {
+       position: absolute;
+       bottom: 0;
+    }
 }
