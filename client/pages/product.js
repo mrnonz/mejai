@@ -1,20 +1,100 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
+import cookie from 'react-cookie'
 import { makeStore } from '../stores'
+import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
+import withCookie from 'hocs/withCookie'
+import Loader from 'molecules/Loader'
 import ProductDetail from 'organisms/ProductDetail'
 import ProductInfo from 'organisms/ProductInfo'
-import { Container } from 'semantic-ui-react'
+import { Container, Modal, Button } from 'semantic-ui-react'
+import { fetchProductItem } from 'stores/actions/product'
+import { updateCartItem } from 'stores/actions/cart'
 
 class Product extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            showModal: false
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.cart.updated) {
+            this.setState({
+                showModal: true
+            })
+        }
+    }
+
+    componentDidMount() {
+        const { url: { query: { id: productId } } } = this.props
+        this.props.fetchProductItem(productId)
+    }
+
+    handleAddToCart(itemId) {
+        const userId = cookie.load('userId')
+        this.props.updateCartItem(userId, itemId, 1)
+    } 
+
+    closeModal() {
+        this.setState({
+            showModal: false
+        })
+    }
+
+    returnToHome() {
+        Router.push({
+            pathname: '/'
+        })
+    }
+
     render() {
+        const { showModal } = this.state
+        const { product: { data: product, isLoading }, cart: { isUpdating = false, updated = false } } = this.props
+        const { url: { query: { type: itemType } } } = this.props
         return (
             <Container className="product-page">
-                <ProductDetail />
-                <ProductInfo />
+                <Modal open={showModal}>
+                    <Modal.Header>เพิ่มสินค้าในตะกร้าสำเร็จ</Modal.Header>
+                    <Modal.Content>
+                        <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.closeModal()} />
+                        <Button content="กลับสู่หน้าหลัก" onClick={() => this.returnToHome()} />
+                    </Modal.Content>
+                </Modal>
+                { isLoading || isUpdating ? <Loader wrapped />
+                :
+                [
+                    <ProductDetail 
+                        itemType={itemType} 
+                        product={product} 
+                        isUpdating={isUpdating}
+                        onAdd={this.handleAddToCart.bind(this)}
+                    />,
+                    <ProductInfo />
+                ]
+                }
             </Container>
         )
     }
 }
 
-export default withRedux(makeStore)(withTopbar(Product))
+const mapStateToProps = (state) => ({
+        product: state.product,
+        cart: state.cart
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchProductItem: (productId) => {
+            dispatch(fetchProductItem(productId))
+        },
+        updateCartItem: (customerId, itemId, qty) => {
+            dispatch(updateCartItem(customerId, itemId, qty))
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Product))
