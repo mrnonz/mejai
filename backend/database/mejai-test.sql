@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 03, 2018 at 05:50 PM
+-- Generation Time: Apr 04, 2018 at 03:16 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -516,7 +516,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (77, 'organization', '0005_organization_info', '2018-03-20 12:23:35.977818'),
 (78, 'product_attribute', '0002_productattribute_name', '2018-03-20 16:54:40.126964'),
 (79, 'organization_promptpay', '0001_initial', '2018-04-03 10:28:40.377673'),
-(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602');
+(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602'),
+(81, 'order', '0007_auto_20180404_2215', '2018-04-04 15:15:15.837069');
 
 -- --------------------------------------------------------
 
@@ -549,7 +550,7 @@ CREATE TABLE `Order` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `quantity` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `status` tinyint(1) NOT NULL,
+  `status` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `slip` varchar(1023) NOT NULL
@@ -561,7 +562,7 @@ CREATE TABLE `Order` (
 
 INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`) VALUES
 (1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg'),
-(2, '2018-04-03 16:54:35', 55, '22.22', 1, 2, 3, '/slip-url.jpg');
+(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, '/slip-url.jpg');
 
 -- --------------------------------------------------------
 
@@ -678,7 +679,9 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 (2, 'เสื้อสีขาว', 'ขาวมากกกก', '345.66', 30, 0, 0, 0, 0, '/path/bbb.jpg', '2018-03-19 10:35:20', 1, 1, 1),
 (3, 'เสื้อดำประมูล', 'ประมูลเสื้อดำกันนนนน', '55.10', 1, 1, 0, 0, 0, '/path/ab.jps', '2018-03-19 10:36:50', 2, 1, 1),
 (5, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-03 12:23:28', 1, 1, 2),
-(6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2);
+(6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2),
+(7, 'เสื้อสีดำจริงๆนะ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-04 14:33:21', 1, 1, 2),
+(10, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 14:36:03', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -706,7 +709,10 @@ INSERT INTO `Product_Attribute` (`id`, `color`, `size`, `price`, `quantity`, `pr
 (3, 'ดำ', 'S', '99.99', 23, 2, 'ขนาด'),
 (4, 'ดำ', 'S', '420.00', 3, 6, 'ขนาด'),
 (5, 'แดง', 'M', '420.00', 15, 6, 'ขนาด'),
-(6, 'เขียว', 'L', '420.00', 5, 6, 'ขนาด');
+(6, 'เขียว', 'L', '420.00', 5, 6, 'ขนาด'),
+(7, 'ดำ', 'S', '420.00', 3, 7, 'ขนาด'),
+(8, 'แดง', 'M', '420.00', 15, 7, 'ขนาด'),
+(9, 'เขียว', 'L', '420.00', 5, 7, 'ขนาด');
 
 -- --------------------------------------------------------
 
@@ -751,7 +757,13 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (6, 'path3', 5),
 (7, 'path1', 6),
 (8, 'path2', 6),
-(9, 'path3', 6);
+(9, 'path3', 6),
+(10, 'path1', 7),
+(11, 'path2', 7),
+(12, 'path3', 7),
+(13, 'path1', 10),
+(14, 'path2', 10),
+(15, 'path3', 10);
 
 --
 -- Indexes for dumped tables
@@ -1060,7 +1072,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -1090,13 +1102,13 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
 --
 ALTER TABLE `Product_Attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `Product_Category`
@@ -1108,7 +1120,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
