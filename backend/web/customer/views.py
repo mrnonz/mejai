@@ -178,4 +178,22 @@ def customer_address(request, pk):
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
 
-        return JsonResponse(serializer.errors, status=400)
+        firstname = data['firstname']
+        lastname = data['lastname']
+        tel = data['tel']
+        district = data['district']
+        subDistrict = data['subDistrict']
+        province = data['province']
+        postcode = data['postcode']
+
+        newAddress = firstname + '\\' + lastname + '\\' + district + '\\' + \
+            subDistrict + '\\' + province + '\\' + postcode + '\\' + tel
+
+        putCustomer = Customer.objects.filter(
+            pk=pk).update(address=newAddress)
+
+        customer = Customer.objects.get(pk=pk)
+
+        serializerPutCustomer = CustomerSerializer(customer)
+
+        return JsonResponse(serializerPutCustomer.data, status=201)
