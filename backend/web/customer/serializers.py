@@ -3,15 +3,18 @@ from .models import Customer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
+    userId = serializers.IntegerField(source='id')
+    firstname = serializers.CharField(source='first_name')
+    lastname = serializers.CharField(source='last_name')
+
     class Meta:
         model = Customer
         fields = (
-            'id',
-            'first_name',
-            'last_name',
+            'userId',
+            'firstname',
+            'lastname',
             'email',
             'username',
-            'password',
             'line_id',
             'sex',
             'address',
