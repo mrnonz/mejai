@@ -10,4 +10,6 @@ urlpatterns = [
         views.customer_cart_auction),
     url(r'^customer/(?P<pk>[0-9]+)/cart/buy/$',
         views.customer_cart_buy),
+    url(r'^customer/(?P<pk>[0-9]+)/address/$',
+        views.customer_address),
 ]

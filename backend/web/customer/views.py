@@ -162,3 +162,20 @@ def customer_cart_buy(request, pk):
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
         return JsonResponse(data)
+
+
+@csrf_exempt
+def customer_address(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = CustomerSerializer(customer)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+
+        return JsonResponse(serializer.errors, status=400)
