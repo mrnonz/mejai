@@ -11,7 +11,10 @@ const PageNav = () => {
         },
         {
             name: 'องค์กร',
-            url: '/organizations'
+            url: {
+                pathname: '/organizations',
+                query: { type: 'buyer' }
+            } 
         },
         {
             name: 'ซื้อสินค้า',
