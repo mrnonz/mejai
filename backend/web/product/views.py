@@ -9,6 +9,7 @@ from product_attribute.models import ProductAttribute
 from product_attribute.serializers import ProductAttributeSerializer
 from product_image.models import ProductImage
 from product_image.serializers import ProductImageSerializer
+from datetime import datetime
 
 
 @csrf_exempt
@@ -120,7 +121,8 @@ def product_create(request):
                              auction=0,
                              owner_id=userId,
                              organization_id=organizationId,
-                             category_id=categoryId)
+                             category_id=categoryId,
+                             created_time=datetime.now())
         newProduct.save()
 
         for image in images:
@@ -154,7 +156,8 @@ def product_create_attribute(request):
                              auction=0,
                              owner_id=sellerId,
                              organization_id=organizationId,
-                             category_id=categoryId)
+                             category_id=categoryId,
+                             created_time=datetime.now())
         newProduct.save()
 
         for attribute in attributes['values']:
