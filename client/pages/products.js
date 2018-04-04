@@ -25,9 +25,11 @@ class Products extends Component {
         })
     }
 
-    handleCardClick = () => {
+    handleCardClick = (productId) => {
+        const { url: { query: { type: productType } } } = this.props
         Router.push({
-            pathname: '/product'
+            pathname: '/product',
+            query: { type: productType, id: productId }
         })
     }
 
@@ -69,7 +71,7 @@ class Products extends Component {
                     <aside>
                         <FilterProduct categories={categories.list} />
                     </aside>
-                    { isLoading ? <section className="loader-wrapper"><Loader /></section> :
+                    { isLoading ? <section className="page-loader-wrapper"><Loader /></section> :
                     <section className="list-container">
                         <div className="product-count">
                             <h3>List All</h3>
@@ -94,7 +96,7 @@ class Products extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        products: state.product
+        products: state.products
     }
 )
 
