@@ -44,6 +44,13 @@ export const deletingCart = () => {
     }
 }
 
+export const updateCartSuccess = () => {
+    return {
+        type: 'UPDATE_CART_SUCCESS',
+        isUpdating: false
+    }
+}
+
 export const updateCartItem = (customerId, itemId, qty) => {
     return (dispatch) => {
         dispatch(updatingCart())
@@ -57,6 +64,7 @@ export const updateCartItem = (customerId, itemId, qty) => {
             }
         })
         .then((response) => {
+            dispatch(updateCartSuccess())
             dispatch(fetchCart(customerId))
         })
         .catch((error) => {

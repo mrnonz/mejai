@@ -14,6 +14,12 @@ const cart = (state = {}, action) => {
             return {
                 ...state
             }
+        case 'UPDATE_CART_SUCCESS':
+            return {
+                ...state,
+                isUpdating: action.isUpdating,
+                updated: true
+            }
         case 'SUCCESS_CART':
             return {
                 isLoading: action.isLoading,

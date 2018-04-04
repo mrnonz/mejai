@@ -15,7 +15,7 @@ export default class CartModel {
     get organizationList() {
         return reduce(this._cart.items, (organizations, item) => {
             const duplicateItem = find(organizations, (organization) => {
-                return organization.name === item.organization
+                return organization.name === item.product.organization.name
             })
             if(duplicateItem) {
                 remove(organizations, (o) => o.name === duplicateItem.name)
@@ -29,7 +29,7 @@ export default class CartModel {
                 return organizations
             } else {
                 organizations.push({
-                    name: item.organization,
+                    name: item.product.organization.name,
                     value: item.price * item.quantity,
                     items: [item.product.name]
                 })

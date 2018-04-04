@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Header, Container } from 'semantic-ui-react'
+import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
+import cookie from 'react-cookie'
 import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
 import ItemTable from 'molecules/ItemTable'
@@ -15,13 +17,13 @@ class Cart extends Component {
     }
     
     componentDidMount() {
-        const { url: { query: { id: customerId } } } = this.props
+        const customerId = cookie.load('userId')
         this.props.fetchCart(customerId)
     }
 
     handleCartItemEdit(isPlus, item) {
         const { itemId, quantity } = item
-        const { url: { query: { id: customerId } } } = this.props
+        const customerId = cookie.load('userId')
         if(isPlus) {
             this.props.updateCartItem(customerId, itemId, 1)
         } else {
@@ -37,6 +39,12 @@ class Cart extends Component {
         const { itemId } = item
         const { url: { query: { id: customerId } } } = this.props
         this.props.deleteCartItem(customerId, itemId)
+    }
+
+    handleOnSubmit() {
+        Router.push({
+            pathname: '/shipping'
+        })
     }
 
     render() {
@@ -59,7 +67,7 @@ class Cart extends Component {
                         />
                     </div>
                     <div className="cart-summary">
-                        <CartSummary organizations={userCart.organizationList} />
+                        <CartSummary onSubmit={this.handleOnSubmit} organizations={userCart.organizationList} />
                     </div>
                 </main>
                 }
