@@ -11,18 +11,32 @@ import ShippingForm from 'molecules/ShippingForm'
 import ItemTable from 'molecules/ItemTable'
 import CartModel from 'stores/models/CartModel'
 import { fetchCart } from 'stores/actions/cart'
+import { fetchUserAddress, updateUserAddress } from 'stores/actions/user'
 
 class Shipping extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showConfirmModal: false
+            showConfirmModal: false,
+            name: '',
+            tel: '',
+            district: '',
+            subDistrict: '',
+            province: '',
+            postcode: ''
         }
     }
 
     componentDidMount() {
         const customerId = cookie.load('userId')
         this.props.fetchCart(customerId)
+        this.props.fetchUserAddress(customerId)
+    }
+
+    handleChange = (e, { name, value }) => {
+        this.setState({
+            [name]: value
+        })
     }
 
     showConfirmModal() {
@@ -37,9 +51,26 @@ class Shipping extends Component {
         })
     }
 
+    handleConfirmModal() {
+        const { name, tel, district, subDistrict, province, postcode } = this.state
+        const address = {
+            name, tel, district, subDistrict, province, postcode
+        }
+        const customerId = cookie.load('userId')
+        // TODO Create Order with cart
+    }
+
     render() {
         const { showConfirmModal } = this.state
-        const { cart: { data: cart, isLoading } } = this.props
+        const { cart: { 
+            data: cart, 
+            isLoading: isCartLoading 
+        }, 
+        user: {
+            address: address,
+            isLoading: isAddressLoading,
+            isUpdating: isAddressUpdating
+        } } = this.props
         const userCart = new CartModel(cart)
         return (
             <Container className="shipping-page">
@@ -49,18 +80,18 @@ class Shipping extends Component {
                         <ItemTable 
                             items={userCart.items} 
                         />
-                        <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.hideConfirmModal()} />
+                        <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.handleConfirmModal()} />
                         <Button negative icon='close' labelPosition='right' content="ย้อนกลับ" onClick={() => this.hideConfirmModal()} />
                     </Modal.Content>
                 </Modal>
                 <Header as='h2' dividing color="orange" >
                     ข้อมูลการจัดส่ง
                 </Header>
-                { isLoading ? <Loader wrapped /> : 
+                { isCartLoading || isAddressLoading ? <Loader wrapped /> : 
                 <Grid className="shipping-content">
                     <Grid.Row>
                         <Grid.Column width={8} className="form-wrapper">
-                            <ShippingForm />
+                            <ShippingForm onChange={this.handleChange} />
                         </Grid.Column>
                         <Grid.Column width={8} className="table-wrapper">
                             <CartSummary organizations={userCart.organizationList} showButton={false} />
@@ -79,7 +110,8 @@ class Shipping extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        cart: state.cart
+        cart: state.cart,
+        user: state.user
     }
 )
 
@@ -87,6 +119,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchCart: (customerId) => {
             dispatch(fetchCart(customerId))
+        },
+        fetchUserAddress: (customerId) => {
+            dispatch(fetchUserAddress(customerId))
+        },
+        updateUserAddress: (customerId, address) => {
+            dispatch(updateUserAddress(customerId, address))
         }
     }
 }
