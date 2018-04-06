@@ -70,7 +70,7 @@ def customer_orders(request, pk):
         serializer = OrderSerializer(order, many=True)
         data = {}
         data['data'] = serializer.data
-        data['userId_update'] = int(pk)
+        data['userId'] = int(pk)
         return JsonResponse(data, safe=False)
 
 
@@ -176,7 +176,7 @@ def customer_address(request, pk):
     if request.method == 'GET':
         serializer = CustomerSerializer(customer)
         data = serializer.data
-        data['name_update'] = data['firstname'] + ' ' + data['lastname']
+        data['name'] = data['firstname'] + ' ' + data['lastname']
         return JsonResponse(data, safe=False)
 
     elif request.method == 'PUT':
@@ -200,7 +200,7 @@ def customer_address(request, pk):
 
         serializerPutCustomer = CustomerSerializer(customer)
         data = serializerPutCustomer.data
-        data['name_update'] = data['firstname'] + ' ' + data['lastname']
+        data['name'] = data['firstname'] + ' ' + data['lastname']
 
         return JsonResponse(data, status=201)
 

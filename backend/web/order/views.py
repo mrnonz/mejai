@@ -29,7 +29,7 @@ def order_detail(request, pk):
         buyer = Customer.objects.get(pk=buyer)
         serializerBuyer = CustomerSerializer(buyer)
         buyer_data = serializerBuyer.data
-        address_update = {
+        address = {
             "firstname": buyer_data['first_name'],
             "lastname": buyer_data['last_name'],
             "tel": buyer_data['tel'],
@@ -37,11 +37,11 @@ def order_detail(request, pk):
         }
 
         data['item'] = serializerProduct.data
-        data['userId_update'] = data['buyerId']
+        data['userId'] = data['buyerId']
         data['organizationId'] = data['item']['organization']['organizationId']
-        data['slip_update'] = data['slip']
-        data['sellerId_update'] = data['item']['owner_id']
-        data['address_update'] = address_update
+        data['slip'] = data['slip']
+        data['sellerId'] = data['item']['owner_id']
+        data['address'] = address
         # clean data
         data.pop('buyerId')
         data.pop('slip')
