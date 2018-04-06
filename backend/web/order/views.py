@@ -88,6 +88,8 @@ def order_slip(request, pk):
         blob.make_public()
         print('Public url is {}.'.format(blob.public_url))
 
+        fs.delete(slip.name)
+
         # order.save()
         # serializerOrder = OrderSerializer(order)
 
