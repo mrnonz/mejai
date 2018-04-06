@@ -37,7 +37,7 @@ class Cart extends Component {
 
     handleCartItemDelte(item) {
         const { itemId } = item
-        const { url: { query: { id: customerId } } } = this.props
+        const customerId = cookie.load('userId')
         this.props.deleteCartItem(customerId, itemId)
     }
 

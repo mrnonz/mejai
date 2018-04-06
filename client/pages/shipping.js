@@ -10,6 +10,7 @@ import CartSummary from 'molecules/CartSummary'
 import ShippingForm from 'molecules/ShippingForm'
 import ItemTable from 'molecules/ItemTable'
 import CartModel from 'stores/models/CartModel'
+import UserAddress from 'stores/models/UserAddress'
 import { fetchCart } from 'stores/actions/cart'
 import { fetchUserAddress, updateUserAddress } from 'stores/actions/user'
 
@@ -61,7 +62,7 @@ class Shipping extends Component {
     }
 
     render() {
-        const { showConfirmModal } = this.state
+    const { showConfirmModal } = this.state
         const { cart: { 
             data: cart, 
             isLoading: isCartLoading 
@@ -72,6 +73,7 @@ class Shipping extends Component {
             isUpdating: isAddressUpdating
         } } = this.props
         const userCart = new CartModel(cart)
+        const userAddress = new UserAddress(address)
         return (
             <Container className="shipping-page">
                 <Modal open={showConfirmModal}>
@@ -91,7 +93,7 @@ class Shipping extends Component {
                 <Grid className="shipping-content">
                     <Grid.Row>
                         <Grid.Column width={8} className="form-wrapper">
-                            <ShippingForm onChange={this.handleChange} />
+                            <ShippingForm onChange={this.handleChange} address={userAddress} />
                         </Grid.Column>
                         <Grid.Column width={8} className="table-wrapper">
                             <CartSummary organizations={userCart.organizationList} showButton={false} />
