@@ -31,6 +31,8 @@ environments:
     value: root
   - name: ALLOWED_HOSTS
     value: 35.187.233.55
+  - name: GOOGLE_APPLICATION_CREDENTIALS
+    value: /code/gcs-credential.json
 
 healthCheck: {}
 
