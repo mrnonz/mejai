@@ -36,7 +36,7 @@ class User extends Component {
         const SidebarItems = [
             {
                 value: 'history',
-                title: 'ประวัติการซื้อ',
+                title: 'รายการสั่งซื้อ',
                 icon: 'history'
             },
             {
@@ -55,7 +55,7 @@ class User extends Component {
                 return (
                     <Container>
                         <Header as='h2' dividing color="orange" >
-                            ประวัติการซื้อของคุณ
+                            รายการสั่งซื้อของคุณ
                         </Header>
                         <OrderTable />
                     </Container>
