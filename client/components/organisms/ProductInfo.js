@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Menu, Segment, Header, Image, Grid } from 'semantic-ui-react'
-import organization from 'stores/mock/organization.json'
 
 class ProductInfo extends Component {
     constructor(props) {
@@ -18,6 +17,7 @@ class ProductInfo extends Component {
 
     render() {
         const { menuActive } = this.state
+        const { product, product: { organization } } = this.props
         return (
             <div className="product-info">
                 <Menu>
@@ -39,7 +39,7 @@ class ProductInfo extends Component {
                 { menuActive === 'helping' && (
                     <Grid container>
                         <Grid.Row>
-                            <Header as="h3">1 Help 1 Life : น้ำสะอาดให้น้องดื่ม</Header>
+                            <Header as="h3">{organization.name}</Header>
                         </Grid.Row>
                         <Grid.Row centered columns={2}>
                             <Grid.Column>
@@ -48,11 +48,16 @@ class ProductInfo extends Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Segment className="helping-content">
-                                {organization.data[0].info.map((paragraph) => (
-                                    <p>{paragraph}</p>
-                                ))}
+                                {organization.info}
                             </Segment>    
                         </Grid.Row>
+                    </Grid>
+                )}
+                { menuActive === 'info' && (
+                    <Grid container>
+                        <Segment className="info-content">
+                            {product.info}
+                        </Segment>    
                     </Grid>
                 )}
             </div>
