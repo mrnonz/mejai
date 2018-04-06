@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 04, 2018 at 05:35 PM
+-- Generation Time: Apr 06, 2018 at 04:24 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -516,7 +516,9 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (77, 'organization', '0005_organization_info', '2018-03-20 12:23:35.977818'),
 (78, 'product_attribute', '0002_productattribute_name', '2018-03-20 16:54:40.126964'),
 (79, 'organization_promptpay', '0001_initial', '2018-04-03 10:28:40.377673'),
-(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602');
+(80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602'),
+(81, 'order', '0007_auto_20180404_2215', '2018-04-06 15:43:22.929129'),
+(82, 'product_attribute', '0003_auto_20180406_2322', '2018-04-06 16:23:03.406732');
 
 -- --------------------------------------------------------
 
@@ -561,7 +563,9 @@ CREATE TABLE `Order` (
 
 INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`) VALUES
 (1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg'),
-(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, '/slip-url.jpg');
+(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, '/slip-url.jpg'),
+(3, '2018-04-06 16:09:44', 10, '555.55', 1, 7, 1, ''),
+(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '');
 
 -- --------------------------------------------------------
 
@@ -691,9 +695,7 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 
 CREATE TABLE `Product_Attribute` (
   `id` int(11) NOT NULL,
-  `color` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `size` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `price` decimal(10,2) NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `quantity` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
@@ -703,16 +705,16 @@ CREATE TABLE `Product_Attribute` (
 -- Dumping data for table `Product_Attribute`
 --
 
-INSERT INTO `Product_Attribute` (`id`, `color`, `size`, `price`, `quantity`, `product_id`, `name`) VALUES
-(1, 'ดำ', 'S', '199.99', 5, 1, 'ขนาด'),
-(2, 'ดำ', 'M', '999.99', 10, 1, 'ขนาด'),
-(3, 'ดำ', 'S', '99.99', 23, 2, 'ขนาด'),
-(4, 'ดำ', 'S', '420.00', 3, 6, 'ขนาด'),
-(5, 'แดง', 'M', '420.00', 15, 6, 'ขนาด'),
-(6, 'เขียว', 'L', '420.00', 5, 6, 'ขนาด'),
-(7, 'ดำ', 'S', '420.00', 3, 7, 'ขนาด'),
-(8, 'แดง', 'M', '420.00', 15, 7, 'ขนาด'),
-(9, 'เขียว', 'L', '420.00', 5, 7, 'ขนาด');
+INSERT INTO `Product_Attribute` (`id`, `value`, `quantity`, `product_id`, `name`) VALUES
+(1, 'S', 5, 1, 'ขนาด'),
+(2, 'M', 10, 1, 'ขนาด'),
+(3, 'S', 23, 2, 'ขนาด'),
+(4, 'S', 3, 6, 'ขนาด'),
+(5, 'M', 15, 6, 'ขนาด'),
+(6, 'L', 5, 6, 'ขนาด'),
+(7, 'S', 3, 7, 'ขนาด'),
+(8, 'M', 15, 7, 'ขนาด'),
+(9, 'L', 5, 7, 'ขนาด');
 
 -- --------------------------------------------------------
 
@@ -1075,13 +1077,13 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `Order`
 --
 ALTER TABLE `Order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `Organization`
