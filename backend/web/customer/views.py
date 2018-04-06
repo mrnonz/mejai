@@ -59,6 +59,27 @@ def customer_detail(request, pk):
 
 
 @csrf_exempt
+def customer_create(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        email = data['email']
+        firstname = data['firstname']
+        lastname = data['lastname']
+        password = data['password']
+
+        customer = Customer(email=email,
+                            first_name=firstname,
+                            last_name=lastname,
+                            password=password)
+        customer.save()
+
+        serializerCustomer = CustomerSerializer(customer)
+
+        return JsonResponse(serializerCustomer.data, status=201)
+
+
+@csrf_exempt
 def customer_orders(request, pk):
     try:
         customer = Customer.objects.get(pk=pk)
