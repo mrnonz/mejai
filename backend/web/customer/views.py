@@ -197,5 +197,7 @@ def customer_address(request, pk):
         customer = Customer.objects.get(pk=pk)
 
         serializerPutCustomer = CustomerSerializer(customer)
+        data = serializerPutCustomer.data
+        data['name_update'] = data['firstname'] + ' ' + data['lastname']
 
-        return JsonResponse(serializerPutCustomer.data, status=201)
+        return JsonResponse(data, status=201)
