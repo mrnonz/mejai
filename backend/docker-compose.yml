@@ -26,6 +26,8 @@ services:
       MYSQL_DATABASE: mejai
       MYSQL_HOST: db
       ALLOWED_HOSTS: 127.0.0.1
+      GOOGLE_APPLICATION_CREDENTIALS: /code/gcs-credential.json
+
     depends_on:
       - db
   phpmyadmin:
