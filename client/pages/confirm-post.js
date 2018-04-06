@@ -20,8 +20,13 @@ class ConfirmPost extends Component {
     }
 
     handleOnSubmit() {
+        const { product: { data: product } } = this.props
         Router.push({
-            pathname: '/'
+            pathname: '/product',
+            query: {
+                type: product.type ? 'auction' : 'buy',
+                id: product.productId
+            }
         })
     }
 
