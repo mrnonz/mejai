@@ -173,7 +173,9 @@ def customer_address(request, pk):
 
     if request.method == 'GET':
         serializer = CustomerSerializer(customer)
-        return JsonResponse(serializer.data, safe=False)
+        data = serializer.data
+        data['name_update'] = data['firstname'] + ' ' + data['lastname']
+        return JsonResponse(data, safe=False)
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
