@@ -9,6 +9,10 @@ from organization_promptpay.models import OrganizationPromptpay
 from organization_promptpay.serializers import OrganizationPromptpaySerializer
 from bank.models import Bank
 from bank.serializers import BankSerializer
+from product.models import Product
+from product.serializers import ProductSerializer
+from order.models import Order
+from order.serializers import OrderSerializer
 
 
 @csrf_exempt
@@ -80,5 +84,26 @@ def organization_bank(request, pk):
         data['bankAccount'] = serializerOrganizationBank.data
         data['bank'] = serializerBank.data
         data['promptPay'] = serializerOrganizationPromptpay.data
+
+        return JsonResponse(data)
+
+
+@csrf_exempt
+def organization_sell_order(request, pk):
+    try:
+        organization = Organization.objects.get(pk=pk)
+    except Organization.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        product = Product.objects.filter(
+            organization_id=pk).values_list('id', flat=True)
+        # serializerProduct = ProductSerializer(product, many=True)
+        order = Order.objects.filter(product_id__in=product)
+        serializerOrder = OrderSerializer(order, many=True)
+
+        data = {}
+        data['data'] = serializerOrder.data
+        data['organizationId'] = pk
 
         return JsonResponse(data)
