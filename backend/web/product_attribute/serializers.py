@@ -10,8 +10,6 @@ class ProductAttributeSerializer(serializers.ModelSerializer):
         fields = (
             'productId',
             'name',
-            'size',
-            'price',
-            'quantity',
-            'color'
+            'value',
+            'quantity'
         )
