@@ -213,7 +213,14 @@ def customer_sell_order(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
-        product = Product.objects.filter(owner_id=pk)
-        serializerProduct = ProductSerializer(product, many=True)
-        # order = Order
-        return JsonResponse(serializerProduct.data, safe=False)
+        product = Product.objects.filter(
+            owner_id=pk).values_list('id', flat=True)
+        # serializerProduct = ProductSerializer(product, many=True)
+        order = Order.objects.filter(product_id__in=product)
+        serializerOrder = OrderSerializer(order, many=True)
+
+        data = {}
+        data['data'] = serializerOrder.data
+        data['userId'] = pk
+
+        return JsonResponse(data)
