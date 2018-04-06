@@ -7,6 +7,8 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
+from google.cloud import storage
+from django.core.files.storage import FileSystemStorage
 
 
 @csrf_exempt
@@ -63,3 +65,30 @@ def order_status(request, pk):
         serializerOrder = OrderSerializer(order)
 
         return JsonResponse(serializerOrder.data)
+
+
+@csrf_exempt
+def order_slip(request, pk):
+    try:
+        order = Order.objects.get(pk=pk)
+    except Order.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'POST':
+        slip = request.FILES['slip']
+        fs = FileSystemStorage()
+        filename = fs.save(slip.name, slip)
+
+        storage_client = storage.Client()
+        bucket_name = 'mejai'
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob('bank/transfer/slip/a.jpg')
+
+        blob.upload_from_filename(filename=filename)
+        blob.make_public()
+        print('Public url is {}.'.format(blob.public_url))
+
+        # order.save()
+        # serializerOrder = OrderSerializer(order)
+
+        # return JsonResponse(serializerOrder.data)

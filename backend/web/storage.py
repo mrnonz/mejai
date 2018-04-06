@@ -1,3 +1,5 @@
+# For more information https://googlecloudplatform.github.io/google-cloud-python/latest/storage/blobs.html
+
 # Imports the Google Cloud client library
 from google.cloud import storage
 
