@@ -4,7 +4,6 @@ import cookie from 'react-cookie'
 import { makeStore } from '../stores'
 import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
-import withCookie from 'hocs/withCookie'
 import Loader from 'molecules/Loader'
 import ProductDetail from 'organisms/ProductDetail'
 import ProductInfo from 'organisms/ProductInfo'
@@ -44,9 +43,9 @@ class Product extends Component {
         })
     }
 
-    returnToHome() {
+    redirectToPage(path) {
         Router.push({
-            pathname: '/'
+            pathname: path
         })
     }
 
@@ -60,7 +59,8 @@ class Product extends Component {
                     <Modal.Header>เพิ่มสินค้าในตะกร้าสำเร็จ</Modal.Header>
                     <Modal.Content>
                         <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.closeModal()} />
-                        <Button content="กลับสู่หน้าหลัก" onClick={() => this.returnToHome()} />
+                        <Button color="yellow" icon='cart' labelPosition='right' content="ตะกร้าสินค้า" onClick={() => this.redirectToPage('/cart')} />
+                        <Button content="กลับสู่หน้าหลัก" onClick={() => this.redirectToPage('/')} />
                     </Modal.Content>
                 </Modal>
                 { isLoading || isUpdating ? <Loader wrapped />
@@ -72,7 +72,7 @@ class Product extends Component {
                         isUpdating={isUpdating}
                         onAdd={this.handleAddToCart.bind(this)}
                     />,
-                    <ProductInfo />
+                    <ProductInfo product={product} />
                 ]
                 }
             </Container>
