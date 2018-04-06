@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 06, 2018 at 04:24 PM
+-- Generation Time: Apr 06, 2018 at 07:22 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -563,7 +563,7 @@ CREATE TABLE `Order` (
 
 INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`) VALUES
 (1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg'),
-(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, '/slip-url.jpg'),
+(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png'),
 (3, '2018-04-06 16:09:44', 10, '555.55', 1, 7, 1, ''),
 (4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '');
 
