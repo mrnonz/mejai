@@ -12,4 +12,6 @@ urlpatterns = [
         views.customer_cart_buy),
     url(r'^customer/(?P<pk>[0-9]+)/address/$',
         views.customer_address),
+    url(r'^customer/(?P<pk>[0-9]+)/sell_order/$',
+        views.customer_sell_order),
 ]

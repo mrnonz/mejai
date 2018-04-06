@@ -11,7 +11,9 @@ from cart.serializers import FullCartProductSerializer
 from cart_product.models import CartProduct
 from cart_product.serializers import CartProductSerializer
 from product.models import Product
-
+from product.serializers import ProductSerializer
+from order.models import Order
+from order.serializers import OrderSerializer
 
 from datetime import datetime
 
@@ -201,3 +203,17 @@ def customer_address(request, pk):
         data['name_update'] = data['firstname'] + ' ' + data['lastname']
 
         return JsonResponse(data, status=201)
+
+
+@csrf_exempt
+def customer_sell_order(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        product = Product.objects.filter(owner_id=pk)
+        serializerProduct = ProductSerializer(product, many=True)
+        # order = Order
+        return JsonResponse(serializerProduct.data, safe=False)
