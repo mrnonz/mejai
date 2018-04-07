@@ -100,3 +100,25 @@ def order_slip(request, pk):
         serializerOrder = OrderSerializer(order)
 
         return JsonResponse(serializerOrder.data)
+
+
+@csrf_exempt
+def order_create(request):
+
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        userId = data['userId']
+        cartId = data['cartId']
+        items = data['items']
+
+        for item in items:
+            productId = item['product']['id']
+            attributeName = item['product']['attribute']['name']
+            attributeValue = item['product']['attribute']['value']
+            price = item['price']
+            quantity = item['quantity']
+
+        # order.save()
+        # serializerOrder = OrderSerializer(order)
+
+        # return JsonResponse(serializerOrder.data)
