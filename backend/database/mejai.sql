@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 06, 2018 at 07:22 PM
+-- Generation Time: Apr 07, 2018 at 04:47 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -518,7 +518,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (79, 'organization_promptpay', '0001_initial', '2018-04-03 10:28:40.377673'),
 (80, 'order', '0006_order_slip', '2018-04-03 16:54:14.565602'),
 (81, 'order', '0007_auto_20180404_2215', '2018-04-06 15:43:22.929129'),
-(82, 'product_attribute', '0003_auto_20180406_2322', '2018-04-06 16:23:03.406732');
+(82, 'product_attribute', '0003_auto_20180406_2322', '2018-04-06 16:23:03.406732'),
+(83, 'order', '0008_auto_20180407_2332', '2018-04-07 16:33:09.393940');
 
 -- --------------------------------------------------------
 
@@ -554,18 +555,31 @@ CREATE TABLE `Order` (
   `status` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
-  `slip` varchar(1023) NOT NULL
+  `slip` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `attributename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `attributevalue` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Order`
 --
 
-INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`) VALUES
-(1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg'),
-(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png'),
-(3, '2018-04-06 16:09:44', 10, '555.55', 1, 7, 1, ''),
-(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '');
+INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `attributename`, `attributevalue`) VALUES
+(1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg', '', ''),
+(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png', '', ''),
+(3, '2018-04-06 16:09:44', 10, '555.55', 1, 7, 1, '', '', ''),
+(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '', '', ''),
+(6, '2018-04-07 16:39:57', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(8, '2018-04-07 16:40:23', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(9, '2018-04-07 16:40:23', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S'),
+(10, '2018-04-07 16:41:46', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(11, '2018-04-07 16:41:46', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S'),
+(12, '2018-04-07 16:44:06', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(13, '2018-04-07 16:44:06', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S'),
+(14, '2018-04-07 16:45:06', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(15, '2018-04-07 16:45:06', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S'),
+(16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M'),
+(17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S');
 
 -- --------------------------------------------------------
 
@@ -1077,13 +1091,13 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `Order`
 --
 ALTER TABLE `Order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `Organization`
