@@ -9,6 +9,7 @@ from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
+from datetime import datetime
 import uuid
 import os
 
@@ -111,6 +112,9 @@ def order_create(request):
         cartId = data['cartId']
         items = data['items']
 
+        result = {}
+        result['data'] = []
+
         for item in items:
             productId = item['product']['id']
             attributeName = item['product']['attribute']['name']
@@ -118,7 +122,24 @@ def order_create(request):
             price = item['price']
             quantity = item['quantity']
 
-        # order.save()
-        # serializerOrder = OrderSerializer(order)
+            order = Order(quantity=quantity,
+                          price=price,
+                          status=1,
+                          product_id=productId,
+                          buyer_id=userId,
+                          attributename=attributeName,
+                          attributevalue=attributeValue,
+                          time=datetime.now()
+                          )
 
-        # return JsonResponse(serializerOrder.data)
+            order.save()
+            serializerOrder = OrderSerializer(order)
+            appendData = serializerOrder.data
+            appendData['item'] = item['product']
+
+            productOrganization = Product.objects.get(id=productId)
+            appendData['organizationId'] = productOrganization.organization_id
+
+            result['data'].append(appendData)
+
+    return JsonResponse(result)
