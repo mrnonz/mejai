@@ -34,11 +34,16 @@ def order_detail(request, pk):
         buyer = Customer.objects.get(pk=buyer)
         serializerBuyer = CustomerSerializer(buyer)
         buyer_data = serializerBuyer.data
+        firstname, lastname, district, subDistrict, province, postcode, tel = buyer_data['address'].split(
+            "\\")
         address = {
-            "firstname": buyer_data['first_name'],
-            "lastname": buyer_data['last_name'],
-            "tel": buyer_data['tel'],
-            "address": buyer_data['address']
+            "firstname": firstname,
+            "lastname": lastname,
+            "tel": tel,
+            "district": district,
+            "subDistrict": subDistrict,
+            "province": province,
+            "postcode": postcode
         }
 
         data['item'] = serializerProduct.data
