@@ -79,13 +79,13 @@ export const updateUserAddress = (id, address) => {
         dispatch(updatingUserAddress)
         const updateUrl = `${url}/customer/${id}/address/`
         return Axios({
-            method: 'POST',
+            method: 'PUT',
             url: updateUrl,
             data: address
         })
         .then((response) => {
             dispatch(updatingUserAddressSuccess())
-            dispatch(fetchUserAddress(id))
+            return dispatch(fetchUserAddress(id))
         })
         .catch((error) => {
             throw(error);
