@@ -4,9 +4,19 @@ import { updateUserAddress } from 'stores/actions/user'
 
 const url = process.env.BACKEND_URL
 
+export const fetchingOrders = () => ({
+    type: 'FECTHING_ORDERS',
+    isLoading: true
+})
+
 export const creatingOrder = () => ({
     type: 'CREATING_ORDER',
     isCreating: true
+})
+
+export const fetchOrdersSuccess = (orders) => ({
+    type: 'FETCH_ORDERS_SUCCESS',
+    orders
 })
 
 export const createOrderSuccess = (createdOrder) => ({
@@ -15,6 +25,20 @@ export const createOrderSuccess = (createdOrder) => ({
     isCreated: true,
     createdOrder
 })
+
+export const fetchOrders = (customerId) => {
+    return (dispatch) => {
+        dispatch(fetchingOrders())
+        const fetchUrl = `${url}/customer/${customerId}/orders/`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchOrdersSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
 
 export const createOrder = (id, cart, address) => {
     return (dispatch) => {
