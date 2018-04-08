@@ -120,6 +120,17 @@ def order_create(request):
         result = {}
         result['data'] = []
 
+        firstname = data['address']['firstname']
+        lastname = data['address']['lastname']
+        tel = data['address']['tel']
+        district = data['address']['district']
+        subDistrict = data['address']['subDistrict']
+        province = data['address']['province']
+        postcode = data['address']['postcode']
+
+        newAddress = firstname + '\\' + lastname + '\\' + district + '\\' + \
+            subDistrict + '\\' + province + '\\' + postcode + '\\' + tel
+
         for item in items:
             productId = item['product']['id']
             attributeName = item['product']['attribute']['name']
@@ -134,8 +145,8 @@ def order_create(request):
                           buyer_id=userId,
                           attributename=attributeName,
                           attributevalue=attributeValue,
-                          time=datetime.now()
-                          )
+                          time=datetime.now(),
+                          address=newAddress)
 
             order.save()
             serializerOrder = OrderSerializer(order)
