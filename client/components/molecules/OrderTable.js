@@ -15,7 +15,7 @@ const OrderTable = ({ orders }) => (
     <Table basic className="order-table">
         <Table.Header>
             <Table.Row>
-                <Table.HeaderCell>ประวัติ 2 รายการ</Table.HeaderCell>
+                <Table.HeaderCell>ประวัติ { orders.length } รายการ</Table.HeaderCell>
                 <Table.HeaderCell>สถานะ</Table.HeaderCell>
                 <Table.HeaderCell>วันที่</Table.HeaderCell>
             </Table.Row>
