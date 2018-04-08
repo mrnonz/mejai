@@ -9,6 +9,11 @@ export const fetchingOrders = () => ({
     isLoading: true
 })
 
+export const fetchingOrder = () => ({
+    type: 'FECTHING_ORDER',
+    isLoading: true
+})
+
 export const creatingOrder = () => ({
     type: 'CREATING_ORDER',
     isCreating: true
@@ -16,7 +21,14 @@ export const creatingOrder = () => ({
 
 export const fetchOrdersSuccess = (orders) => ({
     type: 'FETCH_ORDERS_SUCCESS',
+    isLoading: false,
     orders
+})
+
+export const fetchOrderSuccess = (order) => ({
+    type: 'FETCH_ORDER_SUCCESS',
+    isLoading: false,
+    order
 })
 
 export const createOrderSuccess = (createdOrder) => ({
@@ -39,6 +51,20 @@ export const fetchOrders = (customerId) => {
             })
     }
 }
+
+export const fetchOrder = (orderId) => (
+    (dispatch) => {
+        dispatch(fetchingOrder())
+        const fetchUrl = `${url}/order/${orderId}`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchOrderSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+)
 
 export const createOrder = (id, cart, address) => {
     return (dispatch) => {
