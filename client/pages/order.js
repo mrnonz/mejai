@@ -6,6 +6,7 @@ import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
 import OrderItemCard from 'molecules/OrderItemCard'
 import OrderInfo from 'molecules/OrderInfo'
+import OrderButton from 'molecules/OrderButton'
 import OrderModel from 'stores/models/Order'
 import HelpingTable from 'molecules/HelpingTable'
 import { fetchOrder } from 'stores/actions/order'
@@ -44,7 +45,7 @@ class Order extends Component {
                         </Grid.Column>
                     </Grid.Row>
                     <div className="button-group">
-                        <Button color="green" size="large">ได้รับของแล้ว</Button>
+                        <OrderButton orderStatus={ order.OrderStatusId } />
                         <Button color="teal" size="large">ย้อนกลับ</Button>
                     </div>
                 </Grid>
