@@ -4,11 +4,14 @@ import Svg from 'react-inlinesvg'
 import { Header, Menu, Container, Button } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
+import cookie from 'react-cookie'
 import withTopbar from 'hocs/withTopbar'
+import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
 import ProductList from 'molecules/ProductList'
 import IssueForm from 'molecules/IssueForm'
 import products from 'stores/mock/auction_products.json'
+import { fetchOrders } from 'stores/actions/order'
 
 class User extends Component {
     constructor(props) {
@@ -17,6 +20,11 @@ class User extends Component {
         this.state = {
             activeBar: 'history'
         }
+    }
+
+    componentDidMount() {
+        const userId = cookie.load('userId')
+        this.props.fetchOrders(userId)
     }
 
     handleBarClick(value) {
@@ -33,6 +41,14 @@ class User extends Component {
 
     render() {
         const { activeBar } = this.state
+        const {
+            orders: {
+                isLoading: isOrderLoading,
+                data: {
+                    data: orders
+                }
+            }
+        } = this.props
         const SidebarItems = [
             {
                 value: 'history',
@@ -57,7 +73,7 @@ class User extends Component {
                         <Header as='h2' dividing color="orange" >
                             รายการสั่งซื้อของคุณ
                         </Header>
-                        <OrderTable />
+                        { isOrderLoading ? <Loader wrapped /> : <OrderTable orders={orders} /> }
                     </Container>
                 )
             } else if (activeBar === 'user-item') {
@@ -103,4 +119,17 @@ class User extends Component {
     }
 }
 
-export default withRedux(makeStore)(withTopbar(User))
+const mapStateToProps = (state) => ({
+        orders: state.orders
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOrders: (userId) => {
+            dispatch(fetchOrders(userId))
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(User))

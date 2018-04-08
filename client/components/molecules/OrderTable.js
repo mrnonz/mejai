@@ -1,14 +1,17 @@
 import React from 'react'
 import Router from 'next/router'
 import { Table, Header } from 'semantic-ui-react'
+import Order from 'stores/models/Order'
 
-const handleRowClick = () => {
+const handleRowClick = (orderId) => {
     Router.push({
-        pathname: '/order'
+        pathname: '/order',
+        query: {
+            id: orderId
+        }
     })
 }
-
-const OrderTable = (props) => (
+const OrderTable = ({ orders }) => (
     <Table basic className="order-table">
         <Table.Header>
             <Table.Row>
@@ -18,39 +21,25 @@ const OrderTable = (props) => (
             </Table.Row>
         </Table.Header>
         <Table.Body>
-            <Table.Row onClick={() => handleRowClick()}>
-                <Table.Cell>
-                    <Header color="blue" as='h4'>หมายเลข #1458</Header>
-                </Table.Cell>
-                <Table.Cell>
-                    <p className="wait">รอการยืนยัน</p>
-                </Table.Cell>
-                <Table.Cell>
-                    <p>3 มกราคม 2018 12.00 น.</p>
-                </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-                <Table.Cell>
-                    <Header color="blue" as='h4'>หมายเลข #1351</Header>
-                </Table.Cell>
-                <Table.Cell>
-                    <p className="success">สำเร็จ</p>
-                </Table.Cell>
-                <Table.Cell>
-                    <p>3 มกราคม 2018 12.00 น.</p>
-                </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-                <Table.Cell>
-                    <Header color="blue" as='h4'>หมายเลข #1051</Header>
-                </Table.Cell>
-                <Table.Cell>
-                    <p className="success">สำเร็จ</p>
-                </Table.Cell>
-                <Table.Cell>
-                    <p>3 มกราคม 2018 12.00 น.</p>
-                </Table.Cell>
-            </Table.Row>
+            {
+                orders.map((o) => {
+                    const order = new Order(o)
+                    return (
+                    <Table.Row onClick={() => handleRowClick(order.OrderId)}>
+                        <Table.Cell>
+                            <Header color="blue" as='h4'>หมายเลข #{ order.OrderId }</Header>
+                        </Table.Cell>
+                        {/* TODO Change class according to status */}
+                        <Table.Cell>
+                            <p className="wait">{ order.OrderStatus }</p>
+                        </Table.Cell>
+                        <Table.Cell>
+                            <p>{ order.CreatedAt }</p>
+                        </Table.Cell>
+                    </Table.Row>
+                    )
+                })
+            }
         </Table.Body>
     </Table>
 )
