@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Table } from 'semantic-ui-react'
 
-const OrderInfo = (props) => (
+const OrderInfo = ({ order }) => (
     <Table basic className="order-info-table">
         <Table.Header>
             <Table.Row>
@@ -14,7 +14,7 @@ const OrderInfo = (props) => (
                    หมายเลขการสั่งซื้อ :
                 </Table.Cell>
                 <Table.Cell className="cell-item">
-                    1458
+                    { order.OrderId }
                 </Table.Cell>
             </Table.Row>
             <Table.Row>
@@ -22,7 +22,7 @@ const OrderInfo = (props) => (
                     วันที่ :
                 </Table.Cell>
                 <Table.Cell className="cell-item">
-                    3 มกราคม 2018 12.00 น.
+                    { order.CreatedAt }
                 </Table.Cell>
             </Table.Row>
             <Table.Row>
@@ -30,7 +30,7 @@ const OrderInfo = (props) => (
                    สถานะ :
                 </Table.Cell>
                 <Table.Cell className="cell-item">
-                    รอการยืนยัน
+                    { order.OrderStatus }
                 </Table.Cell>
             </Table.Row>
         </Table.Body>

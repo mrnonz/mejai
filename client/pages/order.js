@@ -3,36 +3,44 @@ import { Container, Header, Grid, Button } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
-import ItemTable from 'molecules/ItemTable'
+import Loader from 'molecules/Loader'
+import OrderItemCard from 'molecules/OrderItemCard'
 import OrderInfo from 'molecules/OrderInfo'
-import CartModel from 'stores/models/CartModel'
-import cartMock from 'stores/mock/cart_mock.json'
-import HelpingTable from 'molecules/HelpingTable';
+import OrderModel from 'stores/models/Order'
+import HelpingTable from 'molecules/HelpingTable'
+import { fetchOrder } from 'stores/actions/order'
 
 class Order extends Component {
     constructor(props) {
         super(props)
     }
 
+    componentDidMount() {
+        const { url: { query: { id: orderId } } } = this.props
+        this.props.fetchOrder(orderId)
+    }
+
     render() {
-        const userCart = new CartModel(cartMock)
-        return (
+        const { order: { isLoading, data, data: { address = '' } } } = this.props
+        const order = new OrderModel(data)
+        // TODO Add Address Information
+        return isLoading ? <Loader wrapped /> :
             <Container className="order-page">
                 <Header as='h2' dividing color="orange" >
-                    รายการสั่งซื้อ <span> #1458</span>
+                    รายการสั่งซื้อ <span> #{ order.OrderId }</span>
                 </Header>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={11}>
-                            <ItemTable items={userCart.items}/>
+                            <OrderItemCard item={ order.Item } />
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <OrderInfo />
+                            <OrderInfo order={ order } />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <HelpingTable />
+                            <HelpingTable organization={ order.Organization } />
                         </Grid.Column>
                     </Grid.Row>
                     <div className="button-group">
@@ -41,8 +49,20 @@ class Order extends Component {
                     </div>
                 </Grid>
             </Container>
-        )
     }
 }
 
-export default withRedux(makeStore)(withTopbar(Order))
+const mapStateToProps = (state) => ({
+        order: state.order
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOrder: (orderId) => {
+            dispatch(fetchOrder(orderId))
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Order))
