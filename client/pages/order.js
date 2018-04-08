@@ -24,7 +24,6 @@ class Order extends Component {
     render() {
         const { order: { isLoading, data, data: { address = '' } } } = this.props
         const { url: { query: { type } } } = this.props
-        console.log(type)
         const order = new OrderModel(data)
         // TODO Add Address Information
         return isLoading ? <Loader wrapped /> :
