@@ -12,6 +12,7 @@ class Order(models.Model):
     status = models.IntegerField(default=0)
     attributename = models.CharField(max_length=255, default='')
     attributevalue = models.CharField(max_length=255, default='')
+    address = models.CharField(max_length=1023, blank=True, null=True)
     slip = models.CharField(max_length=1023, default='')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='order_product', default='')
