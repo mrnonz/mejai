@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Header, Grid, Button, Modal } from 'semantic-ui-react'
+import { Container, Header, Grid, Button, Modal, Dimmer } from 'semantic-ui-react'
 import Router from 'next/router'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
@@ -12,7 +12,8 @@ import ItemTable from 'molecules/ItemTable'
 import CartModel from 'stores/models/CartModel'
 import UserAddress from 'stores/models/UserAddress'
 import { fetchCart } from 'stores/actions/cart'
-import { fetchUserAddress, updateUserAddress } from 'stores/actions/user'
+import { fetchUserAddress } from 'stores/actions/user'
+import { createOrder } from 'stores/actions/order'
 
 class Shipping extends Component {
     constructor(props) {
@@ -25,6 +26,14 @@ class Shipping extends Component {
             subDistrict: '',
             province: '',
             postcode: ''
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.order.isCreated) {
+            Router.push({
+                pathname: '/user'
+            })
         }
     }
 
@@ -54,29 +63,37 @@ class Shipping extends Component {
 
     handleConfirmModal() {
         const { name, tel, district, subDistrict, province, postcode } = this.state
+        const { cart: { data: cart } } = this.props
+        // TODO Firstname and lastname to name
         const address = {
-            name, tel, district, subDistrict, province, postcode
+            firstname: name, lastname: name, tel, district, subDistrict, province, postcode
         }
         const customerId = cookie.load('userId')
-        // TODO Create Order with cart
+        this.props.createOrder(customerId, cart, address)
     }
 
     render() {
     const { showConfirmModal } = this.state
-        const { cart: { 
-            data: cart, 
-            isLoading: isCartLoading 
-        }, 
-        user: {
-            address: address,
-            isLoading: isAddressLoading,
-            isUpdating: isAddressUpdating
-        } } = this.props
+        const { 
+            cart: { 
+                data: cart, 
+                isLoading: isCartLoading 
+            }, 
+            user: {
+                address: address,
+                isLoading: isAddressLoading,
+                isUpdating: isAddressUpdating
+            },
+            order: {
+                isCreating: isOrderCreating
+            }
+        } = this.props
         const userCart = new CartModel(cart)
         const userAddress = new UserAddress(address)
         return (
             <Container className="shipping-page">
                 <Modal open={showConfirmModal}>
+                { isOrderCreating && <Dimmer active> <Loader /> </Dimmer> }
                     <Modal.Header>ยืนยันคำสั่งซื้อของคุณ</Modal.Header>
                     <Modal.Content>
                         <ItemTable 
@@ -113,7 +130,8 @@ class Shipping extends Component {
 
 const mapStateToProps = (state) => ({
         cart: state.cart,
-        user: state.user
+        user: state.user,
+        order: state.order
     }
 )
 
@@ -125,8 +143,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchUserAddress: (customerId) => {
             dispatch(fetchUserAddress(customerId))
         },
-        updateUserAddress: (customerId, address) => {
-            dispatch(updateUserAddress(customerId, address))
+        createOrder: (customerId, cart, address) => {
+            dispatch(createOrder(customerId, cart, address))
         }
     }
 }
