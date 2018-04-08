@@ -6,12 +6,15 @@ import products from './reducers/products'
 import organization from './reducers/organization'
 import cart from './reducers/cart'
 import user from './reducers/user'
+import order from './reducers/order'
+
 const storeApp = combineReducers({
     product,
     products,
     organization,
     cart,
-    user
+    user,
+    order
 })
 
 const intialStore = {
@@ -39,6 +42,11 @@ const intialStore = {
         isUpdating: false,
         user: {},
         address: ''
+    },
+    order: {
+        isCreating: false,
+        isLoading: true,
+        data: {}
     }
 }
 export const makeStore = () => {
