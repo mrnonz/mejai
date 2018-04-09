@@ -75,7 +75,7 @@ export const createOrder = (id, cart, address) => {
                 return Axios({
                     method: 'POST',
                     url: createUrl,
-                    data: FormCartData(cart)
+                    data: FormCartData(cart, address)
                 })
                 .then((response) => {
                     dispatch(createOrderSuccess(response))
@@ -87,18 +87,21 @@ export const createOrder = (id, cart, address) => {
     }
 }
 
-const FormCartData = (cart) => {
+const FormCartData = (cart, address) => {
     const cartItem = cart.items.map((item) => {
         const product = { 
             id: item.product.productId, 
             ...omit(item.product, ['productId']) }
         if(isNil(item.attribute)) product.attribute = { name: '', value: '' }
-        return { product,
-            ...omit(item.product) }
+        return { 
+            product,
+            ...omit(item, ['product']) 
+        }
     })
     return {
         userId: cart.customerId,
         items: cartItem,
+        address: address,
         ...omit(cart, ['items', 'customerId'])
     }
 } 
