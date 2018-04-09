@@ -30,9 +30,22 @@ class Shipping extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        // TODO Change logic
         if(nextProps.order.isCreated) {
             Router.push({
                 pathname: '/user'
+            })
+        }
+        if(nextProps.user.address) {
+            const userAddress = new UserAddress(nextProps.user.address)
+            const { name, tel, district, subDistrict, province, postcode } = userAddress
+            this.setState({
+                name,
+                tel,
+                district,
+                subDistrict,
+                province,
+                postcode
             })
         }
     }
@@ -64,16 +77,17 @@ class Shipping extends Component {
     handleConfirmModal() {
         const { name, tel, district, subDistrict, province, postcode } = this.state
         const { cart: { data: cart } } = this.props
-        // TODO Firstname and lastname to name
+        const firstname = name.split(' ')[0]
+        const lastname = name.split(' ')[1]
         const address = {
-            firstname: name, lastname: name, tel, district, subDistrict, province, postcode
+            firstname, lastname, tel, district, subDistrict, province, postcode
         }
         const customerId = cookie.load('userId')
         this.props.createOrder(customerId, cart, address)
     }
 
     render() {
-    const { showConfirmModal } = this.state
+        const { showConfirmModal } = this.state
         const { 
             cart: { 
                 data: cart, 
