@@ -6,9 +6,16 @@ export default class UserAddress {
         })
     }
 
-    // TODO Change return index
-    get name() {
+    get firstname() {
+        return this._address[0]
+    }
+
+    get lastname() {
         return this._address[1]
+    }
+
+    get name() {
+        return `${this.firstname} ${this.lastname}`
     }
 
     get district() {
