@@ -161,8 +161,8 @@ class Order extends Component {
                     หลักฐานการโอน
                 </Header>
                 <div className="slip-area">
-                    ยังไม่เพิ่มหลักฐานการโอน
-                    {/* <Image src={'static/OrganizationImage1.jpg'} size="big" /> */}
+                    { !order.Slip ? "ยังไม่เพิ่มหลักฐานการโอน" :
+                    <Image src={ order.Slip } size="big" /> }
                 </div>
                 <div className="button-group">
                     { type === 'seller' ?
