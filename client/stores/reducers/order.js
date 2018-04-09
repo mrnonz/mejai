@@ -12,6 +12,11 @@ const order = (state = {}, action) => {
                 isCreated: action.isCreated,
                 data: action.createdOrder.data
             }
+        case 'UPLOADING_SLIP':
+            return {
+                ...state,
+                isUploading: action.isUploading
+            }
         case 'FETCHING_ORDER' :
             return {
                 ...state,
@@ -22,6 +27,11 @@ const order = (state = {}, action) => {
                 ...state,
                 isLoading: action.isLoading,
                 data: action.order.data
+            }
+        case 'UPLOAD_SLIP_SUCCESS':
+            return {
+                ...state,
+                isUploading: action.isUploading
             }
         default:
             return state

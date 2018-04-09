@@ -19,6 +19,15 @@ export const creatingOrder = () => ({
     isCreating: true
 })
 
+export const updatingOrderStatus = () => ({
+    type: 'UPDATING_ORDER_STATUS'
+})
+
+export const uploadingSlip = () => ({
+    type: 'UPLOADING_SLIP',
+    isUploading: true
+})
+
 export const fetchOrdersSuccess = (orders) => ({
     type: 'FETCH_ORDERS_SUCCESS',
     isLoading: false,
@@ -36,6 +45,16 @@ export const createOrderSuccess = (createdOrder) => ({
     isCreating: false,
     isCreated: true,
     createdOrder
+})
+
+export const updateOrderStatusSuccess = () => ({
+    type: 'UPDATE_ORDER_STATUS_SUCCESS'
+})
+
+export const uploadSlipSuccess = (order) => ({
+    type: 'UPLOAD_SLIP_SUCCESS',
+    isUploading: false,
+    order
 })
 
 export const fetchOrders = (customerId) => {
@@ -80,12 +99,56 @@ export const createOrder = (id, cart, address) => {
                 .then((response) => {
                     dispatch(createOrderSuccess(response))
                 })
+                .catch((error) => {
+                    throw(error);
+                })
             })
             .catch((error) => {
                 throw(error);
             })
     }
 }
+
+export const updateOrderStatus = (orderId) => (
+    (dispatch) => {
+        dispatch(updatingOrderStatus())
+        const updateUrl = `${url}/order/${orderId}/status/`
+        return Axios({
+            method: 'PUT',
+            url: updateUrl
+        })
+        .then(() => {
+            dispatch(updateOrderStatusSuccess())
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+)
+
+export const uploadSlip = (file, orderId) => (
+    (dispatch) => {
+        dispatch(uploadingSlip())
+        const uploadUrl = `${url}/order/${orderId}/slip/`
+        const data = new FormData();
+        data.append('slip', file[0])
+        return Axios({
+            method: 'POST',
+            url: uploadUrl,
+            data
+        })
+        .then((response) => {
+            dispatch(uploadSlipSuccess(response))
+            return dispatch(updateOrderStatus(orderId))
+        })
+        .then(() => {
+            dispatch(updateOrderStatusSuccess())
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+)
 
 const FormCartData = (cart, address) => {
     const cartItem = cart.items.map((item) => {
