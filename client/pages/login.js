@@ -5,12 +5,23 @@ import withTopbar from 'hocs/withTopbar'
 import { Form, Container, Grid, Button } from 'semantic-ui-react'
 import SiteLogo from 'molecules/SiteLogo'
 import FormInput from 'molecules/FormInput'
+import { createUser } from 'stores/actions/user'
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLoginForm: false
+      showLoginForm: true,
+      loginForm: {
+        email: '',
+        password: '',
+      },
+      registerForm: {
+        email: '',
+        name: '',
+        password: '',
+        confirmPassword: ''
+      }
     }
   }
 
@@ -26,6 +37,35 @@ class LoginPage extends Component {
     })
   }
 
+  handleRegisterSubmit() {
+    const { email, name, password, confirmPassword} = this.state.registerForm
+    const userData = {
+      email,
+      firstname: name.split(' ')[0],
+      lastname: name.split(' ')[1],
+      password
+    }
+    this.props.createUser(userData)
+  }
+
+  handleLoginChange = ({ target: { name , value } }) => {
+    this.setState({
+      loginForm: {
+        ...this.state.loginForm,
+        [name]: value
+      }
+    })
+  }
+
+  handleRegisterChange = ({ target: { name , value } }) => {
+    this.setState({
+      registerForm: {
+        ...this.state.registerForm,
+        [name]: value
+      }
+    })
+  }
+
   render() {
     const { showLoginForm } = this.state
     return (
@@ -35,17 +75,19 @@ class LoginPage extends Component {
             {
               showLoginForm ?
               <Form>
-                <FormInput label="อีเมล์" name="email" required />
-                <FormInput label="รหัสผ่าน" name="password" required />
+                <FormInput onChange={this.handleLoginChange} label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleLoginChange} label="รหัสผ่าน" name="password" required />
+                <Button fluid className="login-button" color="green">เข้าสู่ระบบ</Button>
+                <Button fluid className="login-button" color="teal" onClick={this.hideLoginForm.bind(this)}>สมัครสมาชิก</Button>
               </Form>
               :
               <Form>
-                <FormInput label="อีเมล์" name="email" required />
-                <FormInput label="ชื่อ - สกุล" name="name" required />
-                <FormInput label="รหัสผ่าน" name="password" required />
-                <FormInput label="ยืนยันรหัสผ่าน" name="confirmPassword" required />
+                <FormInput onChange={this.handleRegisterChange} label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleRegisterChange} label="ชื่อ - สกุล" name="name" required />
+                <FormInput onChange={this.handleRegisterChange} label="รหัสผ่าน" name="password" required type="password" />
+                <FormInput onChange={this.handleRegisterChange} label="ยืนยันรหัสผ่าน" name="confirmPassword" required type="password" />
                 <div className="button-group">
-                  <Button color="green">Register</Button>
+                  <Button color="green" onClick={this.handleRegisterSubmit.bind(this)} >Register</Button>
                   <Button basic onClick={this.showLoginForm.bind(this)}>Cancel</Button>
                 </div> 
               </Form>
@@ -56,4 +98,12 @@ class LoginPage extends Component {
   }
 }
 
-export default withRedux(makeStore)(LoginPage)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createUser: (userData) => {
+        dispatch(createUser(userData))
+    }
+  }
+}
+
+export default withRedux(makeStore, null, mapDispatchToProps)(LoginPage)
