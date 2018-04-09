@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: backend_db_1
--- Generation Time: Apr 08, 2018 at 05:19 PM
+-- Host: mejai_db_1
+-- Generation Time: Apr 09, 2018 at 04:32 PM
 -- Server version: 5.7.21
--- PHP Version: 7.1.9
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -300,7 +300,8 @@ INSERT INTO `Cart_Product` (`id`, `time`, `price`, `quantity`, `cart_id`, `produ
 (2, '2018-03-12 00:00:00.000000', '49.99', 3, 5, 2),
 (3, '2018-03-11 00:00:00.000000', '500.10', 2, 6, 2),
 (4, '2018-03-18 00:00:00.000000', '500.00', 202, 6, 1),
-(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3);
+(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3),
+(6, '2018-04-09 08:26:23.838333', '420.00', 1, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -335,9 +336,10 @@ CREATE TABLE `Customer` (
 --
 
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
-(1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', '123/33 ไทย 10500', '0812345678', 'http://url.com', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
+(1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10110\\084-6665478', '0812345678', 'http://url.com', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
 (2, 'admin@mejai.com', 'admin', 'pbkdf2_sha256$36000$WmaOVKDus7tA$ezRsG5L1vWXzclNVaw523YeEyn28ZWNnrYdb51+5n0k=', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-03-19 08:50:23.092870', '', 1, 1, 1, '2018-03-19 09:10:59.152542', ''),
-(3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', 'asdf', 'M', '', '08123456', '/url/pic.jpg', 5, 10, 20, '2018-03-19 12:01:09.225324', 'นายไก่', 1, 1, 0, NULL, 'นอน');
+(3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', 'asdf', 'M', '', '08123456', '/url/pic.jpg', 5, 10, 20, '2018-03-19 12:01:09.225324', 'นายไก่', 1, 1, 0, NULL, 'นอน'),
+(4, 'ssoom@email.com', '', '1234ASH', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-09 09:44:25.921688', 'สมชาย', 1, 0, 0, NULL, 'สมศรี');
 
 -- --------------------------------------------------------
 
@@ -559,7 +561,7 @@ CREATE TABLE `Order` (
   `slip` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `attributename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `attributevalue` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(1023) DEFAULT NULL
+  `address` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -583,7 +585,22 @@ INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, 
 (16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
 (17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
 (18, '2018-04-08 17:13:52', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214');
+(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
+(20, '2018-04-09 08:28:42', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/663f48ecea9941c79d51053c6a106c23.jpg', '', '', '\\\\\\\\\\\\'),
+(21, '2018-04-09 08:30:23', 0, '420.00', 1, 6, 1, '', '', '', 'John\\John\\LK\\LK\\LK\\LK\\Doe'),
+(22, '2018-04-09 08:30:59', 0, '420.00', 1, 6, 1, '', '', '', '\\\\LKB\\LKB\\LKB\\LKB\\'),
+(23, '2018-04-09 08:31:54', 0, '420.00', 1, 6, 1, '', '', '', 'AS\\AS\\\\\\\\\\AS'),
+(24, '2018-04-09 08:32:31', 0, '420.00', 1, 6, 1, '', '', '', '\\\\A\\NB\\C\\D\\'),
+(25, '2018-04-09 08:40:01', 0, '420.00', 1, 6, 1, '', '', '', 'John\\John\\A\\NB\\C\\D\\Doe'),
+(26, '2018-04-09 08:42:29', 0, '420.00', 1, 6, 1, '', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
+(27, '2018-04-09 08:46:29', 0, '420.00', 3, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e6007fb4a74240c69f32bdad5cddf699.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
+(28, '2018-04-09 08:49:46', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/1341fcb0c1e746e9a1f9607f3af28713.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
+(29, '2018-04-09 08:53:24', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/08ac4260c4a545eeaa525460c0ebde51.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
+(30, '2018-04-09 09:12:33', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e413c79a1fa94918ad2d7f78ad316ad2.jpg', '', '', 'John\\Doe\\LB\\FF\\LK\\DD\\084-6665478'),
+(31, '2018-04-09 16:25:16', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
+(32, '2018-04-09 16:25:16', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
+(33, '2018-04-09 16:32:11', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
+(34, '2018-04-09 16:32:11', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214');
 
 -- --------------------------------------------------------
 
@@ -703,7 +720,10 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 (6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2),
 (7, 'เสื้อสีดำจริงๆนะ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-04 14:33:21', 1, 1, 2),
 (10, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 14:36:03', 1, 1, 2),
-(11, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 15:36:36', 1, 1, 2);
+(11, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 15:36:36', 1, 1, 2),
+(12, 'เสื้อโปโลสีดำ', 'เสื้อโปโล', '550.00', 0, 0, 0, 0, 0, '', '2018-04-09 16:16:28', 1, 1, 2),
+(13, 'เสื้อโปโลสีดำ', 'เสื้อโปโล', '550.00', 0, 0, 0, 0, 0, '', '2018-04-09 16:16:50', 1, 1, 2),
+(14, 'เสื้อโปโลสีดำ', 'เสื้อโปโล', '550.00', 0, 0, 0, 0, 0, '', '2018-04-09 16:17:09', 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1059,13 +1079,13 @@ ALTER TABLE `Cart`
 -- AUTO_INCREMENT for table `Cart_Product`
 --
 ALTER TABLE `Cart_Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `Customer`
 --
 ALTER TABLE `Customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `Customer_groups`
@@ -1101,7 +1121,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT for table `Order`
 --
 ALTER TABLE `Order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `Organization`
@@ -1125,7 +1145,7 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
