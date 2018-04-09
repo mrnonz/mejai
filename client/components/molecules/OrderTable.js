@@ -11,7 +11,7 @@ const handleRowClick = (orderId) => {
         }
     })
 }
-const OrderTable = ({ orders }) => (
+const OrderTable = ({ orders = [] }) => (
     <Table basic className="order-table">
         <Table.Header>
             <Table.Row>
@@ -31,7 +31,7 @@ const OrderTable = ({ orders }) => (
                         </Table.Cell>
                         {/* TODO Change class according to status */}
                         <Table.Cell>
-                            <p className="wait">{ order.OrderStatus }</p>
+                            <p className={ order.OrderStatusClass }>{ order.OrderStatus }</p>
                         </Table.Cell>
                         <Table.Cell>
                             <p>{ order.CreatedAt }</p>
