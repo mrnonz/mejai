@@ -9,8 +9,7 @@ const order = (state = {}, action) => {
             return {
                 ...state,
                 isCreating: action.isCreating,
-                isCreated: action.isCreated,
-                data: action.createdOrder.data
+                isCreated: action.isCreated
             }
         case 'UPLOADING_SLIP':
             return {
