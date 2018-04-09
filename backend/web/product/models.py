@@ -20,7 +20,7 @@ class Product(models.Model):
     thumbnail = models.CharField(max_length=1023)
     created_time = models.DateTimeField()
     category = models.ForeignKey(
-        ProductCategory, on_delete=models.CASCADE, related_name='product_category', default='')
+        ProductCategory, on_delete=models.CASCADE, related_name='product_category', default='', null=True)
     organization = models.ForeignKey(
         Organization, on_delete=models.CASCADE, related_name='product_organization', default='')
 

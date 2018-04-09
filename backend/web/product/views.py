@@ -144,7 +144,6 @@ def product_create_attribute(request):
         price = data['price']
         sellerId = data['sellerId']
         organizationId = data['organizationId']
-        categoryId = data['categoryId']
         # quantity = sum()
         attributes = data['attributes']
         info = data['info']
@@ -156,7 +155,6 @@ def product_create_attribute(request):
                              auction=0,
                              owner_id=sellerId,
                              organization_id=organizationId,
-                             category_id=categoryId,
                              created_time=datetime.now())
         newProduct.save()
 
@@ -164,9 +162,7 @@ def product_create_attribute(request):
             newAttribute = ProductAttribute(name=attributes['name'],
                                             product_id=newProduct.id,
                                             quantity=attribute['quantity'],
-                                            size=attribute['value'],
-                                            price=price,
-                                            color=attribute['color'])
+                                            value=attribute['value'])
             newAttribute.save()
 
         for image in images:
