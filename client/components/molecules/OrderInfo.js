@@ -5,7 +5,7 @@ const OrderInfo = ({ order }) => (
     <Table basic className="order-info-table">
         <Table.Header>
             <Table.Row>
-                <Table.HeaderCell>รายละเอียด</Table.HeaderCell>
+                <Table.HeaderCell singleLine>รายละเอียด</Table.HeaderCell>
             </Table.Row>
         </Table.Header>
         <Table.Body>
