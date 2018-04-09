@@ -55,6 +55,7 @@ class Product extends Component {
         const { url: { query: { type: itemType } } } = this.props
         return (
             <Container className="product-page">
+                {/* TODO Modify Modal */}
                 <Modal open={showModal}>
                     <Modal.Header>เพิ่มสินค้าในตะกร้าสำเร็จ</Modal.Header>
                     <Modal.Content>
