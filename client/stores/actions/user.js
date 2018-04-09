@@ -2,6 +2,11 @@ import Axios from 'axios'
 
 const url = process.env.BACKEND_URL 
 
+export const creatingUser = () => ({
+    type: 'CREATING_USER',
+    isCreating: true
+})
+
 export const fetchingUserDetail = () => {
     return {
         type: 'LOADING_USER',
@@ -22,6 +27,12 @@ export const updatingUserAddress = () => {
         isUpdating: true
     }
 }
+
+export const createUserSuccess = (user) => ({
+    type: 'CREATE_USER_SUCCESS',
+    isCreating: false,
+    user
+})
 
 export const fetchUserSuccess = (user) => {
     return {
@@ -46,9 +57,27 @@ export const updatingUserAddressSuccess = () => {
     }
 }
 
+export const createUser = (userData) => (
+    (dispatch) => {
+        dispatch(creatingUser())
+        const createUrl = `${url}/customer/create/`
+        return Axios({
+            method: 'POST',
+            url: createUrl,
+            data: userData
+        })
+        .then((response) => {
+            return dispatch(createUserSuccess(response))
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+)
+
 export const fetchUserDetail = (id) => {
     return (dispatch) => {
-        dispatch(fetchingUserDetail)
+        dispatch(fetchingUserDetail())
         const fetchUrl = `${url}/customer/${id}`
         return Axios.get(fetchUrl)
             .then((response) => {
@@ -62,7 +91,7 @@ export const fetchUserDetail = (id) => {
 
 export const fetchUserAddress = (id) => {
     return (dispatch) => {
-        dispatch(fetchingUserAddress)
+        dispatch(fetchingUserAddress())
         const fetchUrl = `${url}/customer/${id}/address/`
         return Axios.get(fetchUrl)
             .then((response) => {
@@ -76,7 +105,7 @@ export const fetchUserAddress = (id) => {
 
 export const updateUserAddress = (id, address) => {
     return (dispatch) => {
-        dispatch(updatingUserAddress)
+        dispatch(updatingUserAddress())
         const updateUrl = `${url}/customer/${id}/address/`
         return Axios({
             method: 'PUT',

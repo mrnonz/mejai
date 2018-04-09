@@ -1,5 +1,10 @@
 const user = (state = {}, action) => {
     switch (action.type) {
+        case 'CREATING_USER':
+            return {
+                ...state,
+                isCreating: action.isCreating
+            }
         case 'LOADING_USER':
             return {
                 ...state,
@@ -9,6 +14,12 @@ const user = (state = {}, action) => {
             return {
                 ...state,
                 isLoading: action.isLoading
+            }
+        case 'CREATE_USER_SUCCESS':
+            return {
+                ...state,
+                isCreating: action.isCreating,
+                user: action.user.data
             }
         case 'FETCH_USER_SUCCESS':
             return {
