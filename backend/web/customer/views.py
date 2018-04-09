@@ -71,7 +71,8 @@ def customer_create(request):
         customer = Customer(email=email,
                             first_name=firstname,
                             last_name=lastname,
-                            password=password)
+                            password=password,
+                            username=email)
         customer.save()
 
         serializerCustomer = CustomerSerializer(customer)
