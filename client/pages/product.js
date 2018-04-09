@@ -51,7 +51,14 @@ class Product extends Component {
 
     render() {
         const { showModal } = this.state
-        const { product: { data: product, isLoading }, cart: { isUpdating = false, updated = false } } = this.props
+        const { 
+            product: { 
+                data: product = [], 
+                isLoading }, 
+            cart: { 
+                isUpdating = false, 
+                updated = false } 
+            } = this.props
         const { url: { query: { type: itemType } } } = this.props
         return (
             <Container className="product-page">

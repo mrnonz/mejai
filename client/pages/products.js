@@ -39,7 +39,7 @@ class Products extends Component {
 
     render() {
         const { productPage } = this.state
-        const { products: { data: products, isLoading } } = this.props
+        const { products: { data: products = [], isLoading } } = this.props
         const { url: { query: { type: productType } } } = this.props
         const itemCount = products.length
         const totalPage = Math.ceil(itemCount / 12)
