@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Select, Button } from 'semantic-ui-react'
 import UploadForm from 'molecules/UploadForm'
+
 class SellingForm extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +36,7 @@ class SellingForm extends Component {
                     <Form.Input fluid name="price" label='ราคา' placeholder='ราคาสินค้าต่อชิ้นที่เหมาะสม' onChange={onChange} />
                     <Form.Input fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้า' onChange={onChange} />
                 </Form.Group>
-                <UploadForm />
+                <UploadForm label="คุณยังไม่มีรูปภาพสินค้าของคุณ" fileLimit={5} />
                 <Form.TextArea name="info" label="รายละเอียด" placeholder="ข้อมูลเพิ่มเติมสินค้าของคุณ" onChange={onChange} />
                 <div className="button-group">
                     <Button color="green" size="large">ดำเนินการต่อ</Button>

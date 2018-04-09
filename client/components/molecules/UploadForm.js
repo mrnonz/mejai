@@ -19,6 +19,7 @@ class UploadForm extends Component {
         this.setState({
             files: files
         })
+        this.props.onFileUpload && this.props.onFileUpload(uploadFiles)
     }
 
     handleDeleteFile(file) {
@@ -35,7 +36,8 @@ class UploadForm extends Component {
 
     render() {
         const { files } = this.state
-        const uploadMax = !( files.length < 5 )
+        const { label, fileLimit } = this.props
+        const uploadMax = !( files.length < fileLimit )
         const ImageCard = (file) => (
             <Card className="preview-card" onClick={() => this.handleDeleteFile(file)}>
                 <Image src={file.preview} className="card-img"/>
@@ -63,18 +65,18 @@ class UploadForm extends Component {
                     accept="image/jpeg, image/png"
                 >
                     { files.length !== 0 ? (
-                        <Card.Group itemsPerRow={5}>
+                        <Card.Group itemsPerRow={fileLimit}>
                             { files.map((file) => ImageCard(file)) }
                             { !(uploadMax) && <AddFileCard /> }
                         </Card.Group>
                     ) : (
                         <div className="none-msg">
-                            <div>คุณยังไม่มีรูปภาพสินค้าของคุณ</div>
+                            <div>{ label }</div>
                             <Button color="teal">อัพโหลด</Button>
                         </div>
                     ) }
                 </Dropzone>
-                <label className="warn">* เพิ่มรูปภาพได้สูงสุด 5 รูป</label>
+                { fileLimit !== 1 && <label className="warn">* เพิ่มรูปภาพได้สูงสุด { fileLimit } รูป</label> }
             </div>
         )
     }
