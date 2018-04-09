@@ -25,7 +25,6 @@ class Order extends Component {
         const { order: { isLoading, data, data: { address = '' } } } = this.props
         const { url: { query: { type } } } = this.props
         const order = new OrderModel(data)
-        // TODO Add Address Information
         return isLoading ? <Loader wrapped /> :
             <Container className="order-page">
                 <Header as='h2' dividing color="orange" >
@@ -45,14 +44,17 @@ class Order extends Component {
                             <HelpingTable organization={ order.Organization } />
                         </Grid.Column>
                     </Grid.Row>
-                    <div className="button-group">
-                        { type === 'seller' ?
-                            order.OrderStatusId == 2 && <OrderButton orderStatus={ order.OrderStatusId } /> :
-                            <OrderButton orderStatus={ order.OrderStatusId } />
-                        }
-                        <Button color="teal" size="large">ย้อนกลับ</Button>
-                    </div>
                 </Grid>
+                <Header as='h4' color="orange" >
+                    หลักฐานการโอน
+                </Header>
+                <div className="button-group">
+                    { type === 'seller' ?
+                        order.OrderStatusId == 2 && <OrderButton orderStatus={ order.OrderStatusId } /> :
+                        <OrderButton orderStatus={ order.OrderStatusId } />
+                    }
+                    <Button color="teal" size="large">ย้อนกลับ</Button>
+                </div>
             </Container>
     }
 }
