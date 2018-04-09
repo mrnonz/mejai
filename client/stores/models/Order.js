@@ -60,6 +60,10 @@ export default class Order {
         return this._order.item.organization
     }
 
+    get Slip() {
+        return this._order.slip
+    }
+
     get Address() {
         const { address: { firstname, lastname, district, subDistrict, province, postcode, tel } } = this._order
         return `${firstname} ${lastname} ${tel} ${district} ${subDistrict} ${province} ${postcode}`
