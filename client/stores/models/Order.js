@@ -29,6 +29,21 @@ export default class Order {
         return this._order.status
     }
 
+    get OrderStatusClass() {
+        switch(this._order.status) {
+            case 1:
+                return "wait"
+            case 2:
+                return "shipping"
+            case 3:
+                return "shipping"
+            case 4:
+                return "success"
+            default:
+                return "wait"
+        }
+    }
+
     get CreatedAt() {
         moment.locale('th')
         return moment(this._order.created_by).format('LLL')
