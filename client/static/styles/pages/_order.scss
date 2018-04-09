@@ -1,9 +1,40 @@
 .order-page {
     @include layout-content;
 
+    .slip-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 15px;
+        min-height: 200px;
+        margin-bottom: 30px;
+
+        font-size: 1.4em;
+        background: white;
+    }
+
     .button-group {
         display: flex;
         width: 100%;
         justify-content: center;
+    }
+}
+
+.order-modal {
+    .button-group {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 25px;
+        margin-bottom: 25px;
+
+        a {
+            color: black;
+            margin-left: 15px;
+            cursor: pointer;
+        }
     }
 }
