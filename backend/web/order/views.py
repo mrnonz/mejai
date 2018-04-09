@@ -30,18 +30,20 @@ def order_detail(request, pk):
 
         data = serializerOrder.data
 
-        buyer = data['buyerId']
-        firstname, lastname, district, subDistrict, province, postcode, tel = data['address'].split(
-            "\\")
-        address = {
-            "firstname": firstname,
-            "lastname": lastname,
-            "tel": tel,
-            "district": district,
-            "subDistrict": subDistrict,
-            "province": province,
-            "postcode": postcode
-        }
+        if data['address'] is not None:
+            firstname, lastname, district, subDistrict, province, postcode, tel = data['address'].split(
+                "\\")
+            address = {
+                "firstname": firstname,
+                "lastname": lastname,
+                "tel": tel,
+                "district": district,
+                "subDistrict": subDistrict,
+                "province": province,
+                "postcode": postcode
+            }
+        else:
+            address = {}
 
         data['item'] = serializerProduct.data
         data['userId'] = data['buyerId']
@@ -49,9 +51,6 @@ def order_detail(request, pk):
         data['slip'] = data['slip']
         data['sellerId'] = data['item']['owner_id']
         data['address'] = address
-        # clean data
-        data.pop('buyerId')
-        data.pop('slip')
         return JsonResponse(data)
 
 
