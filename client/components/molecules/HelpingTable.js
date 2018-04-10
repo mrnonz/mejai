@@ -4,7 +4,12 @@ import { Table, Image, Progress } from 'semantic-ui-react'
 const HelpingTable = ({ organization }) => {
     return (
         <Table basic className="helping-table" fixed>
-            <Table.Body>
+            <Table.Header>
+                <Table.Row>
+                    <Table.HeaderCell singleLine>องค์กรที่ช่วยเหลือ</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>    
                 <Table.Row>
                     <Table.Cell width={5}>
                         <Image src={'static/OrganizationImage1.jpg'} size="medium" />

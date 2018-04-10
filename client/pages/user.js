@@ -73,6 +73,7 @@ class User extends Component {
                         <Header as='h2' dividing color="orange" >
                             รายการสั่งซื้อของคุณ
                         </Header>
+                        {/* TODO Newest to Oldest order */}
                         { isOrderLoading ? <Loader wrapped /> : <OrderTable orders={orders} /> }
                     </Container>
                 )
