@@ -11,6 +11,11 @@ class OrderItemCard extends Component {
         const { item: { name, attribute, organization, quantity, price } } = this.props
         return (
             <Table basic className="item-table">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell singleLine>สินค้า</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
                 <Table.Body>
                     <Table.Row>
                         <Table.Cell>

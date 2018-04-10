@@ -25,7 +25,6 @@ const OrderInfo = ({ order }) => (
                     { order.OrderStatus }
                 </Table.Cell>
             </Table.Row>
-            {/* TODO Adjust Address */}
             <Table.Row>
                 <Table.Cell className="cell-header">
                    ที่อยู่การจัดส่ง :
