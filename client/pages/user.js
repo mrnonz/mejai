@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Router from 'next/router'
 import Svg from 'react-inlinesvg'
+import { sortBy, reverse } from 'lodash'
 import { Header, Menu, Container, Button } from 'semantic-ui-react'
 import withRedux from 'next-redux-wrapper'
 import { makeStore } from '../stores'
@@ -10,8 +11,10 @@ import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
 import ProductList from 'molecules/ProductList'
 import IssueForm from 'molecules/IssueForm'
-import products from 'stores/mock/auction_products.json'
+import UserProducts from 'stores/models/UserProducts'
+import { fetchBuyProducts } from 'stores/actions/product'
 import { fetchOrders } from 'stores/actions/order'
+import { fetchSellerOrder } from 'stores/actions/user'
 
 class User extends Component {
     constructor(props) {
@@ -25,6 +28,8 @@ class User extends Component {
     componentDidMount() {
         const userId = cookie.load('userId')
         this.props.fetchOrders(userId)
+        this.props.fetchSellerOrder(userId)
+        this.props.fetchBuyProducts()
     }
 
     handleBarClick(value) {
@@ -39,21 +44,46 @@ class User extends Component {
         })
     }
 
+    
+    handleOrderRowClick = (orderId, isSeller) => {
+        Router.push({
+            pathname: '/order',
+            query: {
+                id: orderId,
+                type: isSeller && 'seller'
+            }
+        })
+    }
+
     render() {
         const { activeBar } = this.state
         const {
             orders: {
                 isLoading: isOrderLoading,
                 data: {
-                    data: orders
+                    data: orders = []
                 }
+            },
+            products: {
+                isLoading: isProductsLoading,
+                data: products
+            },
+            user: {
+                isLoadingOrder: isSellerOrderLoading,
+                orders: sellerOrders 
             }
         } = this.props
+        const userId = cookie.load('userId')
         const SidebarItems = [
             {
                 value: 'history',
-                title: 'รายการสั่งซื้อ',
+                title: 'รายการสั่งซื้อของคุณ',
                 icon: 'history'
+            },
+            {
+                value: 'seller-order',
+                title: 'รายการสั่งซื้อถึงคุณ',
+                icon: 'seller-order'
             },
             {
                 value: 'user-item',
@@ -66,25 +96,41 @@ class User extends Component {
                 icon: 'issue'
             }
         ]
+
         const renderContent = () => {
             if (activeBar === 'history') {
+                const sortedOrder = reverse(sortBy(orders, (order) => order.created_by))
                 return (
                     <Container>
                         <Header as='h2' dividing color="orange" >
                             รายการสั่งซื้อของคุณ
                         </Header>
-                        {/* TODO Newest to Oldest order */}
-                        { isOrderLoading ? <Loader wrapped /> : <OrderTable orders={orders} /> }
+                        { isOrderLoading ? <Loader wrapped /> : <OrderTable handleOrderRowClick={this.handleOrderRowClick.bind(User)} orders={sortedOrder} /> }
+                    </Container>
+                )
+            } else if (activeBar === 'seller-order') {
+                const sortedOrder = reverse(sortBy(sellerOrders, (order) => order.created_by))
+                return (
+                    <Container>
+                        <Container>
+                        <Header as='h2' dividing color="orange" >
+                            รายการสั่งซื้อถึงคุณ
+                        </Header>
+                        { isSellerOrderLoading ? <Loader wrapped /> : <OrderTable handleOrderRowClick={this.handleOrderRowClick.bind(User)} isSeller orders={sortedOrder} /> }
+                    </Container>
                     </Container>
                 )
             } else if (activeBar === 'user-item') {
+                const userProducts = new UserProducts(products, userId).Products
                 return (
                     <Container>
                         <Header as='h2' dividing color="orange" >
                             สินค้าของคุณ
                         </Header>
-                        <p>พบ {products.data.length} รายการ</p>
-                        <ProductList products={products.data} onCardClick={this.handleCardClick}/>
+                        { isProductsLoading ? <Loader wrapped /> : [
+                            <p>พบ {userProducts.length} รายการ</p>,
+                            <ProductList products={userProducts} onCardClick={this.handleCardClick}/>
+                        ] }
                     </Container>
                 )
             } else if (activeBar === 'issue') {
@@ -121,7 +167,9 @@ class User extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        orders: state.orders
+        products: state.products,
+        orders: state.orders,
+        user: state.user
     }
 )
 
@@ -129,6 +177,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrders: (userId) => {
             dispatch(fetchOrders(userId))
+        },
+        fetchBuyProducts: () => {
+            dispatch(fetchBuyProducts())
+        },
+        fetchSellerOrder: (userId) => {
+            dispatch(fetchSellerOrder(userId))
         }
     }
 }
