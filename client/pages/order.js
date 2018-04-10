@@ -178,7 +178,12 @@ class Order extends Component {
                             orderStatus={ order.OrderStatusId } 
                         />
                     }
-                    <Button color="teal" size="large">ย้อนกลับ</Button>
+                    <Button 
+                        color="teal" 
+                        size="large"
+                        onClick={ () => this.redirectPage() }
+                        content="ย้อนกลับ"
+                    />
                 </div>
             </Container>
     }
