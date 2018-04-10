@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
+import { isEmpty } from 'lodash'
 import cookie from 'react-cookie'
 import { makeStore } from '../stores'
 import Router from 'next/router'
@@ -7,7 +8,7 @@ import withTopbar from 'hocs/withTopbar'
 import { Container, Menu, Header, Segment, Button, Modal } from 'semantic-ui-react'
 import SellingForm from 'molecules/SellingForm';
 import AuctionForm from 'molecules/AuctionForm';
-import { createBuyProduct } from 'stores/actions/product'
+import { createBuyProduct, createBuyProductAttribute } from 'stores/actions/product'
 
 class Posting extends Component {
     constructor(props) {
@@ -19,7 +20,10 @@ class Posting extends Component {
             category: 0,
             price: 0,
             quantity: 0,
-            info: ''
+            info: '',
+            attributeName: '',
+            attributes: [],
+            hasAttribute: false
         }
     }
 
@@ -33,6 +37,14 @@ class Posting extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleHasAttribute = (hasAttribute, attributeName) => {
+        this.setState({ hasAttribute, attributeName })
+    }
+
+    handleAttributeChange = (attributes) => {
+        this.setState({ attributes })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -60,14 +72,23 @@ class Posting extends Component {
         const { url: { query: { organization: organizationId } } } = this.props
         const userId = cookie.load('userId')
         if(this.state.menuActive === 'selling') {
-            const { name, category, price, quantity, info } = this.state
+            const { name, category, price, quantity, info, attributeName, attributes, hasAttribute } = this.state
             const product = {
-                name, price, quantity, info, organizationId, userId,
+                name, price, quantity, info, organizationId,
+                sellerId: userId,
                 categoryId: category,
                 // TODO Upload Image
                 images: ["path1"]
             }
-            this.props.createBuyProduct(product)
+            if(!hasAttribute) {
+                this.props.createBuyProduct(product) 
+            } else {
+                product['attributes'] = {
+                    name: attributeName,
+                    values: attributes
+                }
+                this.props.createBuyProductAttribute(product)
+            }
         }
     }
 
@@ -75,10 +96,16 @@ class Posting extends Component {
         const { menuActive, showConfirmModal } = this.state
         const renderForm = () => {
             if(menuActive === 'selling') {
-                return <SellingForm onSubmit={this.openConfirmModal} onChange={this.handleChange} />
+                return <SellingForm 
+                    onSubmit={this.openConfirmModal} 
+                    onChange={this.handleChange} 
+                    onAttributeChange={this.handleAttributeChange}
+                    onHasAttribute={this.handleHasAttribute}
+                />
             }
             return <AuctionForm />
         }
+        console.log(this.state.attributeName)
         return (
             <Container className="posting-page">
                 <Header as='h2' dividing color="orange" >
@@ -124,6 +151,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createBuyProduct: (product) => {
             dispatch(createBuyProduct(product))
+        },
+        createBuyProductAttribute: (product, attribute) => {
+            dispatch(createBuyProductAttribute(product, attribute))
         }
     }
 }

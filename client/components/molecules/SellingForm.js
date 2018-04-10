@@ -9,9 +9,10 @@ class SellingForm extends Component {
 
         this.state = {
             hasAttribute: false,
+            attributeName: '',
             attributes: [{
-                name: '',
-                value: ''
+                value: '',
+                quantity: ''
             }]
         }
     }
@@ -19,12 +20,16 @@ class SellingForm extends Component {
     onAttributeChange(e, { name, value }) {
         if(value != '') {
             this.setState({
+                attributeName: value,
                 hasAttribute: true
             })
+            this.props.onHasAttribute(true, value)
         } else {
             this.setState({
+                attributeName: value,
                 hasAttribute: false
             })
+            this.props.onHasAttribute(false, value)
         }
     }
 
@@ -32,8 +37,8 @@ class SellingForm extends Component {
         const { attributes } = this.state
         if(attributes.length < 5) {
             attributes.push({
-                name: '',
-                value: ''
+                value: '',
+                quantity: ''
             })
             this.setState({
                 attributes: attributes
@@ -57,10 +62,10 @@ class SellingForm extends Component {
             ...attributes[index],
             [name]: value
         }
-
         this.setState({
             attributes: attributes
         })
+        this.props.onAttributeChange(attributes)
     }
 
     render() {
@@ -86,28 +91,28 @@ class SellingForm extends Component {
         return (
             <Form onSubmit={onSubmit} >
                 <Form.Group widths='equal'>
-                    <Form.Input fluid name="name" label='ชื่อสินค้า' placeholder='สินค้าของคุณ เช่น กระเป๋า' onChange={onChange} />
-                    <Form.Field control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
+                    <Form.Input required fluid name="name" label='ชื่อสินค้า' placeholder='สินค้าของคุณ เช่น กระเป๋า' onChange={onChange} />
+                    <Form.Field required control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
                 </Form.Group>
                 <Form.Group widths='equal'>
-                    <Form.Input fluid name="price" label='ราคา' placeholder='ราคาสินค้าต่อชิ้นที่เหมาะสม' onChange={onChange} />
-                    <Form.Input disabled={hasAttribute} fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้า' onChange={onChange} />
+                    <Form.Input required fluid name="price" label='ราคา' placeholder='ราคาสินค้าต่อชิ้นที่เหมาะสม' onChange={onChange} />
+                    <Form.Input required={!hasAttribute} disabled={hasAttribute} fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้า' onChange={onChange} />
                 </Form.Group>
                 <Table basic className="attribute-table" fixed>
                     <Table.Row>
                         <Table.Cell verticalAlign="top" width={8}><Form.Input fluid name="attributeName" label='คุณสมบัติ (ถ้ามี)' placeholder='คุณสมบัติของสินค้า เช่น ขนาด, สี' onChange={this.onAttributeChange.bind(this)} /></Table.Cell>
+                    </Table.Row>
+                    { hasAttribute && <Table.Row>
                         <Table.Cell className="attribute-value" width={8}>
-                            { hasAttribute &&
-                            <div>
                             <Form.Group widths='equal'>
-                                <Form.Input fluid name="name" label='ชื่อ' placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
-                                <Form.Input fluid name="value" label='จำนวน' placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
+                                <Form.Input required fluid name="value" label='ชื่อ' placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
+                                <Form.Input required fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
                             </Form.Group>
                             {
                                 attributes.map((a, index) => (
                                     !!index &&<Form.Group widths='equal'>
-                                        <Form.Input fluid name="name" placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
-                                        <Form.Input fluid name="value" placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
+                                        <Form.Input required fluid name="value" placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
+                                        <Form.Input required fluid name="quantity" placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
                                     </Form.Group>
                                 ))
                             }
@@ -124,9 +129,9 @@ class SellingForm extends Component {
                                 content="ลบคุณสมบัติ"
                                 disabled={!(attributes.length > 1)}
                                 onClick={this.handleRemoveAttribute.bind(this)}
-                            /></div> }
+                            />
                         </Table.Cell> 
-                    </Table.Row>
+                    </Table.Row> }
                 </Table>
                 <UploadForm label="คุณยังไม่มีรูปภาพสินค้าของคุณ" fileLimit={5} />
                 <Form.TextArea name="info" label="รายละเอียด" placeholder="ข้อมูลเพิ่มเติมสินค้าของคุณ" onChange={onChange} />
