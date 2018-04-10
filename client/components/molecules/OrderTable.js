@@ -3,19 +3,11 @@ import Router from 'next/router'
 import { Table, Header } from 'semantic-ui-react'
 import Order from 'stores/models/Order'
 
-const handleRowClick = (orderId) => {
-    Router.push({
-        pathname: '/order',
-        query: {
-            id: orderId
-        }
-    })
-}
-const OrderTable = ({ orders = [] }) => (
+const OrderTable = ({ orders = [], handleOrderRowClick, isSeller = false }) => (
     <Table basic className="order-table">
         <Table.Header>
             <Table.Row>
-                <Table.HeaderCell>ประวัติ { orders.length } รายการ</Table.HeaderCell>
+                <Table.HeaderCell>พบ { orders.length } รายการ</Table.HeaderCell>
                 <Table.HeaderCell>สถานะ</Table.HeaderCell>
                 <Table.HeaderCell>วันที่</Table.HeaderCell>
             </Table.Row>
@@ -25,11 +17,10 @@ const OrderTable = ({ orders = [] }) => (
                 orders.map((o) => {
                     const order = new Order(o)
                     return (
-                    <Table.Row onClick={() => handleRowClick(order.OrderId)}>
+                    <Table.Row onClick={() => handleOrderRowClick(order.OrderId, isSeller)}>
                         <Table.Cell>
                             <Header color="blue" as='h4'>หมายเลข #{ order.OrderId }</Header>
                         </Table.Cell>
-                        {/* TODO Change class according to status */}
                         <Table.Cell>
                             <p className={ order.OrderStatusClass }>{ order.OrderStatus }</p>
                         </Table.Cell>
