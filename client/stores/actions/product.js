@@ -86,3 +86,21 @@ export const createBuyProduct = (product) => {
         })
     }
 }
+
+export const createBuyProductAttribute = (product) => {
+    return (dispatch) => {
+        dispatch(creatingProduct())
+        const createUrl = `${url}/product/create_attribute/`
+        return Axios({
+            method: 'POST',
+            url: createUrl,
+            data: product
+        })
+        .then((response) => {
+            dispatch(createProductSuccess(response))
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import isEmpty from 'lodash'
 import { Header, Grid } from 'semantic-ui-react'
 import Gallery from 'molecules/Gallery'
 import Categories from 'stores/models/Categories'
@@ -39,7 +40,8 @@ const ProductDataCard = ({ auction, product }) => {
                                 <div><Header as="h4" color="grey">ราคา</Header></div>
                                 <div><p>{product.price} บาท</p></div>
                                 <div><Header as="h4" color="grey">จำนวนสินค้า</Header></div>
-                                <div><p>{product.quantity} ชิ้น</p></div>
+                                {/* TODO Add Attribute quantity */}
+                                { !isEmpty(product.attributes) ? <div><p>{product.quantity} ชิ้น</p></div> : null }
                             </div>
                         </div>
                     )
