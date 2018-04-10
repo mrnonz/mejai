@@ -12,14 +12,14 @@ const ProductCard = ({ productId, name, organization, price, auction, onCardClic
                             {name}
                         </Card.Header>
                         <Progress percent={75} size="tiny" color="orange"/>
-                        <span className="card-price"> {price.toLocaleString()} Baht </span>
+                        <span className="card-price"> {price.toLocaleString()} บาท </span>
                         <span className="card-expired"> Expired </span>
                     </Card.Content>
                     ) : (
                     <Card.Content> 
                         <Header as="h5" dividing>{name}</Header>
                         <p className="card-organization">{ organization.name }</p>
-                        <p className="card-price"> {price.toLocaleString()} Baht </p>
+                        <p className="card-price"> {price.toLocaleString()} บาท </p>
                     </Card.Content>
                     )
                 }

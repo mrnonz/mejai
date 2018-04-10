@@ -74,12 +74,10 @@ class Products extends Component {
                     { isLoading ? <section className="page-loader-wrapper"><Loader /></section> :
                     <section className="list-container">
                         <div className="product-count">
-                            <h3>List All</h3>
-                            <p>Found {products.length} Items</p>
+                            <h3>แสดงทั้งหมด</h3>
+                            <p>พบ {products.length} ชิ้น</p>
                         </div>
                         <div className="product-sort">
-                            <span>Sort By </span>
-                            <Dropdown selection defaultValue="featured" options={sortOptions}/>
                         </div>
                         <ProductList productType={productType} products={pageItems} onCardClick={this.handleCardClick}/>
                         <Pagination 

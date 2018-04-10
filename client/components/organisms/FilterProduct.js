@@ -11,7 +11,7 @@ class FilterProduct extends Component {
         return (
             <div>
                 <Header as='h3' dividing>
-                    Filter
+                    กรองสินค้า
                 </Header>
                 { categories.map((category) => (
                     <List><List.Item><Checkbox label={category} /></List.Item></List>
