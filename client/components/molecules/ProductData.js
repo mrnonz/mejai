@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { isEmpty } from 'lodash'
 import { connect } from 'react-redux'
 import { Button, Progress, Header, Input, Dropdown } from 'semantic-ui-react'
 
@@ -12,26 +13,11 @@ class ProductData extends Component {
     render() {
         const { showPriceInput } = this.state
         const { product, itemType, onAdd } = this.props
-        const options = [
-            {
-              key: 1,
-              text: 'Mobile',
-              value: 1,
-              content: <Header icon='mobile' content='Mobile' subheader='The smallest size' />,
-            },
-            {
-              key: 2,
-              text: 'Tablet',
-              value: 2,
-              content: <Header icon='tablet' content='Tablet' subheader='The size in the middle' />,
-            },
-            {
-              key: 3,
-              text: 'Desktop',
-              value: 3,
-              content: <Header icon='desktop' content='Desktop' subheader='The largest size' />,
-            },
-        ]
+        const productOptions = !isEmpty(product.attributes) && product.attributes.map((attribute, index) => ({
+            key: index,
+            text: attribute.value,
+            value: attribute.value
+        }))
         return (
             itemType === 'buy' ? 
             <div className="product-data">
@@ -40,13 +26,18 @@ class ProductData extends Component {
                 <p className="price">{ product.price } บาท</p>
                 <Header as="h3" color="grey">องค์กรที่ช่วยเหลือ</Header>
                 <p>{ product.organization.name }</p>
-                <Header as="h3" color="grey">ขนาด</Header>
-                <Dropdown
-                    selection
-                    fluid
-                    options={options}
-                    placeholder='Choose an option'
-                />
+                {
+                    !isEmpty(product.attributes) && <Header as="h3" color="grey">{ product.attributes[0].name }</Header>
+                }
+                {
+                    !isEmpty(product.attributes) && 
+                    <Dropdown
+                        selection
+                        fluid
+                        options={productOptions}
+                        placeholder='เลือกคุณสมบัติของสินค้า'
+                    />
+                }
                 <Button 
                     color="teal" 
                     size="huge" 
