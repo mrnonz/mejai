@@ -12,6 +12,7 @@ class LoginPage extends Component {
     super(props);
     this.state = {
       showLoginForm: true,
+      creatingUser: false,
       loginForm: {
         email: '',
         password: '',
@@ -23,6 +24,16 @@ class LoginPage extends Component {
         confirmPassword: ''
       }
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+      if(this.state.creatingUser) {
+          if(!nextProps.user.isCreating) {
+              this.setState({
+                showLoginForm: true
+              })
+          }
+      }
   }
 
   hideLoginForm() {
@@ -38,7 +49,7 @@ class LoginPage extends Component {
   }
 
   handleRegisterSubmit() {
-    const { email, name, password, confirmPassword} = this.state.registerForm
+    const { email, name, password, confirmPassword } = this.state.registerForm
     const userData = {
       email,
       firstname: name.split(' ')[0],
@@ -59,6 +70,7 @@ class LoginPage extends Component {
 
   handleRegisterChange = ({ target: { name , value } }) => {
     this.setState({
+      creatingUser: true,
       registerForm: {
         ...this.state.registerForm,
         [name]: value
@@ -68,6 +80,7 @@ class LoginPage extends Component {
 
   render() {
     const { showLoginForm } = this.state
+    const { user: { isCreating } } = this.props
     return (
       <div className="login-page">
         <div className="login-form">
@@ -76,7 +89,7 @@ class LoginPage extends Component {
               showLoginForm ?
               <Form>
                 <FormInput onChange={this.handleLoginChange} label="อีเมล์" name="email" required />
-                <FormInput onChange={this.handleLoginChange} label="รหัสผ่าน" name="password" required />
+                <FormInput onChange={this.handleLoginChange} label="รหัสผ่าน" name="password" type="password" required />
                 <Button fluid className="login-button" color="green">เข้าสู่ระบบ</Button>
                 <Button fluid className="login-button" color="teal" onClick={this.hideLoginForm.bind(this)}>สมัครสมาชิก</Button>
               </Form>
@@ -87,8 +100,8 @@ class LoginPage extends Component {
                 <FormInput onChange={this.handleRegisterChange} label="รหัสผ่าน" name="password" required type="password" />
                 <FormInput onChange={this.handleRegisterChange} label="ยืนยันรหัสผ่าน" name="confirmPassword" required type="password" />
                 <div className="button-group">
-                  <Button color="green" onClick={this.handleRegisterSubmit.bind(this)} >Register</Button>
-                  <Button basic onClick={this.showLoginForm.bind(this)}>Cancel</Button>
+                  <Button loading={ isCreating } color="green" onClick={this.handleRegisterSubmit.bind(this)} >Register</Button>
+                  <Button disabled={ isCreating } basic onClick={this.showLoginForm.bind(this)}>Cancel</Button>
                 </div> 
               </Form>
             }
@@ -98,6 +111,11 @@ class LoginPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+    user: state.user
+  }
+)
+
 const mapDispatchToProps = (dispatch) => {
   return {
     createUser: (userData) => {
@@ -106,4 +124,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(makeStore, null, mapDispatchToProps)(LoginPage)
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(LoginPage)

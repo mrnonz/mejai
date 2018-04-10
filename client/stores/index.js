@@ -42,6 +42,7 @@ const intialStore = {
     user: {
         isLoading: true,
         isUpdating: false,
+        isCreating: false,
         user: {},
         address: ''
     },

@@ -34,6 +34,11 @@ export const createUserSuccess = (user) => ({
     user
 })
 
+export const createUserFailed = () => ({
+    type: 'CREATE_USER_FAILED',
+    isCreating: false
+})
+
 export const fetchUserSuccess = (user) => {
     return {
         type: 'FETCH_USER_SUCCESS',
@@ -70,6 +75,7 @@ export const createUser = (userData) => (
             return dispatch(createUserSuccess(response))
         })
         .catch((error) => {
+            dispatch(createUserFailed())
             throw(error);
         })
     }

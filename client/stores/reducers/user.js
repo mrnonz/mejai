@@ -21,6 +21,11 @@ const user = (state = {}, action) => {
                 isCreating: action.isCreating,
                 user: action.user.data
             }
+        case 'CREATE_USER_FAILED':
+            return {
+                ...state,
+                isCreating: action.isCreating
+            }
         case 'FETCH_USER_SUCCESS':
             return {
                 ...state,
