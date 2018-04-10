@@ -18,7 +18,7 @@ const ProductCard = ({ productId, name, organization, price, auction, onCardClic
                     ) : (
                     <Card.Content> 
                         <Header as="h5" dividing>{name}</Header>
-                        <p className="card-organization">  organization </p>
+                        <p className="card-organization">{ organization.name }</p>
                         <p className="card-price"> {price.toLocaleString()} Baht </p>
                     </Card.Content>
                     )
