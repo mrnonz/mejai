@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Table, Image, Progress } from 'semantic-ui-react'
 
-const HelpingTable = ({ organization }) => {
+const HelpingTable = ({ organization, hideLabel }) => {
     return (
         <Table basic className="helping-table" fixed>
+            { !hideLabel &&
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell singleLine>องค์กรที่ช่วยเหลือ</Table.HeaderCell>
                 </Table.Row>
-            </Table.Header>
+            </Table.Header> }
             <Table.Body>    
                 <Table.Row>
                     <Table.Cell width={5}>
