@@ -7,6 +7,11 @@ export const creatingUser = () => ({
     isCreating: true
 })
 
+export const fetchingSellerOrder = () => ({
+    type: 'LOADING_SELLER_ORDER',
+    isLoadingOrder: true
+})
+
 export const fetchingUserDetail = () => {
     return {
         type: 'LOADING_USER',
@@ -39,6 +44,12 @@ export const createUserFailed = () => ({
     isCreating: false
 })
 
+export const fetchSellerOrderSuccess = (orders) => ({
+    type: 'FETCH_SELLER_ORDER_SUCCESS',
+    isLoadingOrder: false,
+    orders
+})
+
 export const fetchUserSuccess = (user) => {
     return {
         type: 'FETCH_USER_SUCCESS',
@@ -54,6 +65,7 @@ export const fetchAddressSuccess = (address) => {
         address
     }
 }
+
 
 export const updatingUserAddressSuccess = () => {
     return {
@@ -80,6 +92,20 @@ export const createUser = (userData) => (
         })
     }
 )
+
+export const fetchSellerOrder = (id) => {
+    return (dispatch) => {
+        dispatch(fetchingSellerOrder())
+        const fetchUrl = `${url}/customer/${id}/sell_order/`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchSellerOrderSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
 
 export const fetchUserDetail = (id) => {
     return (dispatch) => {

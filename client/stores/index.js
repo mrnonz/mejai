@@ -41,10 +41,12 @@ const intialStore = {
     },
     user: {
         isLoading: true,
+        isLoadingOrder: true,
         isUpdating: false,
         isCreating: false,
         user: {},
-        address: ''
+        address: '',
+        orders: []
     },
     order: {
         isCreating: false,

@@ -5,6 +5,11 @@ const user = (state = {}, action) => {
                 ...state,
                 isCreating: action.isCreating
             }
+        case 'LOADING_SELLER_ORDER':
+            return {
+                ...state,
+                isLoadingOrder: action.isLoadingOrder
+            }
         case 'LOADING_USER':
             return {
                 ...state,
@@ -25,6 +30,12 @@ const user = (state = {}, action) => {
             return {
                 ...state,
                 isCreating: action.isCreating
+            }
+        case 'FETCH_SELLER_ORDER_SUCCESS':
+            return {
+                ...state,
+                isLoadingOrder: action.isLoadingOrder,
+                orders: action.orders.data.data
             }
         case 'FETCH_USER_SUCCESS':
             return {
