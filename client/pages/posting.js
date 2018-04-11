@@ -74,7 +74,7 @@ class Posting extends Component {
         if(this.state.menuActive === 'selling') {
             const { name, category, price, quantity, info, attributeName, attributes, hasAttribute } = this.state
             const product = {
-                name, price, quantity, info, organizationId,
+                name, price, quantity, info, organizationId,userId,
                 sellerId: userId,
                 categoryId: category,
                 // TODO Upload Image

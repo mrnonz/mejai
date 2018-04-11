@@ -61,10 +61,11 @@ class Products extends Component {
         
         return (
             <div className="products-page">    
+                {/* TODO Dynamic header */}
                 <header>
                     <div className="background-mask">
-                        <h1>Auction Page</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum , consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum</p>
+                        <h1>เลือกซื้อสินค้า</h1>
+                        <p>ผู้ใช้เลือกสินค้าที่ถูกใจ โดยรายได้จากสินค้าเหล่านั้นจะนำไปช่วยเหลือองค์กรการกุศลที่ผู้ขายเลือกไว้</p>
                     </div>
                 </header>
                 <main>

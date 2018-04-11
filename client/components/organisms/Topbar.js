@@ -48,14 +48,13 @@ const Topbar = (props) => (
             <Link href="/cart"><a>
                 <div className="cart-wrapper">
                     <Svg src={`static/icons/cart.svg`} />
-                    <span>0</span>
                 </div>
             </a></Link>
             <div className="separator" />
             <Link href="/login"><a>
                 <div className="user-wrapper">
                     <Svg src={`static/icons/user.svg`} />
-                    <span>Sign In</span>
+                    <span>สมชาย ใจดี</span>
                 </div>
             </a></Link>
         </div>        
