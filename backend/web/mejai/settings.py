@@ -103,7 +103,10 @@ if 'MYSQL_DATABASE' in os.environ:
             'USER': os.environ['MYSQL_USER'],
             'PASSWORD': os.environ['MYSQL_PASSWORD'],
             'HOST': os.environ['MYSQL_HOST'],
-            'PORT': 3306
+            'PORT': 3306,
+            'OPTIONS': {
+                "init_command": "SET foreign_key_checks = 0;",
+            },
         }
     }
 else:

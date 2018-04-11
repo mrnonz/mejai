@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from cart.models import Cart
 from product.models import Product
+from product_attribute.models import ProductAttribute
 
 
 class CartProduct(models.Model):
@@ -15,6 +16,8 @@ class CartProduct(models.Model):
         Cart, on_delete=models.CASCADE, related_name='cart_product_cart', default='')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='cart_product_product', default='')
+    attribute = models.ForeignKey(
+        ProductAttribute, on_delete=models.CASCADE, related_name='cart_product_product_attribute', default='')
 
     class Meta:
         managed = True
