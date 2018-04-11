@@ -129,8 +129,7 @@ def order_create(request):
 
         for item in items:
             productId = item['product']['id']
-            attributeName = item['product']['attribute']['name']
-            attributeValue = item['product']['attribute']['value']
+            attribute = item['product']['productAttributeId']
             price = item['price']
             quantity = item['quantity']
 
@@ -139,8 +138,7 @@ def order_create(request):
                           status=1,
                           product_id=productId,
                           buyer_id=userId,
-                          attributename=attributeName,
-                          attributevalue=attributeValue,
+                          attribute_id=attribute,
                           time=datetime.now(),
                           address=newAddress)
 
