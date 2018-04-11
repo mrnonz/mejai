@@ -10,6 +10,19 @@ class ProductData extends Component {
             showPriceInput: false
         }
     }
+
+    handleShowPriceInput() {
+        this.setState({
+            showPriceInput: true
+        })
+    }
+
+    handlePriceSubmit() {
+        this.setState({
+            showPriceInput: false
+        })
+    }
+
     render() {
         const { showPriceInput } = this.state
         const { product, itemType, onAdd } = this.props
@@ -50,16 +63,21 @@ class ProductData extends Component {
             <div className="product-data">
                 <Header as="h2">{ product.name }</Header>
                 <Header as="h3" color="grey">ราคาปัจจุบัน</Header>
-                <p className="price">{ product.price } บาท</p>
+                <p className="price">250 บาท</p>
                 <Header as="h3" color="grey">องค์กรที่ช่วยเหลือ</Header>
                 <p>{ product.organization.name }</p>
-                <Header as="h3" color="grey">ระยะเวลา</Header>,
-                <p>3 วัน 4 ขั่วโมง</p>,
+                <Header as="h3" color="grey">ระยะเวลาที่เหลือ</Header>
+                <p>30 นาที</p>
                 <div className="data-auction" >
-                    <Progress percent={75} size="small" color="orange"/>
+                    <Progress percent={90} size="small" color="orange"/>
                     { showPriceInput ? 
-                        <Input className="auction-form" size="huge" action={{ color:"teal", size:"huge", content: "ประมูล" }} placeholder='ราคาของคุณ' /> : 
-                        <Button color="teal" size="huge" fluid>ร่วมประมูล</Button> 
+                        <Input 
+                            className="auction-form" 
+                            size="huge" 
+                            action={{ color:"teal", size:"huge", content: "ประมูล", onClick:this.handlePriceSubmit.bind(this) }} 
+                            placeholder='กรอกราคา' 
+                        /> : 
+                        <Button color="teal" size="huge" onClick={this.handleShowPriceInput.bind(this)} fluid>ร่วมประมูล</Button> 
                     }
                 </div>
             </div>
