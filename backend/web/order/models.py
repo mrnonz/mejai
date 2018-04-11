@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from product.models import Product
 from customer.models import Customer
+from product_attribute.models import ProductAttribute
 
 
 class Order(models.Model):
@@ -16,6 +17,7 @@ class Order(models.Model):
     slip = models.CharField(max_length=1023, default='')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='order_product', default='')
+    product_attribute = models.IntegerField(default=0)
     buyer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='order_customer', default=''
     )
