@@ -20,6 +20,8 @@ class Order(models.Model):
     buyer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='order_customer', default=''
     )
+    attribute = models.ForeignKey(
+        ProductAttribute, on_delete=models.CASCADE, related_name='order_product_attribute', default='')
 
     class Meta:
         managed = True
