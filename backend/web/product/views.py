@@ -9,7 +9,11 @@ from product_attribute.models import ProductAttribute
 from product_attribute.serializers import ProductAttributeSerializer
 from product_image.models import ProductImage
 from product_image.serializers import ProductImageSerializer
+from google.cloud import storage
+from django.core.files.storage import FileSystemStorage
 from datetime import datetime
+import uuid
+import os
 
 
 @csrf_exempt
@@ -161,3 +165,40 @@ def product_create_attribute(request):
         serializerNewProduct = ProductSerializer(newProduct)
 
         return JsonResponse(serializerNewProduct.data, status=201)
+
+
+@csrf_exempt
+def product_image(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+    except Order.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'POST':
+        image = request.FILES['image']
+
+        filename_image, file_extension = os.path.splitext(image.name)
+
+        nameImage = uuid.uuid4().hex + file_extension
+        fs = FileSystemStorage()
+        filename = fs.save(nameImage, image)
+
+        storage_client = storage.Client()
+        bucket_name = 'mejai'
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob('product/image/' + nameImage)
+
+        blob.upload_from_filename(filename=filename)
+        blob.make_public()
+
+        fs.delete(nameImage)
+
+        # product-Image save step
+
+        newproductImage = ProductImage(url=blob.public_url,
+                                       product_id=product.id)
+
+        newproductImage.save()
+        serializerImage = ProductImageSerializer(newproductImage)
+
+        return JsonResponse(serializerImage.data)
