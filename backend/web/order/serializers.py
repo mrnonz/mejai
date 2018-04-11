@@ -7,6 +7,7 @@ class OrderSerializer(serializers.ModelSerializer):
     productId = serializers.IntegerField(source='product_id')
     buyerId = serializers.IntegerField(source='buyer_id')
     created_by = serializers.DateTimeField(source='time')
+    productAttributeId = serializers.IntegerField(source='attribute_id')
 
     class Meta:
         model = Order
@@ -20,6 +21,5 @@ class OrderSerializer(serializers.ModelSerializer):
             'status',
             'slip',
             'address',
-            'attributename',
-            'attributevalue'
+            'productAttributeId'
         )
