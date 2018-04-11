@@ -3,11 +3,11 @@ import { Breadcrumb as DefaultBreadcrumb } from 'semantic-ui-react'
 
 const Breadcrumb = (props) => (
     <DefaultBreadcrumb className="breadcrumb">
-        <DefaultBreadcrumb.Section>Home</DefaultBreadcrumb.Section>
+        <DefaultBreadcrumb.Section>หน้าหลัก</DefaultBreadcrumb.Section>
         <DefaultBreadcrumb.Divider />
-        <DefaultBreadcrumb.Section>Store</DefaultBreadcrumb.Section>
+        <DefaultBreadcrumb.Section>ประมูลสินค้า</DefaultBreadcrumb.Section>
         <DefaultBreadcrumb.Divider />
-        <DefaultBreadcrumb.Section active>T-Shirt</DefaultBreadcrumb.Section>
+        <DefaultBreadcrumb.Section active>เสื้อเชิ้ตสีน้ำเงิน</DefaultBreadcrumb.Section>
     </DefaultBreadcrumb>
 )
 
