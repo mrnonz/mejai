@@ -17,7 +17,6 @@ class Order(models.Model):
     slip = models.CharField(max_length=1023, default='')
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='order_product', default='')
-    product_attribute = models.IntegerField(default=0)
     buyer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='order_customer', default=''
     )

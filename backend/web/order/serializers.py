@@ -19,5 +19,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'buyerId',
             'status',
             'slip',
-            'address'
+            'address',
+            'attributename',
+            'attributevalue'
         )
