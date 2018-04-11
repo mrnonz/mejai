@@ -115,6 +115,7 @@ def customer_cart(request, pk):
         data = JSONParser().parse(request)
         itemId = data['itemId']
         quantity = data['quantity']
+        productAttributeId = data['productAttributeId']
 
         cart, created = Cart.objects.get_or_create(customer_id=pk)
         product = Product.objects.get(pk=itemId)
@@ -122,13 +123,15 @@ def customer_cart(request, pk):
         try:
             cartProduct = CartProduct.objects.get(
                 cart_id=cart.id,
-                product_id=itemId)
+                product_id=itemId,
+                attribute_id=productAttributeId)
             cartProduct.quantity += quantity
         except CartProduct.DoesNotExist:
             cartProduct = CartProduct(cart_id=cart.id,
                                       product_id=itemId,
                                       price=product.price,
                                       quantity=quantity,
+                                      attribute_id=productAttributeId,
                                       time=datetime.now())
 
         cartProduct.save()

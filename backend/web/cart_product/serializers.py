@@ -5,6 +5,7 @@ from product.serializers import ProductSerializer
 
 class CartProductSerializer(serializers.ModelSerializer):
     itemId = serializers.IntegerField(source='product_id')
+    productAttributeId = serializers.IntegerField(source='attribute_id')
     product = ProductSerializer(read_only=True)
 
     class Meta:
@@ -14,5 +15,6 @@ class CartProductSerializer(serializers.ModelSerializer):
             'price',
             'quantity',
             'itemId',
-            'product'
+            'product',
+            'productAttributeId'
         )
