@@ -11,7 +11,7 @@ const ProductDetail = ({ itemType, product, onAdd }) => (
             <div className="user-info">
                 <span className="role">ผู้ขาย</span>
                 {/* TODO Add valid name */}
-                <span className="username">{ `${product.seller.first_name} ${product.seller.last_name}`}</span>
+                <span className="username">{ `${product.seller.firstname} ${product.seller.lastname}`}</span>
             </div>
             <div className="user-avatar">
                 <Image src='static/avatar.jpg' size="tiny" avatar/>

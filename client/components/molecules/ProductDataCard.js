@@ -22,7 +22,7 @@ class ProductDataCard extends Component {
 
     render() {
         moment.locale('th')
-        const { auction, product } = this.props
+        const { auction, product, product: { attributes = [] } } = this.props
         return (
             <Grid className="product-data-card" container>
                 <Grid.Column width={8}>
@@ -46,8 +46,7 @@ class ProductDataCard extends Component {
                             <div className="product-data">
                                 <Header as="h2">{product.name}</Header>
                                 <Header as="h3" color="grey">ผู้ช่วยเหลือ</Header>
-                                {/* TODO Change Name */}
-                                <p>สมศรี สมชาย</p>
+                                <p>{ `${product.seller.firstname} ${product.seller.lastname}` }</p>
                                 <Header as="h3" color="grey">วันที่ลง</Header>
                                 <p>{moment(product.created_time).format('LLL')}</p>
                                 <Header as="h3" color="grey">หมวดหมู่</Header>
@@ -56,7 +55,7 @@ class ProductDataCard extends Component {
                                     <div><Header as="h4" color="grey">ราคา</Header></div>
                                     <div><p>{product.price} บาท</p></div>
                                     <div><Header as="h4" color="grey">จำนวนสินค้า</Header></div>
-                                    { !isEmpty(product.attributes) ? <div><p>{product.quantity} ชิ้น</p></div> : 
+                                    { isEmpty(product.attributes) ? <div><p>{product.quantity} ชิ้น</p></div> : 
                                         <Popup
                                         trigger={<a>มากกว่า 1 รูปแบบ</a>}
                                         on='click'
