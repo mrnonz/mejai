@@ -7,6 +7,8 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
+from product_attribute.models import ProductAttribute
+from product_attribute.serializers import ProductAttributeSerializer
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
@@ -27,6 +29,10 @@ def order_detail(request, pk):
 
         product = Product.objects.get(id=order.product_id)
         serializerProduct = ProductSerializer(product)
+
+        productAttribute = ProductAttribute.objects.get(id=order.attribute_id)
+        serializerProductAttribute = ProductAttributeSerializer(
+            productAttribute)
 
         data = serializerOrder.data
 
@@ -51,6 +57,7 @@ def order_detail(request, pk):
         data['slip'] = data['slip']
         data['sellerId'] = data['item']['owner_id']
         data['address'] = address
+        data['attribute'] = serializerProductAttribute.data
         return JsonResponse(data)
 
 
