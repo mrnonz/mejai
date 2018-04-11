@@ -24,6 +24,7 @@ class MainPage extends Component {
     }
 
     render() {
+        // TODO Fix Index
         return (
             <div className="main-page">    
                 <header>
@@ -38,9 +39,9 @@ class MainPage extends Component {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </aside>
                     <div className="featured-auction">
-                      { products.data.map((item) => (
+                      {/* { products.data.map((item) => (
                           <div className="product"><ProductCard auction name={item.name} price={item.price} /></div>
-                      ))}
+                      ))} */}
                     </div>
                 </main>
                 <header>
@@ -55,9 +56,9 @@ class MainPage extends Component {
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </aside>
                     <div className="featured-auction">
-                      { products.data.map((item) => (
+                      {/* { products.data.map((item) => (
                           <div className="product"><ProductCard name={item.name} price={item.price} /></div>
-                      ))}
+                      ))} */}
                     </div>
                 </main>
             </div>
