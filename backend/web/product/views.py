@@ -112,7 +112,6 @@ def product_create(request):
         categoryId = data['categoryId']
         quantity = data['quantity']
         info = data['info']
-        images = data['images']
 
         newProduct = Product(name=name,
                              detail=info,
@@ -124,11 +123,6 @@ def product_create(request):
                              category_id=categoryId,
                              created_time=datetime.now())
         newProduct.save()
-
-        for image in images:
-            newImage = ProductImage(url=image,
-                                    product_id=newProduct.id)
-            newImage.save()
 
         serializerNewProduct = ProductSerializer(newProduct)
 
@@ -147,7 +141,6 @@ def product_create_attribute(request):
         # quantity = sum()
         attributes = data['attributes']
         info = data['info']
-        images = data['images']
 
         newProduct = Product(name=name,
                              detail=info,
@@ -164,11 +157,6 @@ def product_create_attribute(request):
                                             quantity=attribute['quantity'],
                                             value=attribute['value'])
             newAttribute.save()
-
-        for image in images:
-            newImage = ProductImage(url=image,
-                                    product_id=newProduct.id)
-            newImage.save()
 
         serializerNewProduct = ProductSerializer(newProduct)
 
