@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 10, 2018 at 01:03 PM
+-- Generation Time: Apr 11, 2018 at 06:37 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -288,20 +288,22 @@ CREATE TABLE `Cart_Product` (
   `price` decimal(10,2) NOT NULL,
   `quantity` int(11) NOT NULL,
   `cart_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `attribute_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `Cart_Product`
 --
 
-INSERT INTO `Cart_Product` (`id`, `time`, `price`, `quantity`, `cart_id`, `product_id`) VALUES
-(1, '2018-03-19 00:00:00.000000', '99.99', 2, 5, 1),
-(2, '2018-03-12 00:00:00.000000', '49.99', 3, 5, 2),
-(3, '2018-03-11 00:00:00.000000', '500.10', 2, 6, 2),
-(4, '2018-03-18 00:00:00.000000', '500.00', 202, 6, 1),
-(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3),
-(6, '2018-04-09 08:26:23.838333', '420.00', 1, 3, 6);
+INSERT INTO `Cart_Product` (`id`, `time`, `price`, `quantity`, `cart_id`, `product_id`, `attribute_id`) VALUES
+(1, '2018-03-19 00:00:00.000000', '99.99', 2, 5, 1, 0),
+(2, '2018-03-12 00:00:00.000000', '49.99', 3, 5, 2, 0),
+(3, '2018-03-11 00:00:00.000000', '500.10', 2, 6, 2, 0),
+(4, '2018-03-18 00:00:00.000000', '500.00', 202, 6, 1, 0),
+(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3, 0),
+(6, '2018-04-09 08:26:23.838333', '420.00', 1, 3, 6, 0),
+(7, '2018-04-11 18:30:38.468813', '420.00', 10, 5, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -529,7 +531,12 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (82, 'product_attribute', '0003_auto_20180406_2322', '2018-04-06 16:23:03.406732'),
 (83, 'order', '0008_auto_20180407_2332', '2018-04-07 16:33:09.393940'),
 (84, 'order', '0009_order_address', '2018-04-08 17:10:40.126914'),
-(85, 'product', '0011_auto_20180409_2342', '2018-04-10 13:03:05.296892');
+(85, 'product', '0011_auto_20180409_2342', '2018-04-10 13:03:05.296892'),
+(86, 'order', '0010_order_product_attribute', '2018-04-11 17:42:37.596842'),
+(87, 'order', '0011_remove_order_product_attribute', '2018-04-11 17:53:42.280836'),
+(88, 'order', '0012_order_attribute', '2018-04-11 18:06:16.902676'),
+(89, 'order', '0013_auto_20180412_0108', '2018-04-11 18:09:04.065277'),
+(90, 'cart_product', '0009_cartproduct_attribute', '2018-04-11 18:29:01.353701');
 
 -- --------------------------------------------------------
 
@@ -566,51 +573,52 @@ CREATE TABLE `Order` (
   `product_id` int(11) NOT NULL,
   `buyer_id` int(11) NOT NULL,
   `slip` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `attributename` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `attributevalue` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `address` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `attribute_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Order`
 --
 
-INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `attributename`, `attributevalue`, `address`) VALUES
-(1, '2018-04-03 16:54:30', 10, '555.55', 1, 1, 3, '/url.jpg', '', '', NULL),
-(2, '2018-04-03 16:54:35', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png', '', '', NULL),
-(3, '2018-04-06 16:09:44', 10, '555.55', 2, 7, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/93eacceece4849098247318e6e06443d.jpg', '', '', NULL),
-(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '', '', '', NULL),
-(6, '2018-04-07 16:39:57', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(8, '2018-04-07 16:40:23', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(9, '2018-04-07 16:40:23', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
-(10, '2018-04-07 16:41:46', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(11, '2018-04-07 16:41:46', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
-(12, '2018-04-07 16:44:06', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(13, '2018-04-07 16:44:06', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
-(14, '2018-04-07 16:45:06', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(15, '2018-04-07 16:45:06', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
-(16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', NULL),
-(17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', NULL),
-(18, '2018-04-08 17:13:52', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(20, '2018-04-09 08:28:42', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/663f48ecea9941c79d51053c6a106c23.jpg', '', '', '\\\\\\\\\\\\'),
-(21, '2018-04-09 08:30:23', 0, '420.00', 1, 6, 1, '', '', '', 'John\\John\\LK\\LK\\LK\\LK\\Doe'),
-(22, '2018-04-09 08:30:59', 0, '420.00', 1, 6, 1, '', '', '', '\\\\LKB\\LKB\\LKB\\LKB\\'),
-(23, '2018-04-09 08:31:54', 0, '420.00', 1, 6, 1, '', '', '', 'AS\\AS\\\\\\\\\\AS'),
-(24, '2018-04-09 08:32:31', 0, '420.00', 1, 6, 1, '', '', '', '\\\\A\\NB\\C\\D\\'),
-(25, '2018-04-09 08:40:01', 0, '420.00', 1, 6, 1, '', '', '', 'John\\John\\A\\NB\\C\\D\\Doe'),
-(26, '2018-04-09 08:42:29', 0, '420.00', 1, 6, 1, '', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
-(27, '2018-04-09 08:46:29', 0, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e6007fb4a74240c69f32bdad5cddf699.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
-(28, '2018-04-09 08:49:46', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/1341fcb0c1e746e9a1f9607f3af28713.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
-(29, '2018-04-09 08:53:24', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/08ac4260c4a545eeaa525460c0ebde51.jpg', '', '', 'John\\Doe\\A\\NB\\C\\D\\598877'),
-(30, '2018-04-09 09:12:33', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/6cb06c6274d245a49b893bc396065cf2.jpg', '', '', 'John\\Doe\\LB\\FF\\LK\\DD\\084-6665478'),
-(31, '2018-04-09 16:25:16', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(32, '2018-04-09 16:25:16', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(33, '2018-04-09 16:32:11', 3, '150.00', 1, 1, 3, '', 'ขนาด', 'M', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(34, '2018-04-09 16:32:11', 2, '120.00', 1, 11, 3, '', 'ขนาด', 'S', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214'),
-(35, '2018-04-09 17:38:40', 1, '420.00', 1, 6, 1, '', '', '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10110\\084-6665478'),
-(36, '2018-04-09 17:39:11', 1, '420.00', 1, 6, 1, '', '', '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง2\\ลาดกระบัง2\\กรุงเทพ\\10110\\084-6665478'),
-(37, '2018-04-09 17:41:00', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/00a4c9dd090c40a796ba9a209cc2638b.jpg', '', '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478');
+INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `address`, `attribute_id`) VALUES
+(1, '2018-04-11 18:08:09', 10, '555.55', 1, 1, 3, '/url.jpg', NULL, 9),
+(2, '2018-04-11 18:08:30', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png', NULL, 2),
+(3, '2018-04-06 16:09:44', 10, '555.55', 2, 7, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/93eacceece4849098247318e6e06443d.jpg', NULL, 0),
+(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '', NULL, 0),
+(6, '2018-04-07 16:39:57', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(8, '2018-04-07 16:40:23', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(9, '2018-04-07 16:40:23', 2, '120.00', 1, 11, 3, '', NULL, 0),
+(10, '2018-04-07 16:41:46', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(11, '2018-04-07 16:41:46', 2, '120.00', 1, 11, 3, '', NULL, 0),
+(12, '2018-04-07 16:44:06', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(13, '2018-04-07 16:44:06', 2, '120.00', 1, 11, 3, '', NULL, 0),
+(14, '2018-04-07 16:45:06', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(15, '2018-04-07 16:45:06', 2, '120.00', 1, 11, 3, '', NULL, 0),
+(16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', NULL, 0),
+(17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', NULL, 0),
+(18, '2018-04-08 17:13:52', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(20, '2018-04-09 08:28:42', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/663f48ecea9941c79d51053c6a106c23.jpg', '\\\\\\\\\\\\', 0),
+(21, '2018-04-09 08:30:23', 0, '420.00', 1, 6, 1, '', 'John\\John\\LK\\LK\\LK\\LK\\Doe', 0),
+(22, '2018-04-09 08:30:59', 0, '420.00', 1, 6, 1, '', '\\\\LKB\\LKB\\LKB\\LKB\\', 0),
+(23, '2018-04-09 08:31:54', 0, '420.00', 1, 6, 1, '', 'AS\\AS\\\\\\\\\\AS', 0),
+(24, '2018-04-09 08:32:31', 0, '420.00', 1, 6, 1, '', '\\\\A\\NB\\C\\D\\', 0),
+(25, '2018-04-09 08:40:01', 0, '420.00', 1, 6, 1, '', 'John\\John\\A\\NB\\C\\D\\Doe', 0),
+(26, '2018-04-09 08:42:29', 0, '420.00', 1, 6, 1, '', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
+(27, '2018-04-09 08:46:29', 0, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e6007fb4a74240c69f32bdad5cddf699.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
+(28, '2018-04-09 08:49:46', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/1341fcb0c1e746e9a1f9607f3af28713.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
+(29, '2018-04-09 08:53:24', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/08ac4260c4a545eeaa525460c0ebde51.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
+(30, '2018-04-09 09:12:33', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/6cb06c6274d245a49b893bc396065cf2.jpg', 'John\\Doe\\LB\\FF\\LK\\DD\\084-6665478', 0),
+(31, '2018-04-09 16:25:16', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(32, '2018-04-09 16:25:16', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(33, '2018-04-09 16:32:11', 3, '150.00', 1, 1, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(34, '2018-04-09 16:32:11', 2, '120.00', 1, 11, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
+(35, '2018-04-09 17:38:40', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10110\\084-6665478', 0),
+(36, '2018-04-09 17:39:11', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง2\\ลาดกระบัง2\\กรุงเทพ\\10110\\084-6665478', 0),
+(37, '2018-04-09 17:41:00', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/00a4c9dd090c40a796ba9a209cc2638b.jpg', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', 0),
+(38, '2018-04-11 18:14:30', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 4),
+(39, '2018-04-11 18:14:30', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 2);
 
 -- --------------------------------------------------------
 
@@ -914,7 +922,8 @@ ALTER TABLE `Cart`
 ALTER TABLE `Cart_Product`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Cart_Product_cart_id_223af4d3_fk_Cart_id` (`cart_id`),
-  ADD KEY `Cart_Product_product_id_813fd90d_fk_Product_id` (`product_id`);
+  ADD KEY `Cart_Product_product_id_813fd90d_fk_Product_id` (`product_id`),
+  ADD KEY `Cart_Product_attribute_id_f300dc25_fk_Product_Attribute_id` (`attribute_id`);
 
 --
 -- Indexes for table `Customer`
@@ -973,7 +982,8 @@ ALTER TABLE `django_session`
 ALTER TABLE `Order`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Order_product_id_abf21980_fk_Product_id` (`product_id`),
-  ADD KEY `Order_buyer_id_1dd0963a_fk_Customer_id` (`buyer_id`);
+  ADD KEY `Order_buyer_id_1dd0963a_fk_Customer_id` (`buyer_id`),
+  ADD KEY `Order_attribute_id_32b940ad_fk_Product_Attribute_id` (`attribute_id`);
 
 --
 -- Indexes for table `Order_Organization`
@@ -1095,7 +1105,7 @@ ALTER TABLE `Cart`
 -- AUTO_INCREMENT for table `Cart_Product`
 --
 ALTER TABLE `Cart_Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `Customer`
@@ -1131,13 +1141,13 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `Order`
 --
 ALTER TABLE `Order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `Organization`
@@ -1241,6 +1251,7 @@ ALTER TABLE `Cart`
 -- Constraints for table `Cart_Product`
 --
 ALTER TABLE `Cart_Product`
+  ADD CONSTRAINT `Cart_Product_attribute_id_f300dc25_fk_Product_Attribute_id` FOREIGN KEY (`attribute_id`) REFERENCES `Product_Attribute` (`id`),
   ADD CONSTRAINT `Cart_Product_cart_id_223af4d3_fk_Cart_id` FOREIGN KEY (`cart_id`) REFERENCES `Cart` (`id`),
   ADD CONSTRAINT `Cart_Product_product_id_813fd90d_fk_Product_id` FOREIGN KEY (`product_id`) REFERENCES `Product` (`id`);
 
@@ -1269,6 +1280,7 @@ ALTER TABLE `django_admin_log`
 -- Constraints for table `Order`
 --
 ALTER TABLE `Order`
+  ADD CONSTRAINT `Order_attribute_id_32b940ad_fk_Product_Attribute_id` FOREIGN KEY (`attribute_id`) REFERENCES `Product_Attribute` (`id`),
   ADD CONSTRAINT `Order_buyer_id_1dd0963a_fk_Customer_id` FOREIGN KEY (`buyer_id`) REFERENCES `Customer` (`id`),
   ADD CONSTRAINT `Order_product_id_abf21980_fk_Product_id` FOREIGN KEY (`product_id`) REFERENCES `Product` (`id`);
 
