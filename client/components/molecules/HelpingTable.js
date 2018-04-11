@@ -8,6 +8,9 @@ const HelpingTable = ({ organization, hideLabel }) => {
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell singleLine>องค์กรที่ช่วยเหลือ</Table.HeaderCell>
+                    <Table.HeaderCell width={6} ></Table.HeaderCell>
+                    <Table.HeaderCell width={2}></Table.HeaderCell>
+                    <Table.HeaderCell width={3}></Table.HeaderCell>
                 </Table.Row>
             </Table.Header> }
             <Table.Body>    
@@ -15,11 +18,19 @@ const HelpingTable = ({ organization, hideLabel }) => {
                     <Table.Cell width={5}>
                         <Image src={'static/OrganizationImage1.jpg'} size="medium" />
                     </Table.Cell>
-                    <Table.Cell width={11} className="content">
+                    <Table.Cell  className="content">
                         <p className="header">{organization.name}</p>
                         <p className="description">{organization.description}</p>
-                        <p className="helping">ยอดช่วยเหลือ : 25000 บาท</p>
-                        <Progress percent={75} size="small" color="orange"/>
+                        <p className="helping"><span>จำนวนเงิน: 450 บาท</span> ธ.กสิกรไทย สาขา ลาดกระบัง</p>
+                        <p className="helping">เลขบัญชี: 123-4-56789-0</p>
+                    </Table.Cell>
+                    <Table.Cell  className="content">
+                        <Image src={'static/qr.jpg'} size="small" />
+                    </Table.Cell>
+                    <Table.Cell  verticalAlign="middle" className="content">
+                        <p className="description">รายละเอียด PromptPay</p>
+                        <p className="helping"><span>จำนวนเงิน: 450 บาท</span> ธ.กสิกรไทย สาขา ลาดกระบัง</p>
+                        <p className="helping">เลขบัญชี: 123-4-56789-0</p>
                     </Table.Cell>
                 </Table.Row>
             </Table.Body>

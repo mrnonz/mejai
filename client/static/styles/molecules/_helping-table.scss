@@ -11,6 +11,10 @@
 
         >.helping {
             font-weight: 500;
+
+            >span {
+                color: $colorOrange;
+            }
         }
     }
 }
