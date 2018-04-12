@@ -10,14 +10,13 @@ const ProductDetail = ({ itemType, product, onAdd }) => (
         <div className="product-user">
             <div className="user-info">
                 <span className="role">ผู้ขาย</span>
-                {/* TODO Add valid name */}
                 <span className="username">{ `${product.seller.firstname} ${product.seller.lastname}`}</span>
             </div>
             <div className="user-avatar">
                 <Image src='static/avatar.jpg' size="tiny" avatar/>
             </div>
         </div>
-        <Gallery />
+        <Gallery images={product.images} />
         <ProductData
             itemType={itemType} 
             product={product}

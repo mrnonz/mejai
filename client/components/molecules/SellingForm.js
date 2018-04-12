@@ -87,7 +87,7 @@ class SellingForm extends Component {
             }
         ]
         const { attributes, hasAttribute } = this.state
-        const { onChange, onSubmit } = this.props
+        const { onChange, onSubmit, onFileUpload } = this.props
         return (
             <Form onSubmit={onSubmit} >
                 <Form.Group widths='equal'>
@@ -133,7 +133,11 @@ class SellingForm extends Component {
                         </Table.Cell> 
                     </Table.Row> }
                 </Table>
-                <UploadForm label="คุณยังไม่มีรูปภาพสินค้าของคุณ" fileLimit={5} />
+                <UploadForm 
+                    label="คุณยังไม่มีรูปภาพสินค้าของคุณ" 
+                    fileLimit={5} 
+                    onFileUpload={onFileUpload}
+                />
                 <Form.TextArea name="info" label="รายละเอียด" placeholder="ข้อมูลเพิ่มเติมสินค้าของคุณ" onChange={onChange} />
                 <div className="button-group">
                     <Button color="green" size="large">ดำเนินการต่อ</Button>
