@@ -125,7 +125,10 @@ class Order extends Component {
                     </Modal.Content>
                     :
                     <Modal.Content>
-                        <UploadForm onFileUpload={this.handleFileUpload.bind(this)} fileLimit={1}/>
+                        <UploadForm 
+                            onFileUpload={this.handleFileUpload.bind(this)} 
+                            fileLimit={1}
+                        />
                         <div className="button-group">
                             <Button 
                                 disabled={ isEmpty(slip) }

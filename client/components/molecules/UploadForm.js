@@ -19,7 +19,7 @@ class UploadForm extends Component {
         this.setState({
             files: files
         })
-        this.props.onFileUpload && this.props.onFileUpload(uploadFiles)
+        this.props.onFileUpload && this.props.onFileUpload(files)
     }
 
     handleDeleteFile(file) {
@@ -72,7 +72,7 @@ class UploadForm extends Component {
                     ) : (
                         <div className="none-msg">
                             <div>{ label }</div>
-                            <Button color="teal">อัพโหลด</Button>
+                            <Button color="teal" type="button" >อัพโหลด</Button>
                         </div>
                     ) }
                 </Dropzone>

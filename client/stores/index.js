@@ -24,7 +24,8 @@ const intialStore = {
         isLoading: true,
         data: {
             seller: {}
-        }
+        },
+        productId: 1
     },
     products: {
         isLoading: true,
