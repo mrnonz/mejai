@@ -31,7 +31,7 @@ class ConfirmPost extends Component {
     }
 
     render() {
-        const { product: { data: product, isLoading } } = this.props
+        const { product: { data: { organization = {} }, data: product, isLoading } } = this.props
         return (
             <Container className="confirm-post-page">
                 <Header as='h2' dividing color="orange" >
