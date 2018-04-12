@@ -60,16 +60,22 @@ export const creatingProduct = (product) => {
     }
 }
 
-export const createProductSuccess = (product) => {
+export const uploadingProductImage = () => {
+    return {
+        type: 'UPLOADING_IMAGE'
+    }
+}
+
+export const createProductSuccess = (productId) => {
     return {
         type: 'CREATE_PRODUCT_SUCCESS',
         isLoading: false,
         isCreated: true,
-        product
+        productId
     }
 }
 
-export const createBuyProduct = (product) => {
+export const createBuyProduct = (product, images) => {
     return (dispatch) => {
         dispatch(creatingProduct())
         const createUrl = `${url}/product/create/`
@@ -79,7 +85,14 @@ export const createBuyProduct = (product) => {
             data: product
         })
         .then((response) => {
-            dispatch(createProductSuccess(response))
+            const { data: { productId } } = response
+            Promise.all(images.map((image) => 
+                dispatch(uploadProductImages(productId, image))
+            ))
+            .then((response) => dispatch(createProductSuccess(response[0].data.productId)))
+            .catch((error) => {
+                throw (error);
+            })
         })
         .catch((error) => {
             throw(error);
@@ -98,6 +111,26 @@ export const createBuyProductAttribute = (product) => {
         })
         .then((response) => {
             dispatch(createProductSuccess(response))
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+}
+
+export const uploadProductImages = (id, image) => {
+    return (dispatch) => {
+        dispatch(uploadingProductImage())
+        const uploadUrl = `${url}/product/${id}/image/`
+        const data = new FormData();
+        data.append('image', image)
+        return Axios({
+            method: 'POST',
+            url: uploadUrl,
+            data
+        }).
+        then((response) => {
+            return response
         })
         .catch((error) => {
             throw(error);

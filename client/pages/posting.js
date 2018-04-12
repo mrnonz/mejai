@@ -23,7 +23,8 @@ class Posting extends Component {
             info: '',
             attributeName: '',
             attributes: [],
-            hasAttribute: false
+            hasAttribute: false,
+            images: []
         }
     }
 
@@ -47,11 +48,17 @@ class Posting extends Component {
         this.setState({ attributes })
     }
 
+    handleFileUpload(uploadFiles) {
+        this.setState({
+            images: uploadFiles
+        })
+    }
+
     componentWillReceiveProps(nextProps) {
         if(nextProps.product.isCreated) {
             Router.push({
                 pathname: '/confirm-post',
-                query: { id: nextProps.product.data.productId }
+                query: { id: nextProps.product.productId }
             })
         }
     }
@@ -71,17 +78,17 @@ class Posting extends Component {
     handleProductSubmit = () => {
         const { url: { query: { organization: organizationId } } } = this.props
         const userId = cookie.load('userId')
+        // TODO Upload Image
         if(this.state.menuActive === 'selling') {
-            const { name, category, price, quantity, info, attributeName, attributes, hasAttribute } = this.state
+            const { name, category, price, quantity, info, 
+                attributeName, attributes, hasAttribute, images } = this.state
             const product = {
                 name, price, quantity, info, organizationId, userId,
                 sellerId: userId,
                 categoryId: category,
-                // TODO Upload Image
-                images: ["path1"]
             }
             if(!hasAttribute) {
-                this.props.createBuyProduct(product) 
+                this.props.createBuyProduct(product, images) 
             } else {
                 product['attributes'] = {
                     name: attributeName,
@@ -101,11 +108,11 @@ class Posting extends Component {
                     onChange={this.handleChange} 
                     onAttributeChange={this.handleAttributeChange}
                     onHasAttribute={this.handleHasAttribute}
+                    onFileUpload={this.handleFileUpload.bind(this)}
                 />
             }
             return <AuctionForm />
         }
-        console.log(this.state.attributeName)
         return (
             <Container className="posting-page">
                 <Header as='h2' dividing color="orange" >
@@ -149,8 +156,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createBuyProduct: (product) => {
-            dispatch(createBuyProduct(product))
+        createBuyProduct: (product, images) => {
+            dispatch(createBuyProduct(product, images))
         },
         createBuyProductAttribute: (product, attribute) => {
             dispatch(createBuyProductAttribute(product, attribute))

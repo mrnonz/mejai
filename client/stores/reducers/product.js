@@ -20,7 +20,7 @@ const product = (state = {}, action) => {
                 ...state,
                 isLoading: action.isLoading,
                 isCreated: action.isCreated,
-                data: action.product.data
+                productId: action.productId
             }
         default:
             return state
