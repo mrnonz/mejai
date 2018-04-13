@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 11, 2018 at 06:37 PM
+-- Generation Time: Apr 13, 2018 at 04:43 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -338,7 +338,7 @@ CREATE TABLE `Customer` (
 --
 
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
-(1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', '0812345678', 'http://url.com', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
+(1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', '0812345678', 'https://storage.googleapis.com/mejai/customer/image/profile/6dbc858195454c1ca08f51389462666d.png', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
 (2, 'admin@mejai.com', 'admin', 'pbkdf2_sha256$36000$WmaOVKDus7tA$ezRsG5L1vWXzclNVaw523YeEyn28ZWNnrYdb51+5n0k=', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-03-19 08:50:23.092870', '', 1, 1, 1, '2018-03-19 09:10:59.152542', ''),
 (3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', 'asdf', 'M', '', '08123456', '/url/pic.jpg', 5, 10, 20, '2018-03-19 12:01:09.225324', 'นายไก่', 1, 1, 0, NULL, 'นอน'),
 (4, 'ssoom@email.com', '', '1234ASH', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-09 09:44:25.921688', 'สมชาย', 1, 0, 0, NULL, 'สมศรี'),
@@ -536,7 +536,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (87, 'order', '0011_remove_order_product_attribute', '2018-04-11 17:53:42.280836'),
 (88, 'order', '0012_order_attribute', '2018-04-11 18:06:16.902676'),
 (89, 'order', '0013_auto_20180412_0108', '2018-04-11 18:09:04.065277'),
-(90, 'cart_product', '0009_cartproduct_attribute', '2018-04-11 18:29:01.353701');
+(90, 'cart_product', '0009_cartproduct_attribute', '2018-04-11 18:29:01.353701'),
+(91, 'order', '0014_order_test', '2018-04-12 07:00:05.208431');
 
 -- --------------------------------------------------------
 
@@ -574,51 +575,52 @@ CREATE TABLE `Order` (
   `buyer_id` int(11) NOT NULL,
   `slip` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(1023) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `attribute_id` int(11) NOT NULL
+  `attribute_id` int(11) NOT NULL,
+  `test` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Order`
 --
 
-INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `address`, `attribute_id`) VALUES
-(1, '2018-04-11 18:08:09', 10, '555.55', 1, 1, 3, '/url.jpg', NULL, 9),
-(2, '2018-04-11 18:08:30', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png', NULL, 2),
-(3, '2018-04-06 16:09:44', 10, '555.55', 2, 7, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/93eacceece4849098247318e6e06443d.jpg', NULL, 0),
-(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '', NULL, 0),
-(6, '2018-04-07 16:39:57', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(8, '2018-04-07 16:40:23', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(9, '2018-04-07 16:40:23', 2, '120.00', 1, 11, 3, '', NULL, 0),
-(10, '2018-04-07 16:41:46', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(11, '2018-04-07 16:41:46', 2, '120.00', 1, 11, 3, '', NULL, 0),
-(12, '2018-04-07 16:44:06', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(13, '2018-04-07 16:44:06', 2, '120.00', 1, 11, 3, '', NULL, 0),
-(14, '2018-04-07 16:45:06', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(15, '2018-04-07 16:45:06', 2, '120.00', 1, 11, 3, '', NULL, 0),
-(16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', NULL, 0),
-(17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', NULL, 0),
-(18, '2018-04-08 17:13:52', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(20, '2018-04-09 08:28:42', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/663f48ecea9941c79d51053c6a106c23.jpg', '\\\\\\\\\\\\', 0),
-(21, '2018-04-09 08:30:23', 0, '420.00', 1, 6, 1, '', 'John\\John\\LK\\LK\\LK\\LK\\Doe', 0),
-(22, '2018-04-09 08:30:59', 0, '420.00', 1, 6, 1, '', '\\\\LKB\\LKB\\LKB\\LKB\\', 0),
-(23, '2018-04-09 08:31:54', 0, '420.00', 1, 6, 1, '', 'AS\\AS\\\\\\\\\\AS', 0),
-(24, '2018-04-09 08:32:31', 0, '420.00', 1, 6, 1, '', '\\\\A\\NB\\C\\D\\', 0),
-(25, '2018-04-09 08:40:01', 0, '420.00', 1, 6, 1, '', 'John\\John\\A\\NB\\C\\D\\Doe', 0),
-(26, '2018-04-09 08:42:29', 0, '420.00', 1, 6, 1, '', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
-(27, '2018-04-09 08:46:29', 0, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e6007fb4a74240c69f32bdad5cddf699.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
-(28, '2018-04-09 08:49:46', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/1341fcb0c1e746e9a1f9607f3af28713.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
-(29, '2018-04-09 08:53:24', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/08ac4260c4a545eeaa525460c0ebde51.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0),
-(30, '2018-04-09 09:12:33', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/6cb06c6274d245a49b893bc396065cf2.jpg', 'John\\Doe\\LB\\FF\\LK\\DD\\084-6665478', 0),
-(31, '2018-04-09 16:25:16', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(32, '2018-04-09 16:25:16', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(33, '2018-04-09 16:32:11', 3, '150.00', 1, 1, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(34, '2018-04-09 16:32:11', 2, '120.00', 1, 11, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0),
-(35, '2018-04-09 17:38:40', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10110\\084-6665478', 0),
-(36, '2018-04-09 17:39:11', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง2\\ลาดกระบัง2\\กรุงเทพ\\10110\\084-6665478', 0),
-(37, '2018-04-09 17:41:00', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/00a4c9dd090c40a796ba9a209cc2638b.jpg', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', 0),
-(38, '2018-04-11 18:14:30', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 4),
-(39, '2018-04-11 18:14:30', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 2);
+INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `address`, `attribute_id`, `test`) VALUES
+(1, '2018-04-11 18:08:09', 10, '555.55', 1, 1, 3, '/url.jpg', NULL, 9, 0),
+(2, '2018-04-11 18:08:30', 55, '22.22', 3, 2, 3, 'https://storage.googleapis.com/mejai/bank/transfer/slip/2e058c3a1d614798841ae927a24f3e79.png', NULL, 2, 0),
+(3, '2018-04-06 16:09:44', 10, '555.55', 2, 7, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/93eacceece4849098247318e6e06443d.jpg', NULL, 0, 0),
+(4, '2018-04-06 16:09:58', 111, '11.11', 1, 10, 1, '', NULL, 0, 0),
+(6, '2018-04-07 16:39:57', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(8, '2018-04-07 16:40:23', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(9, '2018-04-07 16:40:23', 2, '120.00', 1, 11, 3, '', NULL, 0, 0),
+(10, '2018-04-07 16:41:46', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(11, '2018-04-07 16:41:46', 2, '120.00', 1, 11, 3, '', NULL, 0, 0),
+(12, '2018-04-07 16:44:06', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(13, '2018-04-07 16:44:06', 2, '120.00', 1, 11, 3, '', NULL, 0, 0),
+(14, '2018-04-07 16:45:06', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(15, '2018-04-07 16:45:06', 2, '120.00', 1, 11, 3, '', NULL, 0, 0),
+(16, '2018-04-07 16:46:33', 3, '150.00', 1, 1, 3, '', NULL, 0, 0),
+(17, '2018-04-07 16:46:33', 2, '120.00', 1, 11, 3, '', NULL, 0, 0),
+(18, '2018-04-08 17:13:52', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(19, '2018-04-08 17:13:52', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(20, '2018-04-09 08:28:42', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/663f48ecea9941c79d51053c6a106c23.jpg', '\\\\\\\\\\\\', 0, 0),
+(21, '2018-04-09 08:30:23', 0, '420.00', 1, 6, 1, '', 'John\\John\\LK\\LK\\LK\\LK\\Doe', 0, 0),
+(22, '2018-04-09 08:30:59', 0, '420.00', 1, 6, 1, '', '\\\\LKB\\LKB\\LKB\\LKB\\', 0, 0),
+(23, '2018-04-09 08:31:54', 0, '420.00', 1, 6, 1, '', 'AS\\AS\\\\\\\\\\AS', 0, 0),
+(24, '2018-04-09 08:32:31', 0, '420.00', 1, 6, 1, '', '\\\\A\\NB\\C\\D\\', 0, 0),
+(25, '2018-04-09 08:40:01', 0, '420.00', 1, 6, 1, '', 'John\\John\\A\\NB\\C\\D\\Doe', 0, 0),
+(26, '2018-04-09 08:42:29', 0, '420.00', 1, 6, 1, '', 'John\\Doe\\A\\NB\\C\\D\\598877', 0, 0),
+(27, '2018-04-09 08:46:29', 0, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/e6007fb4a74240c69f32bdad5cddf699.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0, 0),
+(28, '2018-04-09 08:49:46', 0, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/1341fcb0c1e746e9a1f9607f3af28713.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0, 0),
+(29, '2018-04-09 08:53:24', 1, '420.00', 1, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/08ac4260c4a545eeaa525460c0ebde51.jpg', 'John\\Doe\\A\\NB\\C\\D\\598877', 0, 0),
+(30, '2018-04-09 09:12:33', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/6cb06c6274d245a49b893bc396065cf2.jpg', 'John\\Doe\\LB\\FF\\LK\\DD\\084-6665478', 0, 0),
+(31, '2018-04-09 16:25:16', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(32, '2018-04-09 16:25:16', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(33, '2018-04-09 16:32:11', 3, '150.00', 1, 1, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(34, '2018-04-09 16:32:11', 2, '120.00', 1, 11, 3, '', 'ไทย\\ดี\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 0, 0),
+(35, '2018-04-09 17:38:40', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10110\\084-6665478', 0, 0),
+(36, '2018-04-09 17:39:11', 1, '420.00', 1, 6, 1, '', 'สมศักดิ์\\สมศรี\\ลาดกระบัง2\\ลาดกระบัง2\\กรุงเทพ\\10110\\084-6665478', 0, 0),
+(37, '2018-04-09 17:41:00', 1, '420.00', 4, 6, 1, 'https://storage.googleapis.com/mejai/bank/transfer/slip/00a4c9dd090c40a796ba9a209cc2638b.jpg', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', 0, 0),
+(38, '2018-04-11 18:14:30', 3, '150.00', 1, 1, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 4, 0),
+(39, '2018-04-11 18:14:30', 2, '120.00', 1, 11, 3, '', 'John\\Doe\\Ladkrabang\\Ladkrabang\\Bangkok\\10220\\087-64543214', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -790,7 +792,11 @@ CREATE TABLE `Product_Category` (
 --
 
 INSERT INTO `Product_Category` (`id`, `name`) VALUES
-(1, 'เสื้อผ้า');
+(1, 'เครื่องแต่งกาย'),
+(2, 'เครื่องใช้ไฟฟ้า'),
+(3, 'สุขภาพ'),
+(4, 'เฟอร์นิเจอร์'),
+(5, 'หนังสือ');
 
 -- --------------------------------------------------------
 
@@ -1141,7 +1147,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -1183,7 +1189,7 @@ ALTER TABLE `Product_Attribute`
 -- AUTO_INCREMENT for table `Product_Category`
 --
 ALTER TABLE `Product_Category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `Product_Image`
