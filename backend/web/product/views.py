@@ -197,8 +197,12 @@ def product_image(request, pk):
 
         newproductImage = ProductImage(url=blob.public_url,
                                        product_id=product.id)
-
         newproductImage.save()
+
+        if not product.thumbnail:
+            Product.objects.filter(
+                pk=pk).update(thumbnail=blob.public_url)
+
         serializerImage = ProductImageSerializer(newproductImage)
 
         return JsonResponse(serializerImage.data)
