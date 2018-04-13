@@ -4,18 +4,18 @@ import { Table, Image, Progress } from 'semantic-ui-react'
 const HelpingTable = ({ organization, hideLabel }) => {
     return (
         <Table basic className="helping-table" fixed>
-            { !hideLabel &&
+            
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell singleLine>องค์กรที่ช่วยเหลือ</Table.HeaderCell>
-                    <Table.HeaderCell width={6} ></Table.HeaderCell>
-                    <Table.HeaderCell width={2}></Table.HeaderCell>
+                    <Table.HeaderCell width={5} singleLine>{ !hideLabel && องค์กรที่ช่วยเหลือ }</Table.HeaderCell>
+                    <Table.HeaderCell width={5} />
+                    <Table.HeaderCell width={3}></Table.HeaderCell>
                     <Table.HeaderCell width={3}></Table.HeaderCell>
                 </Table.Row>
-            </Table.Header> }
+            </Table.Header>
             <Table.Body>    
                 <Table.Row>
-                    <Table.Cell width={5}>
+                    <Table.Cell>
                         <Image src={'static/OrganizationImage1.jpg'} size="medium" />
                     </Table.Cell>
                     <Table.Cell  className="content">
@@ -24,8 +24,8 @@ const HelpingTable = ({ organization, hideLabel }) => {
                         <p className="helping"><span>จำนวนเงิน: 450 บาท</span> ธ.กสิกรไทย สาขา ลาดกระบัง</p>
                         <p className="helping">เลขบัญชี: 123-4-56789-0</p>
                     </Table.Cell>
-                    <Table.Cell  className="content">
-                        <Image src={'static/qr.jpg'} size="small" />
+                    <Table.Cell className="content" textAlign="right" >
+                        <Image src={'static/qr.jpg'} size="small" inline />
                     </Table.Cell>
                     <Table.Cell  verticalAlign="middle" className="content">
                         <p className="description">รายละเอียด PromptPay</p>
