@@ -42,7 +42,7 @@ class ConfirmPost extends Component {
                         <Header as='h5' >
                             โครงการที่ช่วยเหลือ
                         </Header>
-                        <HelpingTable hideLabel organization={product.organization} />
+                        <HelpingTable hideLabel organization={organization} />
                         <Header as='h5' >
                             สินค้าที่ลงขาย
                         </Header>
