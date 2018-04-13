@@ -21,6 +21,7 @@ const storeApp = combineReducers({
 
 const intialStore = {
     product: {
+        isCreating: false,
         isLoading: true,
         data: {
             seller: {}

@@ -5,9 +5,10 @@ import cookie from 'react-cookie'
 import { makeStore } from '../stores'
 import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
-import { Container, Menu, Header, Segment, Button, Modal } from 'semantic-ui-react'
+import { Container, Menu, Header, Segment, Button, Modal, Dimmer } from 'semantic-ui-react'
 import SellingForm from 'molecules/SellingForm';
 import AuctionForm from 'molecules/AuctionForm';
+import Loader from 'molecules/Loader'
 import { createBuyProduct, createBuyProductAttribute } from 'stores/actions/product'
 
 class Posting extends Component {
@@ -78,7 +79,6 @@ class Posting extends Component {
     handleProductSubmit = () => {
         const { url: { query: { organization: organizationId } } } = this.props
         const userId = cookie.load('userId')
-        // TODO Upload Image
         if(this.state.menuActive === 'selling') {
             const { name, category, price, quantity, info, 
                 attributeName, attributes, hasAttribute, images } = this.state
@@ -94,13 +94,14 @@ class Posting extends Component {
                     name: attributeName,
                     values: attributes
                 }
-                this.props.createBuyProductAttribute(product)
+                this.props.createBuyProductAttribute(product, images)
             }
         }
     }
 
     render() {
         const { menuActive, showConfirmModal } = this.state
+        const { product: { isCreating } } = this.props
         const renderForm = () => {
             if(menuActive === 'selling') {
                 return <SellingForm 
@@ -119,6 +120,7 @@ class Posting extends Component {
                     เพิ่มสินค้าเข้าระบบ
                 </Header>
                 <Modal open={showConfirmModal}>
+                    { ( isCreating ) && <Dimmer active><Loader /></Dimmer> }
                     <Modal.Header>ยืนยันการเพิ่มสินค้า</Modal.Header>
                     <Modal.Content>
                         <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.handleProductSubmit()} />
@@ -159,8 +161,8 @@ const mapDispatchToProps = (dispatch) => {
         createBuyProduct: (product, images) => {
             dispatch(createBuyProduct(product, images))
         },
-        createBuyProductAttribute: (product, attribute) => {
-            dispatch(createBuyProductAttribute(product, attribute))
+        createBuyProductAttribute: (product, images) => {
+            dispatch(createBuyProductAttribute(product, images))
         }
     }
 }

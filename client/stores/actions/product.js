@@ -56,7 +56,7 @@ export const fetchProductItem = (id) => {
 export const creatingProduct = (product) => {
     return {
         type: 'CREATING_PRODUCT',
-        isLoading: true
+        isCreating: true
     }
 }
 
@@ -69,7 +69,7 @@ export const uploadingProductImage = () => {
 export const createProductSuccess = (productId) => {
     return {
         type: 'CREATE_PRODUCT_SUCCESS',
-        isLoading: false,
+        isCreating: false,
         isCreated: true,
         productId
     }
@@ -100,7 +100,7 @@ export const createBuyProduct = (product, images) => {
     }
 }
 
-export const createBuyProductAttribute = (product) => {
+export const createBuyProductAttribute = (product, images) => {
     return (dispatch) => {
         dispatch(creatingProduct())
         const createUrl = `${url}/product/create_attribute/`
@@ -110,7 +110,14 @@ export const createBuyProductAttribute = (product) => {
             data: product
         })
         .then((response) => {
-            dispatch(createProductSuccess(response))
+            const { data: { productId } } = response
+            Promise.all(images.map((image) => 
+                dispatch(uploadProductImages(productId, image))
+            ))
+            .then((response) => dispatch(createProductSuccess(response[0].data.productId)))
+            .catch((error) => {
+                throw (error);
+            })
         })
         .catch((error) => {
             throw(error);

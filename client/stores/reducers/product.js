@@ -13,12 +13,12 @@ const product = (state = {}, action) => {
         case 'CREATING_PRODUCT':
             return {
                 ...state,
-                isLoading: action.isLoading
+                isCreating: action.isCreating
             }
         case 'CREATE_PRODUCT_SUCCESS':
             return {
                 ...state,
-                isLoading: action.isLoading,
+                isCreating: action.isCreating,
                 isCreated: action.isCreated,
                 productId: action.productId
             }
