@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 13, 2018 at 04:43 PM
+-- Generation Time: Apr 13, 2018 at 06:02 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -338,7 +338,7 @@ CREATE TABLE `Customer` (
 --
 
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
-(1, 'asdf@do.com', 'user123', 'askdfladf', 'ssss', 'M', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', '0812345678', 'https://storage.googleapis.com/mejai/customer/image/profile/6dbc858195454c1ca08f51389462666d.png', 5, 3, 1, '2018-03-19 08:18:05.922994', '', 1, 0, 0, NULL, ''),
+(1, 'asdf@do.com', 'user123', 'askdfladf', 'hi', 'F', 'สมศักดิ์\\สมศรี\\ลาดกระบัง23\\ลาดกระบัง23\\กรุงเทพ\\10110\\084-6665478', '0812345678', 'https://storage.googleapis.com/mejai/customer/image/profile/6dbc858195454c1ca08f51389462666d.png', 5, 3, 1, '2018-03-19 08:18:05.922994', 'hdi', 1, 0, 0, NULL, 'eiei'),
 (2, 'admin@mejai.com', 'admin', 'pbkdf2_sha256$36000$WmaOVKDus7tA$ezRsG5L1vWXzclNVaw523YeEyn28ZWNnrYdb51+5n0k=', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-03-19 08:50:23.092870', '', 1, 1, 1, '2018-03-19 09:10:59.152542', ''),
 (3, 'test@mejai.com', 'test', 'pbkdf2_sha256$36000$N4QC2Z2OQvZ1$JlgQv+rqxXT73csekSe1Qi/3XX2mHn/UDJ1l2/PnYRg=', 'asdf', 'M', '', '08123456', '/url/pic.jpg', 5, 10, 20, '2018-03-19 12:01:09.225324', 'นายไก่', 1, 1, 0, NULL, 'นอน'),
 (4, 'ssoom@email.com', '', '1234ASH', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-09 09:44:25.921688', 'สมชาย', 1, 0, 0, NULL, 'สมศรี'),
@@ -733,10 +733,10 @@ CREATE TABLE `Product` (
 --
 
 INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `type`, `viewer`, `hit`, `thumbnail`, `created_time`, `organization_id`, `category_id`, `owner_id`) VALUES
-(1, 'เสื้อสีดำ', 'เสื้อสีดำมาก', '125.66', 30, 0, 0, 0, 0, '/path/ab.jpg', '2018-03-19 10:29:30', 2, 1, 1),
+(1, 'เสื้อสีดำ', 'เสื้อสีดำมาก', '125.66', 30, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/e167fcaf901945dabc57adbc03e9316b.png', '2018-04-13 17:56:26', 2, 1, 1),
 (2, 'เสื้อสีขาว', 'ขาวมากกกก', '345.66', 30, 0, 0, 0, 0, '/path/bbb.jpg', '2018-03-19 10:35:20', 1, 1, 1),
 (3, 'เสื้อดำประมูล', 'ประมูลเสื้อดำกันนนนน', '55.10', 1, 1, 0, 0, 0, '/path/ab.jps', '2018-03-19 10:36:50', 2, 1, 1),
-(5, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-03 12:23:28', 1, 1, 2),
+(5, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/c7620ffe0ae94e57a91b9ac062769a10.png', '2018-04-13 17:55:58', 1, 1, 2),
 (6, 'เสื้อสีดำจริงๆ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-03 12:36:09', 1, 1, 2),
 (7, 'เสื้อสีดำจริงๆนะ', 'เสื้อสีดำสวย ราคาไม่แพง', '420.00', 0, 0, 0, 0, 0, '', '2018-04-04 14:33:21', 1, 1, 2),
 (10, 'เสื้อสีดำสุดๆๆ', 'เสื้อสีดำ ราคาไม่แพง', '420.00', 11, 0, 0, 0, 0, '', '2018-04-04 14:36:03', 1, 1, 2),
@@ -836,7 +836,21 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (19, 'path1', 15),
 (20, 'path2', 15),
 (21, 'path1', 16),
-(22, 'path2', 16);
+(22, 'path2', 16),
+(23, 'https://storage.googleapis.com/mejai/product/image/c821ddb9bb0c4f8681ab85267f02ef24.png', 1),
+(24, 'https://storage.googleapis.com/mejai/product/image/80ea93c3b3494dfb8f746d73e9e1a0a1.png', 1),
+(25, 'https://storage.googleapis.com/mejai/product/image/916e2da6eb174e00b8afc7170b3da817.png', 1),
+(26, 'https://storage.googleapis.com/mejai/product/image/4a8eb734ddd64dfbbe321b4e6f0b06ec.png', 1),
+(27, 'https://storage.googleapis.com/mejai/product/image/02f4faf4f7504badbbb8af37717d4154.png', 1),
+(28, 'https://storage.googleapis.com/mejai/product/image/bb7d0a701300494ba3e833fbe8ce832d.png', 1),
+(29, 'https://storage.googleapis.com/mejai/product/image/443bf31a902c48a1a0da0ee3ddd62e9d.png', 2),
+(30, 'https://storage.googleapis.com/mejai/product/image/b29ab939a77d4acf968489174e18dcca.png', 1),
+(31, 'https://storage.googleapis.com/mejai/product/image/66c87fd7107e401995bd0186f6ec41da.png', 1),
+(32, 'https://storage.googleapis.com/mejai/product/image/5fc7a65142064b8da19b7a6a0a668c68.png', 1),
+(33, 'https://storage.googleapis.com/mejai/product/image/1443fc310d1c42fc8d79c4f105c5b589.png', 1),
+(34, 'https://storage.googleapis.com/mejai/product/image/1c274c0c31784dff84e595dab6058a53.png', 5),
+(35, 'https://storage.googleapis.com/mejai/product/image/c7620ffe0ae94e57a91b9ac062769a10.png', 5),
+(36, 'https://storage.googleapis.com/mejai/product/image/e167fcaf901945dabc57adbc03e9316b.png', 1);
 
 --
 -- Indexes for dumped tables
@@ -1195,7 +1209,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
