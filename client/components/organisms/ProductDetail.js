@@ -6,7 +6,7 @@ import ProductData from 'molecules/ProductData';
 
 const ProductDetail = ({ itemType, product, onAdd }) => (
     <div className="product-detail">
-        <Breadcrumb />
+        <Breadcrumb product={product} />
         <div className="product-user">
             <div className="user-info">
                 <span className="role">ผู้ขาย</span>
