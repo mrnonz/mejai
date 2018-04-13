@@ -50,11 +50,31 @@ def customer_detail(request, pk):
 
     elif request.method == 'PUT':
         data = JSONParser().parse(request)
-        serializer = CustomerSerializer(customer, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+
+        if 'line_id' in data:
+            Customer.objects.filter(
+                pk=pk).update(line_id=data['line_id'])
+        if 'sex' in data:
+            Customer.objects.filter(
+                pk=pk).update(sex=data['sex'])
+        if 'address' in data:
+            Customer.objects.filter(
+                pk=pk).update(address=data['address'])
+        if 'tel' in data:
+            Customer.objects.filter(
+                pk=pk).update(tel=data['tel'])
+        if 'first_name' in data:
+            Customer.objects.filter(
+                pk=pk).update(first_name=data['first_name'])
+        if 'last_name' in data:
+            Customer.objects.filter(
+                pk=pk).update(last_name=data['last_name'])
+
+        customer = Customer.objects.get(pk=pk)
+
+        serializerCustomer = CustomerSerializer(customer)
+
+        return JsonResponse(serializerCustomer.data, status=400)
 
     elif request.method == 'DELETE':
         customer.delete()
