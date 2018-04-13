@@ -14,8 +14,11 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from order.models import Order
 from order.serializers import OrderSerializer
-
+from google.cloud import storage
+from django.core.files.storage import FileSystemStorage
 from datetime import datetime
+import uuid
+import os
 
 
 @csrf_exempt
@@ -249,3 +252,39 @@ def customer_sell_order(request, pk):
         data['userId'] = pk
 
         return JsonResponse(data)
+
+
+@csrf_exempt
+def customer_pic_profile(request, pk):
+    try:
+        customer = Customer.objects.get(pk=pk)
+    except Customer.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'POST':
+        image = request.FILES['image']
+
+        filename_image, file_extension = os.path.splitext(image.name)
+
+        nameImage = uuid.uuid4().hex + file_extension
+        fs = FileSystemStorage()
+        filename = fs.save(nameImage, image)
+
+        storage_client = storage.Client()
+        bucket_name = 'mejai'
+        bucket = storage_client.bucket(bucket_name)
+        blob = bucket.blob('customer/image/profile/' + nameImage)
+
+        blob.upload_from_filename(filename=filename)
+        blob.make_public()
+
+        fs.delete(nameImage)
+
+        newcustomerImage = Customer.objects.filter(
+            pk=pk).update(picture=blob.public_url)
+
+        customer = Customer.objects.get(pk=pk)
+
+        serializerCustomer = CustomerSerializer(customer)
+
+        return JsonResponse(serializerCustomer.data)
