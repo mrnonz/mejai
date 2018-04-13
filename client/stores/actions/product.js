@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import { fetchSellerOrder } from 'stores/actions/user'
 
 const url = process.env.BACKEND_URL 
 
@@ -45,7 +46,9 @@ export const fetchProductItem = (id) => {
         const fetchUrl = `${url}/product/${id}/`
         return Axios.get(fetchUrl)
             .then((response) => {
+                const { userId } = response.data.seller
                 dispatch(fetchProductItemSuccess(response))
+                dispatch(fetchSellerOrder(userId))
             })
             .catch((error) => {
                 throw(error);

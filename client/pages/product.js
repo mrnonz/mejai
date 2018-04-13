@@ -57,7 +57,11 @@ class Product extends Component {
                 isLoading }, 
             cart: { 
                 isUpdating = false, 
-                updated = false } 
+                updated = false },
+            user: {
+                isLoadingOrder,
+                orders
+                } 
             } = this.props
         const { url: { query: { type: itemType } } } = this.props
         return (
@@ -78,6 +82,8 @@ class Product extends Component {
                         itemType={itemType} 
                         product={product} 
                         isUpdating={isUpdating}
+                        isLoadingOrder={isLoadingOrder}
+                        orders={orders}
                         onAdd={this.handleAddToCart.bind(this)}
                     />,
                     <ProductInfo product={product} />
@@ -90,7 +96,8 @@ class Product extends Component {
 
 const mapStateToProps = (state) => ({
         product: state.product,
-        cart: state.cart
+        cart: state.cart,
+        user: state.user
     }
 )
 
