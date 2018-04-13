@@ -1,6 +1,7 @@
 .product-detail {
     display: grid;
     grid-template-columns: auto 1fr;
+    grid-template-rows: auto minmax(500px, auto);
     grid-column-gap: 2em;
     padding-top: 50px;
     padding-bottom: 25px;
