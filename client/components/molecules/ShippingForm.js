@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 
-const ShippingForm = ({ onChange, address }) => (
+const ShippingForm = ({ onChange, address = {} }) => (
     <Form>
         <Form.Input defaultValue={address.name} name="name" fluid label='ชื่อ - สกุล' placeholder='ชื่อ - สกุล' onChange={onChange} />
         <Form.Input defaultValue={address.tel} name="tel" fluid label='เบอร์โทรศัพท์ติดต่อ' placeholder='เบอร์โทรศัพท์ติดต่อ' onChange={onChange} />
