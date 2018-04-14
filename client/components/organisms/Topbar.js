@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import SiteLogo from 'molecules/SiteLogo'
 import Svg from 'react-inlinesvg'
+import cookie from 'react-cookie'
 
 const PageNav = () => {
     const PageList = [
@@ -40,25 +41,38 @@ const PageNav = () => {
     )
 }
 
-const Topbar = (props) => (
-    <div className="topbar">
-        <Link href="/"><a><SiteLogo /></a></Link>
-        <PageNav />
-        <div className="icon-wrapper">
-            <Link href="/cart"><a>
-                <div className="cart-wrapper">
-                    <Svg src={`static/icons/cart.svg`} />
-                </div>
-            </a></Link>
-            <div className="separator" />
-            <Link href="/login"><a>
-                <div className="user-wrapper">
-                    <Svg src={`static/icons/user.svg`} />
-                    <span>สมชาย ใจดี</span>
-                </div>
-            </a></Link>
-        </div>        
-    </div>
-)
+const Topbar = (props) => {
+    const userId = cookie.load('userId')
+    return (
+        <div className="topbar">
+            <Link href="/"><a><SiteLogo /></a></Link>
+            <PageNav />
+            <div className="icon-wrapper">
+                <Link href="/cart"><a>
+                    <div className="cart-wrapper">
+                        <Svg src={`static/icons/cart.svg`} />
+                    </div>
+                </a></Link>
+                <div className="separator" />
+                { userId ? 
+                    <Link href="/user"><a>
+                        <div className="user-wrapper">
+                            <Svg src={`static/icons/user.svg`} />
+                            <span>ข้อมูลผู้ใช้งาน</span>
+                        </div>
+                    </a></Link>
+                    :
+                    <Link href="/login"><a>
+                        <div className="user-wrapper">
+                            <Svg src={`static/icons/user.svg`} />
+                            <span>เข้าสู่ระบบ</span>
+                        </div>
+                    </a></Link>
+                }
+            </div>        
+        </div>
+    )
+}
+
 
 export default Topbar
