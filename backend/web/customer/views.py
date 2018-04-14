@@ -14,6 +14,8 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from order.models import Order
 from order.serializers import OrderSerializer
+from product_attribute.models import ProductAttribute
+from product_attribute.serializers import ProductAttributeSerializer
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
@@ -133,6 +135,14 @@ def customer_cart(request, pk):
         serializerCart = FullCartProductSerializer(cart)
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
+
+        for index, item in enumerate(data['items']):
+            productAttribute = ProductAttribute.objects.get(
+                pk=item['productAttributeId'])
+            productAttributeSerializer = ProductAttributeSerializer(
+                productAttribute)
+            item['productAttribute'] = productAttributeSerializer.data
+
         return JsonResponse(data)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
@@ -192,6 +202,14 @@ def customer_cart_auction(request, pk):
         serializerCart = FullCartProductSerializer(cart)
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
+
+        for index, item in enumerate(data['items']):
+            productAttribute = ProductAttribute.objects.get(
+                pk=item['productAttributeId'])
+            productAttributeSerializer = ProductAttributeSerializer(
+                productAttribute)
+            item['productAttribute'] = productAttributeSerializer.data
+
         return JsonResponse(data)
 
 
@@ -211,6 +229,14 @@ def customer_cart_buy(request, pk):
         serializerCart = FullCartProductSerializer(cart)
         data = serializerCart.data
         data['items'] = serializerCartProduct.data
+
+        for index, item in enumerate(data['items']):
+            productAttribute = ProductAttribute.objects.get(
+                pk=item['productAttributeId'])
+            productAttributeSerializer = ProductAttributeSerializer(
+                productAttribute)
+            item['productAttribute'] = productAttributeSerializer.data
+
         return JsonResponse(data)
 
 
