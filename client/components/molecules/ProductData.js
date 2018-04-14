@@ -13,7 +13,8 @@ class ProductData extends Component {
 
     handleShowPriceInput() {
         this.setState({
-            showPriceInput: true
+            showPriceInput: true,
+            selectAttribute: 0
         })
     }
 
@@ -23,13 +24,19 @@ class ProductData extends Component {
         })
     }
 
+    handleAttributeChange(e, data) {
+        this.setState({
+            selectAttribute: data.value
+        })
+    }
+
     render() {
-        const { showPriceInput } = this.state
+        const { showPriceInput, selectAttribute } = this.state
         const { product, itemType, onAdd } = this.props
         const productOptions = !isEmpty(product.attributes) && product.attributes.map((attribute, index) => ({
             key: index,
             text: attribute.value,
-            value: attribute.value
+            value: index
         }))
         return (
             itemType === 'buy' ? 
@@ -48,6 +55,7 @@ class ProductData extends Component {
                         selection
                         fluid
                         options={productOptions}
+                        onChange={this.handleAttributeChange.bind(this)}
                         placeholder='เลือกคุณสมบัติของสินค้า'
                     />
                 }
@@ -55,7 +63,7 @@ class ProductData extends Component {
                     color="teal" 
                     size="huge" 
                     fluid
-                    onClick={() => onAdd(product.productId)}
+                    onClick={() => onAdd(product.productId, selectAttribute)}
                     content="เพิ่มลงตะกร้า"
                 />
             </div>

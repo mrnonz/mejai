@@ -51,7 +51,7 @@ export const updateCartSuccess = () => {
     }
 }
 
-export const updateCartItem = (customerId, itemId, qty) => {
+export const updateCartItem = (customerId, itemId, attributeId, qty) => {
     return (dispatch) => {
         dispatch(updatingCart())
         const updateUrl = url + '/customer/' + customerId + '/cart/'
@@ -60,7 +60,8 @@ export const updateCartItem = (customerId, itemId, qty) => {
             url: updateUrl,
             data: {
                 itemId: itemId,
-                quantity: qty
+                quantity: qty,
+                productAttributeId: attributeId
             }
         })
         .then((response) => {

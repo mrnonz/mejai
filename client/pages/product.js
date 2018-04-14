@@ -32,9 +32,10 @@ class Product extends Component {
         this.props.fetchProductItem(productId)
     }
 
-    handleAddToCart(itemId) {
+    handleAddToCart(itemId, attributeId) {
         const userId = cookie.load('userId')
-        this.props.updateCartItem(userId, itemId, 1)
+        const { product: { data: { attributes } } } = this.props
+        this.props.updateCartItem(userId, itemId, attributes[attributeId].id, 1)
     } 
 
     closeModal() {
@@ -106,8 +107,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchProductItem: (productId) => {
             dispatch(fetchProductItem(productId))
         },
-        updateCartItem: (customerId, itemId, qty) => {
-            dispatch(updateCartItem(customerId, itemId, qty))
+        updateCartItem: (customerId, itemId, attributeId, qty) => {
+            dispatch(updateCartItem(customerId, itemId, attributeId, qty))
         }
     }
 }
