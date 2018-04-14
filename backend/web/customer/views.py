@@ -177,7 +177,7 @@ def customer_cart(request, pk):
         cart, created = Cart.objects.get_or_create(customer_id=pk)
         product = Product.objects.get(pk=itemId)
 
-        cartProduct = CartProduct.objects.get(
+        cartProduct = CartProduct.objects.filter(
             cart_id=cart.id,
             product_id=itemId)
 
