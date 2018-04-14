@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Card, Image, Progress, Header } from 'semantic-ui-react'
 
-const ProductCard = ({ productId, name, organization, price, auction, onCardClick }) => {
+const ProductCard = ({ productId, name, organization, thumbnail, price, auction, onCardClick }) => {
     return (
         <Card className="product-card" onClick={() => onCardClick(productId)}>
-            <Image src="static/shirt.jpg" size="small" centered />
+            <Image src={thumbnail} size="small" centered />
                 {
                     auction ? (
                     <Card.Content> 
