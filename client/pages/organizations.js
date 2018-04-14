@@ -48,7 +48,7 @@ class Organizations extends Component {
         })
     }
 
-    handleHelpClick = (id) => {
+    handleHelpClick = (id, type) => {
         const { url: { query: { type: userType } } } = this.props
         if(userType === 'seller') {
             Router.push({
@@ -56,10 +56,9 @@ class Organizations extends Component {
                 query: { organization: id }
             })
         } else {
-            // TODO Change query type
             Router.push({
                 pathname: '/products',
-                query: { type: 'buy' }
+                query: { type }
             })
         }
     }
@@ -89,6 +88,7 @@ class Organizations extends Component {
                         data={organization} 
                         onInfoClick={this.handleInfoClick} 
                         onHelpClick={this.handleHelpClick} 
+                        type={userType}
                     />
                 ))}
                 <Pagination 

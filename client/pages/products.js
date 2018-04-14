@@ -44,20 +44,6 @@ class Products extends Component {
         const itemCount = products.length
         const totalPage = Math.ceil(itemCount / 12)
         const pageItems = products.slice(productPage * 12, productPage * 12 + 12)
-        const sortOptions = [
-            {
-                text: 'Featured',
-                value: 'featured'
-            },
-            {
-                text: 'Price: Low to High',
-                value: 'priceLow'
-            },
-            {
-                text: 'Price: Hight to Low',
-                value: 'priceHigh'
-            }
-        ]
         
         return (
             <div className="products-page">    
