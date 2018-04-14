@@ -119,7 +119,7 @@ class Shipping extends Component {
                 </Modal>
                 <Header as='h2' dividing color="orange" >
                     ข้อมูลการจัดส่ง
-            </Header>
+                </Header>
                 { isCartLoading || isAddressLoading ? <Loader wrapped /> : 
                 <Grid className="shipping-content">
                     <Grid.Row>
