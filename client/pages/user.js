@@ -11,10 +11,11 @@ import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
 import ProductList from 'molecules/ProductList'
 import IssueForm from 'molecules/IssueForm'
+import UserForm from 'molecules/UserForm'
 import UserProducts from 'stores/models/UserProducts'
 import { fetchBuyProducts } from 'stores/actions/product'
 import { fetchOrders } from 'stores/actions/order'
-import { fetchSellerOrder } from 'stores/actions/user'
+import { fetchSellerOrder, fetchUserAddress, fetchUserDetail, updateUserDetail } from 'stores/actions/user'
 
 class User extends Component {
     constructor(props) {
@@ -29,6 +30,8 @@ class User extends Component {
         const userId = cookie.load('userId')
         this.props.fetchOrders(userId)
         this.props.fetchSellerOrder(userId)
+        this.props.fetchUserAddress(userId)
+        this.props.fetchUserDetail(userId)
         this.props.fetchBuyProducts()
     }
 
@@ -55,6 +58,11 @@ class User extends Component {
         })
     }
 
+    handleUpdateUserDetail = (detail) => {
+        const userId = cookie.load('userId')
+        this.props.updateUserDetail(userId, detail)
+    }
+
     render() {
         const { activeBar } = this.state
         const {
@@ -69,8 +77,10 @@ class User extends Component {
                 data: products
             },
             user: {
+                isLoading: isUserLoading,
                 isLoadingOrder: isSellerOrderLoading,
-                orders: sellerOrders 
+                orders: sellerOrders, 
+                user
             }
         } = this.props
         const userId = cookie.load('userId')
@@ -89,6 +99,11 @@ class User extends Component {
                 value: 'user-item',
                 title: 'สินค้าของคุณ',
                 icon: 'box'
+            },
+            {
+                value: 'user-edit',
+                title: 'ข้อมูลผู้ใช้',
+                icon: 'user-edit'
             },
             {
                 value: 'issue',
@@ -131,6 +146,17 @@ class User extends Component {
                             <p>พบ {userProducts.length} รายการ</p>,
                             <ProductList products={userProducts} onCardClick={this.handleCardClick}/>
                         ] }
+                    </Container>
+                )
+            } else if (activeBar === 'user-edit') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            แก้ไขข้อมูลผู้ใช้
+                        </Header>
+                        { isUserLoading ?  <Loader wrapped /> :
+                            <UserForm user={user} onSubmit={this.handleUpdateUserDetail} /> 
+                        }
                     </Container>
                 )
             } else if (activeBar === 'issue') {
@@ -183,7 +209,17 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchSellerOrder: (userId) => {
             dispatch(fetchSellerOrder(userId))
+        },
+        fetchUserAddress: (customerId) => {
+            dispatch(fetchUserAddress(customerId))
+        },
+        fetchUserDetail: (userId) => {
+            dispatch(fetchUserDetail(userId))
+        },
+        updateUserDetail: (userId, detail) => {
+            dispatch(updateUserDetail(userId, detail))
         }
+
     }
 }
 

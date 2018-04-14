@@ -22,13 +22,20 @@ export const fetchingUserDetail = () => {
 export const fetchingUserAddress = () => {
     return {
         type: 'LOADING_ADDRESS',
-        isLoading: true
+        isLoadingAddress: true
     }
 }
 
 export const updatingUserAddress = () => {
     return {
         type: 'UPDATING_ADDRESS',
+        isUpdating: true
+    }
+}
+
+export const updatingUserDetail = () => {
+    return {
+        type: 'UPDATING_DETAIL',
         isUpdating: true
     }
 }
@@ -61,7 +68,7 @@ export const fetchUserSuccess = (user) => {
 export const fetchAddressSuccess = (address) => {
     return {
         type: 'FETCH_ADDRESS_SUCCESS',
-        isLoading: false,
+        isLoadingAddress: false,
         address
     }
 }
@@ -73,6 +80,11 @@ export const updatingUserAddressSuccess = () => {
         isUpdating: false
     }
 }
+
+export const updateUserDetailSuccess = () => ({
+    type: 'UPDATE_USER_DETAIL_SUCCESS',
+    isUpdating: false
+})
 
 export const createUser = (userData) => (
     (dispatch) => {
@@ -147,6 +159,24 @@ export const updateUserAddress = (id, address) => {
         .then((response) => {
             dispatch(updatingUserAddressSuccess())
             return dispatch(fetchUserAddress(id))
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+}
+
+export const updateUserDetail = (id, detail) => {
+    return (dispatch) => {
+        dispatch(updatingUserDetail())
+        const updateUrl = `${url}/customer/${id}/`
+        return Axios({
+            method: 'PUT',
+            url: updateUrl,
+            data: detail
+        })
+        .then((response) => {
+            dispatch(updateUserDetailSuccess(response))
         })
         .catch((error) => {
             throw(error);

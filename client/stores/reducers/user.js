@@ -18,7 +18,17 @@ const user = (state = {}, action) => {
         case 'LOADING_ADDRESS':
             return {
                 ...state,
-                isLoading: action.isLoading
+                isLoadingAddress: action.isLoadingAddress
+            }
+        case 'UPDATING_ADDRESS':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
+            }            
+        case 'UPDATING_USER':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
             }
         case 'CREATE_USER_SUCCESS':
             return {
@@ -46,8 +56,18 @@ const user = (state = {}, action) => {
         case 'FETCH_ADDRESS_SUCCESS':
             return {
                 ...state,
-                isLoading: action.isLoading,
+                isLoadingAddress: action.isLoadingAddress,
                 address: action.address.data.address
+            }
+        case 'UPDATING_ADDRESS_SUCCESS':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
+            }
+        case 'UPDATE_USER_DETAIL_SUCCESS':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
             }
         default:
             return state
