@@ -81,9 +81,19 @@ class SellingForm extends Component {
                 value: 2
             },
             {
-                key: 'collectable',
-                text: 'ของสะสม',
+                key: 'health',
+                text: 'สุขภาพ',
                 value: 3
+            },
+            {
+                key: 'furniture',
+                text: 'เฟอร์นิเจอร์',
+                value: 4
+            },
+            {
+                key: 'book',
+                text: 'หนังสือ',
+                value: 5
             }
         ]
         const { attributes, hasAttribute } = this.state
