@@ -20,8 +20,10 @@ class Posting extends Component {
             name: '',
             category: 0,
             price: 0,
+            price_step: 0,
             quantity: 0,
             info: '',
+            exp_time: null,
             attributeName: '',
             attributes: [],
             hasAttribute: false,
@@ -112,7 +114,10 @@ class Posting extends Component {
                     onFileUpload={this.handleFileUpload.bind(this)}
                 />
             }
-            return <AuctionForm />
+            return <AuctionForm 
+                    onChange={this.handleChange} 
+                    onFileUpload={this.handleFileUpload.bind(this)}
+                />
         }
         return (
             <Container className="posting-page">
