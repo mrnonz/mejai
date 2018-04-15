@@ -18,7 +18,7 @@ class ItemTable extends Component {
                 </Table.Header>
                 <Table.Body>
                     { items.map((item) => {
-                        const { product: { itemId, name, attribute, organization = {} }, price, quantity } = item
+                        const { product: { itemId, name, organization = {} }, productAttribute, price, quantity } = item
                         return (
                             <Table.Row>
                                 <Table.Cell>
@@ -26,7 +26,7 @@ class ItemTable extends Component {
                                 </Table.Cell>
                                 <Table.Cell className="cell-item">
                                     <Header as='h4'>{name}</Header>
-                                    { attribute && <p>{attribute.name}: {attribute.value}</p> }
+                                    { productAttribute && <p>{productAttribute.name}: {productAttribute.value}</p> }
                                     <p>ช่วยเหลือ: { organization.name }</p>
                                 </Table.Cell>
                                 <Table.Cell textAlign="center">
