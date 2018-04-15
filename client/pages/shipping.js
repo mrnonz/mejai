@@ -95,7 +95,7 @@ class Shipping extends Component {
             }, 
             user: {
                 address: address,
-                isLoading: isAddressLoading,
+                isLoadingAddress: isAddressLoading,
                 isUpdating: isAddressUpdating
             },
             order: {
