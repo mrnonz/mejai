@@ -193,9 +193,17 @@ def customer_cart(request, pk):
         cart, created = Cart.objects.get_or_create(customer_id=pk)
         product = Product.objects.get(pk=itemId)
 
-        cartProduct = CartProduct.objects.filter(
-            cart_id=cart.id,
-            product_id=itemId)
+        if 'productAttributeId' in data:
+            productAttributeId = data['productAttributeId']
+
+            cartProduct = CartProduct.objects.filter(
+                cart_id=cart.id,
+                product_id=itemId,
+                attribute_id=productAttributeId)
+        else:
+            cartProduct = CartProduct.objects.filter(
+                cart_id=cart.id,
+                product_id=itemId)
 
         cartProduct.delete()
 
