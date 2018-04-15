@@ -17,7 +17,7 @@ class CartProduct(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='cart_product_product', default='')
     attribute = models.ForeignKey(
-        ProductAttribute, on_delete=models.CASCADE, related_name='cart_product_product_attribute', default='')
+        ProductAttribute, on_delete=models.CASCADE, related_name='cart_product_product_attribute', default='', null=True)
 
     class Meta:
         managed = True

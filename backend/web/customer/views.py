@@ -137,35 +137,51 @@ def customer_cart(request, pk):
         data['items'] = serializerCartProduct.data
 
         for index, item in enumerate(data['items']):
-            productAttribute = ProductAttribute.objects.get(
-                pk=item['productAttributeId'])
-            productAttributeSerializer = ProductAttributeSerializer(
-                productAttribute)
-            item['productAttribute'] = productAttributeSerializer.data
+            try:
+                productAttribute = ProductAttribute.objects.get(
+                    pk=item['productAttributeId'])
+                productAttributeSerializer = ProductAttributeSerializer(
+                    productAttribute)
+                item['productAttribute'] = productAttributeSerializer.data
+            except:
+                pass
 
         return JsonResponse(data)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         itemId = data['itemId']
         quantity = data['quantity']
-        productAttributeId = data['productAttributeId']
 
         cart, created = Cart.objects.get_or_create(customer_id=pk)
         product = Product.objects.get(pk=itemId)
 
-        try:
-            cartProduct = CartProduct.objects.get(
-                cart_id=cart.id,
-                product_id=itemId,
-                attribute_id=productAttributeId)
-            cartProduct.quantity += quantity
-        except CartProduct.DoesNotExist:
-            cartProduct = CartProduct(cart_id=cart.id,
-                                      product_id=itemId,
-                                      price=product.price,
-                                      quantity=quantity,
-                                      attribute_id=productAttributeId,
-                                      time=datetime.now())
+        if 'productAttributeId' in data:
+            productAttributeId = data['productAttributeId']
+            try:
+                cartProduct = CartProduct.objects.get(
+                    cart_id=cart.id,
+                    product_id=itemId,
+                    attribute_id=productAttributeId)
+                cartProduct.quantity += quantity
+            except CartProduct.DoesNotExist:
+                cartProduct = CartProduct(cart_id=cart.id,
+                                          product_id=itemId,
+                                          price=product.price,
+                                          quantity=quantity,
+                                          attribute_id=productAttributeId,
+                                          time=datetime.now())
+        else:
+            try:
+                cartProduct = CartProduct.objects.get(
+                    cart_id=cart.id,
+                    product_id=itemId)
+                cartProduct.quantity += quantity
+            except CartProduct.DoesNotExist:
+                cartProduct = CartProduct(cart_id=cart.id,
+                                          product_id=itemId,
+                                          price=product.price,
+                                          quantity=quantity,
+                                          time=datetime.now())
 
         cartProduct.save()
 
@@ -204,11 +220,14 @@ def customer_cart_auction(request, pk):
         data['items'] = serializerCartProduct.data
 
         for index, item in enumerate(data['items']):
-            productAttribute = ProductAttribute.objects.get(
-                pk=item['productAttributeId'])
-            productAttributeSerializer = ProductAttributeSerializer(
-                productAttribute)
-            item['productAttribute'] = productAttributeSerializer.data
+            try:
+                productAttribute = ProductAttribute.objects.get(
+                    pk=item['productAttributeId'])
+                productAttributeSerializer = ProductAttributeSerializer(
+                    productAttribute)
+                item['productAttribute'] = productAttributeSerializer.data
+            except:
+                pass
 
         return JsonResponse(data)
 
@@ -231,11 +250,14 @@ def customer_cart_buy(request, pk):
         data['items'] = serializerCartProduct.data
 
         for index, item in enumerate(data['items']):
-            productAttribute = ProductAttribute.objects.get(
-                pk=item['productAttributeId'])
-            productAttributeSerializer = ProductAttributeSerializer(
-                productAttribute)
-            item['productAttribute'] = productAttributeSerializer.data
+            try:
+                productAttribute = ProductAttribute.objects.get(
+                    pk=item['productAttributeId'])
+                productAttributeSerializer = ProductAttributeSerializer(
+                    productAttribute)
+                item['productAttribute'] = productAttributeSerializer.data
+            except:
+                pass
 
         return JsonResponse(data)
 
