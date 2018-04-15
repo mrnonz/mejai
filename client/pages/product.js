@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import cookie from 'react-cookie'
+import { isEmpty } from 'lodash'
 import { makeStore } from '../stores'
 import Router from 'next/router'
 import withTopbar from 'hocs/withTopbar'
@@ -35,7 +36,12 @@ class Product extends Component {
     handleAddToCart(itemId, attributeId) {
         const userId = cookie.load('userId')
         const { product: { data: { attributes } } } = this.props
-        this.props.updateCartItem(userId, itemId, attributes[attributeId].id, 1)
+        if (isEmpty(attributes)) {
+            this.props.updateCartItem(userId, itemId, null, 1)
+        } else {
+            this.props.updateCartItem(userId, itemId, attributes[attributeId].id, 1)
+        }
+        
     } 
 
     closeModal() {

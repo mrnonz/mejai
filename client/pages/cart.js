@@ -22,23 +22,23 @@ class Cart extends Component {
     }
 
     handleCartItemEdit(isPlus, item) {
-        const { itemId, quantity } = item
+        const { itemId, quantity, productAttributeId } = item
         const customerId = cookie.load('userId')
         if(isPlus) {
-            this.props.updateCartItem(customerId, itemId, 1)
+            this.props.updateCartItem(customerId, itemId, productAttributeId, 1)
         } else {
             if(item.quantity === 1) {
-                this.props.deleteCartItem(customerId, itemId)
+                this.props.deleteCartItem(customerId, itemId, productAttributeId)
             } else {
-                this.props.updateCartItem(customerId, itemId, -1)
+                this.props.updateCartItem(customerId, itemId, productAttributeId, -1)
             }
         }
     }
 
     handleCartItemDelte(item) {
-        const { itemId } = item
+        const { itemId, productAttributeId } = item
         const customerId = cookie.load('userId')
-        this.props.deleteCartItem(customerId, itemId)
+        this.props.deleteCartItem(customerId, itemId, productAttributeId)
     }
 
     handleOnSubmit() {
@@ -86,11 +86,11 @@ const mapDispatchToProps = (dispatch) => {
         fetchCart: (customerId) => {
             dispatch(fetchCart(customerId))
         },
-        updateCartItem: (customerId, itemId, qty) => {
-            dispatch(updateCartItem(customerId, itemId, qty))
+        updateCartItem: (customerId, itemId, productAttributeId, qty) => {
+            dispatch(updateCartItem(customerId, itemId, productAttributeId, qty))
         },
-        deleteCartItem: (customerId, itemId) => {
-            dispatch(deleteCartItem(customerId, itemId))
+        deleteCartItem: (customerId, itemId, productAttributeId) => {
+            dispatch(deleteCartItem(customerId, itemId, productAttributeId))
         }
 
     }

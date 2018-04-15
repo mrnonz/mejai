@@ -74,7 +74,7 @@ export const updateCartItem = (customerId, itemId, attributeId, qty) => {
     }
 }
 
-export const deleteCartItem = (customerId, itemId) => {
+export const deleteCartItem = (customerId, itemId, productAttributeId) => {
     return (dispatch) => {
         dispatch(deletingCart())
         const deleteUrl = url + '/customer/' + customerId + '/cart/'
@@ -82,7 +82,8 @@ export const deleteCartItem = (customerId, itemId) => {
             method: 'DELETE',
             url: deleteUrl,
             data: {
-                itemId: itemId
+                itemId,
+                productAttributeId
             }
         })
         .then((response) => {
