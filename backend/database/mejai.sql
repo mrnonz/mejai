@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 13, 2018 at 06:02 PM
+-- Generation Time: Apr 15, 2018 at 03:44 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -289,7 +289,7 @@ CREATE TABLE `Cart_Product` (
   `quantity` int(11) NOT NULL,
   `cart_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `attribute_id` int(11) NOT NULL
+  `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -299,10 +299,8 @@ CREATE TABLE `Cart_Product` (
 INSERT INTO `Cart_Product` (`id`, `time`, `price`, `quantity`, `cart_id`, `product_id`, `attribute_id`) VALUES
 (1, '2018-03-19 00:00:00.000000', '99.99', 2, 5, 1, 0),
 (2, '2018-03-12 00:00:00.000000', '49.99', 3, 5, 2, 0),
-(3, '2018-03-11 00:00:00.000000', '500.10', 2, 6, 2, 0),
-(4, '2018-03-18 00:00:00.000000', '500.00', 202, 6, 1, 0),
-(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3, 0),
-(6, '2018-04-09 08:26:23.838333', '420.00', 1, 3, 6, 0),
+(5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3, 2),
+(6, '2018-04-09 08:26:23.838333', '420.00', 1, 3, 6, 2),
 (7, '2018-04-11 18:30:38.468813', '420.00', 10, 5, 6, 4);
 
 -- --------------------------------------------------------
@@ -537,7 +535,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (88, 'order', '0012_order_attribute', '2018-04-11 18:06:16.902676'),
 (89, 'order', '0013_auto_20180412_0108', '2018-04-11 18:09:04.065277'),
 (90, 'cart_product', '0009_cartproduct_attribute', '2018-04-11 18:29:01.353701'),
-(91, 'order', '0014_order_test', '2018-04-12 07:00:05.208431');
+(91, 'order', '0014_order_test', '2018-04-12 07:00:05.208431'),
+(92, 'cart_product', '0010_auto_20180415_2223', '2018-04-15 15:24:04.503702');
 
 -- --------------------------------------------------------
 
@@ -1125,7 +1124,7 @@ ALTER TABLE `Cart`
 -- AUTO_INCREMENT for table `Cart_Product`
 --
 ALTER TABLE `Cart_Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `Customer`
@@ -1161,7 +1160,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- AUTO_INCREMENT for table `Order`
