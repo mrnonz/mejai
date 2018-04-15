@@ -76,7 +76,7 @@ def customer_detail(request, pk):
 
         serializerCustomer = CustomerSerializer(customer)
 
-        return JsonResponse(serializerCustomer.data, status=400)
+        return JsonResponse(serializerCustomer.data, status=200)
 
     elif request.method == 'DELETE':
         customer.delete()
