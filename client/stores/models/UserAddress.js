@@ -1,9 +1,15 @@
+import { isNil } from 'lodash'
+
 export default class UserAddress {
     constructor(address) {
         this._address = []
-        address.split("\\").map((val, index) => {
-            this._address[index] = val
-        })
+        if(isNil(address)) {
+            this._address =  ['','','','','']
+        } else {
+            address.split("\\").map((val, index) => {
+                this._address[index] = val
+            })
+        }
     }
 
     get firstname() {
