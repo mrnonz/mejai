@@ -145,7 +145,7 @@ def order_create(request):
             quantity = item['quantity']
 
             try:
-                attribute = item['product']['productAttributeId']
+                attribute = item['productAttributeId']
                 order = Order(quantity=quantity,
                               price=price,
                               status=1,
