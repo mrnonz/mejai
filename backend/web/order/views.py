@@ -30,11 +30,16 @@ def order_detail(request, pk):
         product = Product.objects.get(id=order.product_id)
         serializerProduct = ProductSerializer(product)
 
-        productAttribute = ProductAttribute.objects.get(id=order.attribute_id)
-        serializerProductAttribute = ProductAttributeSerializer(
-            productAttribute)
-
         data = serializerOrder.data
+
+        try:
+            productAttribute = ProductAttribute.objects.get(
+                id=order.attribute_id)
+            serializerProductAttribute = ProductAttributeSerializer(
+                productAttribute)
+            data['attribute'] = serializerProductAttribute.data
+        except:
+            pass
 
         if data['address'] is not None:
             firstname, lastname, district, subDistrict, province, postcode, tel = data['address'].split(
@@ -57,7 +62,7 @@ def order_detail(request, pk):
         data['slip'] = data['slip']
         data['sellerId'] = data['item']['owner_id']
         data['address'] = address
-        data['attribute'] = serializerProductAttribute.data
+
         return JsonResponse(data)
 
 
@@ -136,27 +141,36 @@ def order_create(request):
 
         for item in items:
             productId = item['product']['id']
-            attribute = item['product']['productAttributeId']
             price = item['price']
             quantity = item['quantity']
 
-            order = Order(quantity=quantity,
-                          price=price,
-                          status=1,
-                          product_id=productId,
-                          buyer_id=userId,
-                          attribute_id=attribute,
-                          time=datetime.now(),
-                          address=newAddress)
+            try:
+                attribute = item['product']['productAttributeId']
+                order = Order(quantity=quantity,
+                              price=price,
+                              status=1,
+                              product_id=productId,
+                              buyer_id=userId,
+                              attribute_id=attribute,
+                              time=datetime.now(),
+                              address=newAddress)
+            except:
+                order = Order(quantity=quantity,
+                              price=price,
+                              status=1,
+                              product_id=productId,
+                              buyer_id=userId,
+                              time=datetime.now(),
+                              address=newAddress)
 
             order.save()
-            serializerOrder = OrderSerializer(order)
-            appendData = serializerOrder.data
-            appendData['item'] = item['product']
+            # serializerOrder = OrderSerializer(order)
+            # appendData = serializerOrder.data
+            # appendData['item'] = item['product']
 
-            productOrganization = Product.objects.get(id=productId)
-            appendData['organizationId'] = productOrganization.organization_id
+            # productOrganization = Product.objects.get(id=productId)
+            # appendData['organizationId'] = productOrganization.organization_id
 
-            result['data'].append(appendData)
+            # result['data'].append(appendData)
 
-    return JsonResponse(result)
+    return HttpResponse(status=200)
