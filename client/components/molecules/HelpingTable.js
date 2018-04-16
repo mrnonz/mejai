@@ -7,7 +7,7 @@ const HelpingTable = ({ organization, hideLabel }) => {
             
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell width={5} singleLine>{ !hideLabel && องค์กรที่ช่วยเหลือ }</Table.HeaderCell>
+                    <Table.HeaderCell width={5} singleLine>{ !hideLabel && "องค์กรที่ช่วยเหลือ" }</Table.HeaderCell>
                     <Table.HeaderCell width={5} />
                     <Table.HeaderCell width={3}></Table.HeaderCell>
                     <Table.HeaderCell width={3}></Table.HeaderCell>
