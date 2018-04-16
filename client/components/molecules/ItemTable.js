@@ -18,11 +18,11 @@ class ItemTable extends Component {
                 </Table.Header>
                 <Table.Body>
                     { items.map((item) => {
-                        const { product: { itemId, name, organization = {} }, productAttribute, price, quantity } = item
+                        const { product: { itemId, name, organization = {}, thumbnail }, productAttribute, price, quantity } = item
                         return (
                             <Table.Row>
                                 <Table.Cell>
-                                    <Image src={'static/shirt1.jpeg'} size="small" />
+                                    <Image src={thumbnail} size="small" />
                                 </Table.Cell>
                                 <Table.Cell className="cell-item">
                                     <Header as='h4'>{name}</Header>
@@ -43,9 +43,7 @@ class ItemTable extends Component {
                                     <p>ราคา</p>
                                     <p className="price">{(quantity * price).toFixed(2)} บาท</p>
                                 </Table.Cell>
-                                <Table.Cell verticalAlign="top">
-                                    { editable && <a onClick={() => onDelete(item)}><Svg src={`static/icons/close.svg`} /></a> }
-                                </Table.Cell>
+                                { editable && <a onClick={() => onDelete(item)}><Svg className="delete-icon" src={`static/icons/close.svg`} /></a> }
                             </Table.Row>
                             )
                         })

@@ -8,7 +8,7 @@ class OrderItemCard extends Component {
     }
 
     render() {
-        const { item: { name, organization, quantity, price }, attribute } = this.props
+        const { item: { name, organization, thumbnail, quantity, price }, attribute } = this.props
         return (
             <Table basic className="item-table">
                 <Table.Header>
@@ -19,7 +19,7 @@ class OrderItemCard extends Component {
                 <Table.Body>
                     <Table.Row>
                         <Table.Cell>
-                            <Image src={'static/shirt1.jpeg'} size="small" />
+                            <Image src={thumbnail} size="small" />
                         </Table.Cell>
                         <Table.Cell className="cell-item">
                             <Header as='h4'>{name}</Header>
