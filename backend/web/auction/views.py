@@ -22,10 +22,12 @@ def auction_checkcart(request):
             itemId = auction.product_id
             lastest_price = auction.lastest_price
 
-            cart, created = Cart.objects.get_or_create(
-                customer_id=auction.customer_id, time=datetime.now())
-
-            cart = Cart.objects.get(customer_id=auction.customer_id)
+            try:
+                cart = Cart.objects.get(customer_id=auction.customer_id)
+            except:
+                cart = Cart(customer_id=auction.customer_id,
+                            time=datetime.now())
+                cart.save()
 
             cartProduct = CartProduct(cart_id=cart.id,
                                       product_id=itemId,
