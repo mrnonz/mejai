@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: backend_db_1
--- Generation Time: Apr 17, 2018 at 11:20 AM
+-- Host: mejai_db_1
+-- Generation Time: Apr 17, 2018 at 04:40 PM
 -- Server version: 5.7.21
--- PHP Version: 7.1.9
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,7 +42,8 @@ CREATE TABLE `Auction` (
 --
 
 INSERT INTO `Auction` (`id`, `exp_time`, `lastest_price`, `price_step`, `product_id`, `customer_id`) VALUES
-(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22);
+(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22),
+(2, '2018-04-17 11:30:07', '605.00', '50.00', 24, 20);
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,14 @@ INSERT INTO `Auction_Customer` (`id`, `price`, `time`, `auction_id`, `customer_i
 (1, '420.01', '2018-04-17 11:15:55', 1, 22),
 (2, '450.00', '2018-04-17 11:16:27', 1, 22),
 (3, '500.00', '2018-04-17 11:16:43', 1, 22),
-(4, '510.00', '2018-04-17 11:19:33', 1, 22);
+(4, '510.00', '2018-04-17 11:19:33', 1, 22),
+(5, '350.00', '2018-04-17 12:18:37', 2, 20),
+(6, '400.00', '2018-04-17 12:21:35', 2, 20),
+(7, '450.00', '2018-04-17 12:21:40', 2, 20),
+(8, '500.00', '2018-04-17 12:21:50', 2, 20),
+(9, '550.00', '2018-04-17 12:22:02', 2, 20),
+(10, '554.00', '2018-04-17 12:23:10', 2, 20),
+(11, '605.00', '2018-04-17 12:24:36', 2, 20);
 
 -- --------------------------------------------------------
 
@@ -704,7 +712,8 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 (20, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/af2e3addf11448d0a2af7f7a833b4839.jpg', '2018-04-17 08:39:24', 3, 1, 20),
 (21, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', '2018-04-17 08:39:27', 3, 1, 20),
 (22, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:33:17', 3, 1, 22),
-(23, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:36:12', 3, 1, 22);
+(23, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:36:12', 3, 1, 22),
+(24, 'ส้อม 3 อัน', '', '300.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', '2018-04-17 11:39:14', 3, 3, 20);
 
 -- --------------------------------------------------------
 
@@ -790,7 +799,9 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (45, 'https://storage.googleapis.com/mejai/product/image/79026dca28ab4325963f9ad46fa4e1a6.jpg', 19),
 (46, 'https://storage.googleapis.com/mejai/product/image/ad74aea8696f4351855ad7e0e06c5f30.jpg', 19),
 (47, 'https://storage.googleapis.com/mejai/product/image/af2e3addf11448d0a2af7f7a833b4839.jpg', 20),
-(48, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', 21);
+(48, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', 21),
+(49, 'https://storage.googleapis.com/mejai/product/image/856bc8cbcf824cb69cdd67857900ba97.jpg', 24),
+(50, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', 24);
 
 --
 -- Indexes for dumped tables
@@ -1012,13 +1023,13 @@ ALTER TABLE `Product_Image`
 -- AUTO_INCREMENT for table `Auction`
 --
 ALTER TABLE `Auction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `Auction_Customer`
 --
 ALTER TABLE `Auction_Customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -1138,7 +1149,7 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
@@ -1156,7 +1167,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- Constraints for dumped tables
