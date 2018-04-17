@@ -18,6 +18,7 @@ class Auction(models.Model):
     )
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name='auction_customer', default='', null=True)
+    valid = models.BooleanField(default=True)
 
     class Meta:
         managed = True
