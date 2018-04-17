@@ -10,6 +10,7 @@ from product_attribute.serializers import ProductAttributeSerializer
 from product_image.models import ProductImage
 from product_image.serializers import ProductImageSerializer
 from auction.models import Auction
+from auction.serializers import AuctionSerializer
 from auction_customer.models import AuctionCustomer
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
@@ -149,6 +150,11 @@ def product_detail(request, pk):
         data['seller'] = serializerSeller.data
         data['attributes'] = serializerAttibute.data
         data['images'] = serializerImage.data
+
+        if product.auction == 1:
+            auction = Auction.objects.get(product_id=pk)
+            serializerAuction = AuctionSerializer(auction)
+            data['auction'] = serializerAuction.data
 
         return JsonResponse(data)
 
