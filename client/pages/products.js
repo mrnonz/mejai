@@ -60,6 +60,7 @@ class Products extends Component {
                     </div>
                 </header>
                 <main>
+                    {/* TODO Add Filter Feature */}
                     <aside>
                         <FilterProduct categories={categories.list} />
                     </aside>
