@@ -364,3 +364,12 @@ def customer_pic_profile(request, pk):
         serializerCustomer = CustomerSerializer(customer)
 
         return JsonResponse(serializerCustomer.data)
+
+
+@csrf_exempt
+def time(request):
+
+    if request.method == 'GET':
+        data = {}
+        data['time'] = datetime.now()
+        return JsonResponse(data)
