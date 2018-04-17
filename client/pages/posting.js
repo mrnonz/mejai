@@ -9,7 +9,7 @@ import { Container, Menu, Header, Segment, Button, Modal, Dimmer } from 'semanti
 import SellingForm from 'molecules/SellingForm';
 import AuctionForm from 'molecules/AuctionForm';
 import Loader from 'molecules/Loader'
-import { createBuyProduct, createBuyProductAttribute } from 'stores/actions/product'
+import { createBuyProduct, createBuyProductAttribute, createAuctionProduct } from 'stores/actions/product'
 
 class Posting extends Component {
     constructor(props) {
@@ -98,6 +98,14 @@ class Posting extends Component {
                 }
                 this.props.createBuyProductAttribute(product, images)
             }
+        } else if (this.state.menuActive === 'auction') {
+            const { name, category, price, price_step, info, exp_time, images } = this.state
+            const product = {
+                name, price, price_step, info, exp_time, organizationId, images, userId,
+                sellerId: userId,
+                categoryId: category,
+            }
+            this.props.createAuctionProduct(product, images)
         }
     }
 
@@ -117,6 +125,7 @@ class Posting extends Component {
             return <AuctionForm 
                     onChange={this.handleChange} 
                     onFileUpload={this.handleFileUpload.bind(this)}
+                    onSubmit={this.openConfirmModal} 
                 />
         }
         return (
@@ -168,6 +177,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         createBuyProductAttribute: (product, images) => {
             dispatch(createBuyProductAttribute(product, images))
+        },
+        createAuctionProduct: (product, images) => {
+            dispatch(createAuctionProduct(product, images))
         }
     }
 }

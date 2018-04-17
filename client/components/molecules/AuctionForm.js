@@ -19,16 +19,21 @@ class AuctionForm extends Component {
         })
         this.props.onChange(null, {
             name: 'exp_time',
-            value: date._d
+            value: date.unix()
         })
     }
 
     render() {
         const displayTime = this.state.selectedTime ? moment(this.state.selectedTime).format("D MMMM YYYY, HH:mm") : null
         const DateForm = (props) => (
-            <Form.Input label='เวลาสิ้นสุด' value={displayTime} placeholder='เวลาสิ้นสุดการประมูล' onClick={props.onClick} />
+            <Form.Input 
+                label='เวลาสิ้นสุด' 
+                value={displayTime} 
+                placeholder='เวลาสิ้นสุดการประมูล' 
+                onClick={props.onClick} 
+            />
         )
-        const { onChange, onFileUpload } = this.props
+        const { onChange, onFileUpload, onSubmit } = this.props
         const categoriesOption = [
             {
                 key: 'wearable',
@@ -58,7 +63,7 @@ class AuctionForm extends Component {
         ]
 
         return (
-            <Form className="auction-form">
+            <Form className="auction-form" onSubmit={onSubmit} >
                 <Form.Group widths='equal'>
                     <Form.Input required fluid name="name" label='ชื่อสินค้า' placeholder='สินค้าของคุณ เช่น กระเป๋า' onChange={onChange} />
                     <Form.Field required control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
@@ -82,6 +87,10 @@ class AuctionForm extends Component {
                     onFileUpload={onFileUpload}
                 />
                 <Form.TextArea name="info" label="รายละเอียด" placeholder="ข้อมูลเพิ่มเติมสินค้าของคุณ" onChange={onChange} />
+                <div className="button-group">
+                    <Button color="green" size="large">ดำเนินการต่อ</Button>
+                    <a className="back">ย้อนกลับ</a>
+                </div>
             </Form>
         )
     }
