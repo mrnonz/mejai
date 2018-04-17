@@ -11,5 +11,6 @@ class AuctionSerializer(serializers.ModelSerializer):
             'userId',
             'product_id',
             'exp_time',
-            'lastest_price'
+            'lastest_price',
+            'price_step'
         )
