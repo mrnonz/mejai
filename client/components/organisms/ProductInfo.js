@@ -48,7 +48,7 @@ class ProductInfo extends Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Segment className="helping-content">
-                                {organization.info}
+                                <td dangerouslySetInnerHTML={{__html: organization.info}} />
                             </Segment>    
                         </Grid.Row>
                     </Grid>
