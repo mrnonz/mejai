@@ -106,6 +106,11 @@ class User extends Component {
                 icon: 'user-edit'
             },
             {
+                value: 'add-item',
+                title: 'เพิ่มสินค้าเข้าระบบ',
+                icon: 'add-item'
+            },
+            {
                 value: 'issue',
                 title: 'แจ้งปัญหา',
                 icon: 'issue'
@@ -157,6 +162,18 @@ class User extends Component {
                         { isUserLoading ?  <Loader wrapped /> :
                             <UserForm user={user} onSubmit={this.handleUpdateUserDetail} /> 
                         }
+                    </Container>
+                )
+            } else if (activeBar === 'add-item') {
+                Router.push({
+                    pathname: '/organizations',
+                    query: {
+                        type: 'seller'
+                    }
+                })
+                return (
+                    <Container>
+                        <Loader wrapped />
                     </Container>
                 )
             } else if (activeBar === 'issue') {
