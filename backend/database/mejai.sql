@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: mejai_db_1
--- Generation Time: Apr 17, 2018 at 04:40 PM
+-- Host: backend_db_1
+-- Generation Time: Apr 17, 2018 at 04:45 PM
 -- Server version: 5.7.21
--- PHP Version: 7.2.2
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,16 +34,17 @@ CREATE TABLE `Auction` (
   `lastest_price` decimal(10,2) NOT NULL,
   `price_step` decimal(10,2) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `customer_id` int(11) DEFAULT NULL
+  `customer_id` int(11) DEFAULT NULL,
+  `valid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Auction`
 --
 
-INSERT INTO `Auction` (`id`, `exp_time`, `lastest_price`, `price_step`, `product_id`, `customer_id`) VALUES
-(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22),
-(2, '2018-04-17 11:30:07', '605.00', '50.00', 24, 20);
+INSERT INTO `Auction` (`id`, `exp_time`, `lastest_price`, `price_step`, `product_id`, `customer_id`, `valid`) VALUES
+(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22, 1),
+(2, '2018-04-17 11:30:07', '605.00', '50.00', 24, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -556,7 +557,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (92, 'cart_product', '0010_auto_20180415_2223', '2018-04-15 15:24:04.503702'),
 (93, 'order', '0014_auto_20180416_1057', '2018-04-16 03:57:31.196080'),
 (94, 'auction', '0004_auction_customer', '2018-04-17 09:58:08.455575'),
-(95, 'auction_customer', '0005_auto_20180417_1815', '2018-04-17 11:15:50.681560');
+(95, 'auction_customer', '0005_auto_20180417_1815', '2018-04-17 11:15:50.681560'),
+(96, 'auction', '0005_auction_valid', '2018-04-17 16:44:43.460579');
 
 -- --------------------------------------------------------
 
@@ -1119,7 +1121,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `Order`
