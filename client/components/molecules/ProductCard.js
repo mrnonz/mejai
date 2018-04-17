@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Image, Progress, Header } from 'semantic-ui-react'
+import { Card, Image, Header } from 'semantic-ui-react'
 
 const ProductCard = ({ productId, name, organization, auctionData, thumbnail, price, auction, onCardClick }) => {
     return (
@@ -8,11 +8,8 @@ const ProductCard = ({ productId, name, organization, auctionData, thumbnail, pr
                 {
                     auction ? (
                     <Card.Content> 
-                        <Card.Header>
-                            {name}
-                        </Card.Header>
-                        <Progress percent={75} size="tiny" color="orange"/>
-                        <span className="card-price"> {price.toLocaleString()} บาท </span>
+                        <Header as="h5" dividing>{name}</Header>
+                        <span className="card-price">เริ่มต้นที่ {price.toLocaleString()} บาท </span>
                     </Card.Content>
                     ) : (
                     <Card.Content> 
