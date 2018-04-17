@@ -128,6 +128,32 @@ export const createBuyProductAttribute = (product, images) => {
     }
 }
 
+export const createAuctionProduct = (product, images) => {
+    return (dispatch) => {
+        dispatch(creatingProduct())
+        const createUrl = `${url}/product/auction/create/`
+        return Axios({
+            method: 'POST',
+            url: createUrl,
+            data: product
+        })
+        .then((response) => {
+            const { data: { productId } } = response
+            Promise.all(images.map((image) => 
+                dispatch(uploadProductImages(productId, image))
+            ))
+            .then((response) => dispatch(createProductSuccess(response[0].data.productId)))
+            .catch((error) => {
+                throw (error);
+            })
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+}
+
+
 export const uploadProductImages = (id, image) => {
     return (dispatch) => {
         dispatch(uploadingProductImage())
