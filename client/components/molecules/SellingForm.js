@@ -99,7 +99,7 @@ class SellingForm extends Component {
         const { attributes, hasAttribute } = this.state
         const { onChange, onSubmit, onFileUpload } = this.props
         return (
-            <Form onSubmit={onSubmit} >
+            <Form onSubmit={onSubmit} className="selling-form">
                 <Form.Group widths='equal'>
                     <Form.Input required fluid name="name" label='ชื่อสินค้า' placeholder='สินค้าของคุณ เช่น กระเป๋า' onChange={onChange} />
                     <Form.Field required control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
