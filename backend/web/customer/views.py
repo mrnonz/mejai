@@ -239,6 +239,26 @@ def customer_cart_auction(request, pk):
 
         return JsonResponse(data)
 
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        itemId = data['productId']
+        lastest_price = data['auction']['lastest_price']
+
+        cart, created = Cart.objects.get_or_create(
+            customer_id=pk, time=datetime.now())
+
+        cart = Cart.objects.get(customer_id=pk)
+
+        cartProduct = CartProduct(cart_id=cart.id,
+                                  product_id=itemId,
+                                  price=lastest_price,
+                                  quantity=1,
+                                  time=datetime.now())
+
+        cartProduct.save()
+
+        return HttpResponse(status=200)
+
 
 @csrf_exempt
 def customer_cart_buy(request, pk):
