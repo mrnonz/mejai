@@ -69,7 +69,7 @@ class Organizations extends Component {
 
     render() {
         const { activeCategory, organizationPage, showInfo } = this.state
-        const { organization: { data: organizations, isLoading, info: { name: infoName, info } }  } = this.props
+        const { organization: { data: organizations, isLoading, info: { name: infoName, info, thumbnail } }  } = this.props
         const { url: { query: { type: userType } } } = this.props
         const organizationCount = organizations.length
         const totalPage = Math.ceil(organizations.length / 12)
@@ -107,12 +107,12 @@ class Organizations extends Component {
                 </Grid.Row>
                 <Grid.Row centered columns={2}>
                     <Grid.Column>
-                        <Image src="static/OrganizationImage1.jpg" size="large"/>
+                        <Image src={ thumbnail } size="large"/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
                     <Segment className="helping-content">
-                        {info}
+                        <td dangerouslySetInnerHTML={{__html: info}} />
                     </Segment>    
                 </Grid.Row>
                 <Grid.Row centered columns={4}>
