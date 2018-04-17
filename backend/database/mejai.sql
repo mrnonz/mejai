@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: mejai_db_1
--- Generation Time: Apr 17, 2018 at 09:48 AM
+-- Host: backend_db_1
+-- Generation Time: Apr 17, 2018 at 09:58 AM
 -- Server version: 5.7.21
--- PHP Version: 7.2.2
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,7 +33,8 @@ CREATE TABLE `Auction` (
   `exp_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `lastest_price` decimal(10,2) NOT NULL,
   `price_step` decimal(10,2) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `customer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -528,7 +529,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (90, 'cart_product', '0009_cartproduct_attribute', '2018-04-11 18:29:01.353701'),
 (91, 'order', '0014_order_test', '2018-04-12 07:00:05.208431'),
 (92, 'cart_product', '0010_auto_20180415_2223', '2018-04-15 15:24:04.503702'),
-(93, 'order', '0014_auto_20180416_1057', '2018-04-16 03:57:31.196080');
+(93, 'order', '0014_auto_20180416_1057', '2018-04-16 03:57:31.196080'),
+(94, 'auction', '0004_auction_customer', '2018-04-17 09:58:08.455575');
 
 -- --------------------------------------------------------
 
@@ -779,7 +781,8 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 --
 ALTER TABLE `Auction`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `product_id` (`product_id`);
+  ADD UNIQUE KEY `product_id` (`product_id`),
+  ADD KEY `Auction_customer_id_945a5a74_fk_Customer_id` (`customer_id`);
 
 --
 -- Indexes for table `Auction_Customer`
@@ -1079,7 +1082,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -1137,6 +1140,7 @@ ALTER TABLE `Product_Image`
 -- Constraints for table `Auction`
 --
 ALTER TABLE `Auction`
+  ADD CONSTRAINT `Auction_customer_id_945a5a74_fk_Customer_id` FOREIGN KEY (`customer_id`) REFERENCES `Customer` (`id`),
   ADD CONSTRAINT `Auction_product_id_61dace7d_fk_Product_id` FOREIGN KEY (`product_id`) REFERENCES `Product` (`id`);
 
 --

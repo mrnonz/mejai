@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from product.models import Product
+from customer.models import Customer
 
 
 class Auction(models.Model):
@@ -15,6 +16,8 @@ class Auction(models.Model):
         on_delete=models.CASCADE,
         default=''
     )
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, related_name='auction_customer', default='', null=True)
 
     class Meta:
         managed = True
