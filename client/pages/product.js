@@ -11,6 +11,7 @@ import ProductInfo from 'organisms/ProductInfo'
 import { Container, Modal, Button } from 'semantic-ui-react'
 import { fetchProductItem } from 'stores/actions/product'
 import { updateCartItem } from 'stores/actions/cart'
+import { getCurrentTime } from 'stores/actions/auction'
 
 class Product extends Component {
     constructor(props){
@@ -29,8 +30,11 @@ class Product extends Component {
     }
 
     componentDidMount() {
-        const { url: { query: { id: productId } } } = this.props
+        const { url: { query: { id: productId, type: itemType } } } = this.props
         this.props.fetchProductItem(productId)
+        if (itemType === 'auction') {
+            this.props.getCurrentTime()
+        }
     }
 
     handleAddToCart(itemId, attributeId) {
@@ -115,6 +119,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateCartItem: (customerId, itemId, attributeId, qty) => {
             dispatch(updateCartItem(customerId, itemId, attributeId, qty))
+        },
+        getCurrentTime: () => {
+            dispatch(getCurrentTime())
         }
     }
 }
