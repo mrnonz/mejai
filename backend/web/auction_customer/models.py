@@ -6,7 +6,7 @@ from customer.models import Customer
 
 
 class AuctionCustomer(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     time = models.DateTimeField()
     auction = models.ForeignKey(

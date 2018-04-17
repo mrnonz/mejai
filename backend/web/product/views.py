@@ -10,6 +10,7 @@ from product_attribute.serializers import ProductAttributeSerializer
 from product_image.models import ProductImage
 from product_image.serializers import ProductImageSerializer
 from auction.models import Auction
+from auction_customer.models import AuctionCustomer
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
@@ -67,6 +68,29 @@ def product_auction(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def product_auction_bid(request, pk):
+
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        price = data['price']
+        userId = data['userId']
+
+        auction = Auction.objects.get(product_id=pk)
+
+        if price <= auction.lastest_price:
+            return HttpResponse(status=400)
+
+        AuctionCustomer(price=price, customer_id=userId,
+                        auction_id=auction.id).save()
+
+        Auction.objects.filter(pk=auction.id).update(
+            lastest_price=price, customer_id=userId, exp_time=auction.exp_time)
+
+        return HttpResponse(status=201)
 
 
 @csrf_exempt

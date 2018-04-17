@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: backend_db_1
--- Generation Time: Apr 17, 2018 at 09:58 AM
+-- Generation Time: Apr 17, 2018 at 11:20 AM
 -- Server version: 5.7.21
 -- PHP Version: 7.1.9
 
@@ -37,6 +37,13 @@ CREATE TABLE `Auction` (
   `customer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `Auction`
+--
+
+INSERT INTO `Auction` (`id`, `exp_time`, `lastest_price`, `price_step`, `product_id`, `customer_id`) VALUES
+(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22);
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +57,16 @@ CREATE TABLE `Auction_Customer` (
   `auction_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Auction_Customer`
+--
+
+INSERT INTO `Auction_Customer` (`id`, `price`, `time`, `auction_id`, `customer_id`) VALUES
+(1, '420.01', '2018-04-17 11:15:55', 1, 22),
+(2, '450.00', '2018-04-17 11:16:27', 1, 22),
+(3, '500.00', '2018-04-17 11:16:43', 1, 22),
+(4, '510.00', '2018-04-17 11:19:33', 1, 22);
 
 -- --------------------------------------------------------
 
@@ -530,7 +547,8 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (91, 'order', '0014_order_test', '2018-04-12 07:00:05.208431'),
 (92, 'cart_product', '0010_auto_20180415_2223', '2018-04-15 15:24:04.503702'),
 (93, 'order', '0014_auto_20180416_1057', '2018-04-16 03:57:31.196080'),
-(94, 'auction', '0004_auction_customer', '2018-04-17 09:58:08.455575');
+(94, 'auction', '0004_auction_customer', '2018-04-17 09:58:08.455575'),
+(95, 'auction_customer', '0005_auto_20180417_1815', '2018-04-17 11:15:50.681560');
 
 -- --------------------------------------------------------
 
@@ -684,7 +702,9 @@ CREATE TABLE `Product` (
 INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `type`, `viewer`, `hit`, `thumbnail`, `created_time`, `organization_id`, `category_id`, `owner_id`) VALUES
 (19, 'โน้ตบุ้ค', 'ทั้งเบาและบางเฉียบ ทั้งยังเร็วขึ้นและทรงพลังขึ้นยิ่งกว่า \nทั้งเป็นจอภาพโน้ตบุ๊ค Mac ที่สว่างและมีสีสันสดใสที่สุดเท่าที่เคยมีมา \nและยังมี Touch Bar แถบกระจกที่สามารถใช้งาน Multi-Touch ซึ่งได้รับ\nการผสานรวมให้เป็นส่วนหนึ่งของคีย์บอร์ด เพื่อให้คุณใช้งานเครื่องมือ\nที่ต้องการได้ในทุกเวลาที่ต้องการ ทั้งหมดนี้รวมอยู่ใน MacBook Pro \nที่สร้างขึ้นบนแนวคิดสุดล้ำ และวันนี้ก็พร้อมแล้วสำหรับแนวคิด\nที่ล้ำหน้าไม่แพ้กันของคุณ', '24000.00', 0, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/ad74aea8696f4351855ad7e0e06c5f30.jpg', '2018-04-17 08:21:56', 3, 2, 20),
 (20, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/af2e3addf11448d0a2af7f7a833b4839.jpg', '2018-04-17 08:39:24', 3, 1, 20),
-(21, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', '2018-04-17 08:39:27', 3, 1, 20);
+(21, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', '2018-04-17 08:39:27', 3, 1, 20),
+(22, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:33:17', 3, 1, 22),
+(23, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:36:12', 3, 1, 22);
 
 -- --------------------------------------------------------
 
@@ -992,7 +1012,13 @@ ALTER TABLE `Product_Image`
 -- AUTO_INCREMENT for table `Auction`
 --
 ALTER TABLE `Auction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `Auction_Customer`
+--
+ALTER TABLE `Auction_Customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -1082,7 +1108,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `Order`
@@ -1112,7 +1138,7 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
