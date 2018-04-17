@@ -133,11 +133,11 @@ class User extends Component {
                 return (
                     <Container>
                         <Container>
-                        <Header as='h2' dividing color="orange" >
-                            รายการสั่งซื้อถึงคุณ
-                        </Header>
-                        { isSellerOrderLoading ? <Loader wrapped /> : <OrderTable handleOrderRowClick={this.handleOrderRowClick.bind(User)} isSeller orders={sortedOrder} /> }
-                    </Container>
+                            <Header as='h2' dividing color="orange" >
+                                รายการสั่งซื้อถึงคุณ
+                            </Header>
+                            { isSellerOrderLoading ? <Loader wrapped /> : <OrderTable handleOrderRowClick={this.handleOrderRowClick.bind(User)} isSeller orders={sortedOrder} /> }
+                        </Container>
                     </Container>
                 )
             } else if (activeBar === 'user-item') {

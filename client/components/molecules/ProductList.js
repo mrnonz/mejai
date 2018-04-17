@@ -6,6 +6,7 @@ const ProductList = ({ products, onCardClick, productType }) => (
         {products.map((item) => (
             <ProductCard 
                 auction={productType === 'auction'} 
+                auctionData={item.auction}
                 organization={item.organization} 
                 productId={item.productId} 
                 name={item.name} 

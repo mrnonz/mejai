@@ -8,7 +8,7 @@ class OrderItemCard extends Component {
     }
 
     render() {
-        const { item: { name, organization, thumbnail, quantity, price }, attribute } = this.props
+        const { item: { name, organization, thumbnail, quantity }, attribute, price } = this.props
         return (
             <Table basic className="item-table">
                 <Table.Header>

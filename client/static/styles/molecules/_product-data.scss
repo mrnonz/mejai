@@ -23,4 +23,11 @@
        position: absolute;
        bottom: 0;
     }
+
+    .data-auction {
+        >button, >.input {
+            position: absolute;
+            bottom: 0;
+        }   
+    }
 }

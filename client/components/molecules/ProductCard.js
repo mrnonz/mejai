@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Image, Progress, Header } from 'semantic-ui-react'
 
-const ProductCard = ({ productId, name, organization, thumbnail, price, auction, onCardClick }) => {
+const ProductCard = ({ productId, name, organization, auctionData, thumbnail, price, auction, onCardClick }) => {
     return (
         <Card className="product-card" onClick={() => onCardClick(productId)}>
             <Image src={thumbnail} size="small" centered />
@@ -13,7 +13,6 @@ const ProductCard = ({ productId, name, organization, thumbnail, price, auction,
                         </Card.Header>
                         <Progress percent={75} size="tiny" color="orange"/>
                         <span className="card-price"> {price.toLocaleString()} บาท </span>
-                        <span className="card-expired"> Expired </span>
                     </Card.Content>
                     ) : (
                     <Card.Content> 

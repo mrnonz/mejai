@@ -7,7 +7,7 @@ import Gallery from 'molecules/Gallery';
 import ProductData from 'molecules/ProductData';
 import OrderTable from 'molecules/OrderTable'
 
-const ProductDetail = ({ itemType, product, orders, isLoadingOrder, onAdd }) => {
+const ProductDetail = ({ product, orders, isLoadingOrder, onAdd, onBid }) => {
     const sortedOrder = reverse(sortBy(orders, (order) => order.created_by))
     const userInfo = () => (
         <div className="product-user">
@@ -36,9 +36,9 @@ const ProductDetail = ({ itemType, product, orders, isLoadingOrder, onAdd }) => 
             </Modal>
             <Gallery images={product.images} />
             <ProductData
-                itemType={itemType} 
                 product={product}
                 onAdd={onAdd}
+                onBid={onBid}
             />
         </div>
     )

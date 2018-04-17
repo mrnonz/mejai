@@ -9,7 +9,7 @@ import Pagination from 'molecules/Pagination'
 import Loader from 'molecules/Loader'
 import FilterProduct from 'organisms/FilterProduct'
 import categories from 'stores/mock/categories.json'
-import { fetchBuyProducts } from 'stores/actions/product'
+import { fetchBuyProducts, fetchAuctionProducts } from 'stores/actions/product'
 
 class Products extends Component {
     constructor(props) {
@@ -34,7 +34,12 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchBuyProducts()
+        const { url: { query: { type: productType } } } = this.props
+        if (productType === 'auction') {
+            this.props.fetchAuctionProducts()
+        } else {
+            this.props.fetchBuyProducts()
+        }
     }
 
     render() {
@@ -50,7 +55,7 @@ class Products extends Component {
                 {/* TODO Dynamic header */}
                 <header>
                     <div className="background-mask">
-                        <h1>เลือกซื้อสินค้า</h1>
+                        <h1>เลือกสินค้า</h1>
                         <p>ผู้ใช้เลือกสินค้าที่ถูกใจ โดยรายได้จากสินค้าเหล่านั้นจะนำไปช่วยเหลือองค์กรการกุศลที่ผู้ขายเลือก</p>
                     </div>
                 </header>
@@ -89,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchBuyProducts: () => {
             dispatch(fetchBuyProducts())
+        },
+        fetchAuctionProducts: () => {
+            dispatch(fetchAuctionProducts())
         }
     }
 }

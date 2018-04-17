@@ -32,15 +32,17 @@ class ProductDataCard extends Component {
                     {
                         auction ? (
                             <div className="product-data">
-                                <Header as="h2">เสื้อสีน้ำเงิน</Header>
+                                <Header as="h2">{product.name}</Header>
                                 <Header as="h3" color="grey">ผู้ช่วยเหลือ</Header>
-                                <p>สมศรี สมชาย</p>
-                                <Header as="h3" color="grey">วันสิ้นสุด</Header>
-                                <p>23 ตุลาคม 2560 14.30 น.</p>
+                                <p>{ `${product.seller.firstname} ${product.seller.lastname}` }</p>
+                                <Header as="h3" color="grey">วันที่ลง</Header>
+                                <p>{moment(product.created_time).format('LLL')}</p>
                                 <Header as="h3" color="grey">หมวดหมู่</Header>
-                                <p>เครื่องแต่งกาย</p>
-                                <Header as="h3" color="grey">ราคาเริ่มต้น</Header>
-                                <p>150 บาท</p>
+                                <p>{new Categories(product.category_id).categoryName}</p>
+                                <div className="detail-table">
+                                    <div><Header as="h4" color="grey">ราคาเริ่มต้น</Header></div>
+                                    <div><p>{product.price} บาท</p></div>
+                                </div>
                             </div>
                         ) : (
                             <div className="product-data">

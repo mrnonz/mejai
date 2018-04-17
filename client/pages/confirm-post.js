@@ -46,7 +46,7 @@ class ConfirmPost extends Component {
                         <Header as='h5' >
                             สินค้าที่ลงขาย
                         </Header>
-                        <ProductDataCard product={product} auction={product.type} />
+                        <ProductDataCard product={product} auction={product.auction} />
                         <div className="button-wrapper">
                             <Button onClick={() => this.handleOnSubmit()} color="teal" size="large" >ดำเนินการต่อ</Button>
                         </div>

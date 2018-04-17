@@ -40,6 +40,20 @@ export const fetchBuyProducts = () => {
     }
 }
 
+export const fetchAuctionProducts = () => {
+    return (dispatch) => {
+        dispatch(fetchingProducts())
+        const fetchUrl = url + '/product/auction/'
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchProductsSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
+
 export const fetchProductItem = (id) => {
     return (dispatch) => {
         dispatch(fetchingProducts())
@@ -49,6 +63,21 @@ export const fetchProductItem = (id) => {
                 const { userId } = response.data.seller
                 dispatch(fetchProductItemSuccess(response))
                 dispatch(fetchSellerOrder(userId))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
+
+export const fetchAuctionItem = (id) => {
+    return (dispatch) => {
+        dispatch(fetchingProducts())
+        const fetchUrl = `${url}/product/${id}/`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                const { userId } = response.data.seller
+                dispatch(fetchProductItemSuccess(response))
             })
             .catch((error) => {
                 throw(error);

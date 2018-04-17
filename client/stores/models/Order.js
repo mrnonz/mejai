@@ -54,6 +54,11 @@ export default class Order {
             quantity: this._order.quantity,
             ...omit(this._order.item, 'quantity') 
         }
+    }  
+
+    get Price() {
+        if(this._order.item.auction) return this._order.price
+        return this._order.item.price
     }
 
     get Organization() {

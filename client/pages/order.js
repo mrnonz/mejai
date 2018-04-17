@@ -148,7 +148,7 @@ class Order extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={11}>
-                            <OrderItemCard attribute={ data.attribute } item={ order.Item } />
+                            <OrderItemCard attribute={ data.attribute } price={ order.Price } item={ order.Item } />
                         </Grid.Column>
                         <Grid.Column width={5}>
                             <OrderInfo order={ order } />

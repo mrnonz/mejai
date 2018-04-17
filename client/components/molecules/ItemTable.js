@@ -18,7 +18,7 @@ class ItemTable extends Component {
                 </Table.Header>
                 <Table.Body>
                     { items.map((item) => {
-                        const { product: { itemId, name, organization = {}, thumbnail }, productAttribute, price, quantity } = item
+                        const { product: { itemId, name, auction, organization = {}, thumbnail }, productAttribute, price, quantity } = item
                         return (
                             <Table.Row>
                                 <Table.Cell>
@@ -34,7 +34,7 @@ class ItemTable extends Component {
                                     <QuantityInput
                                         item={item}
                                         onEdit={onEdit}
-                                        editable={editable}
+                                        editable={!auction}
                                         quantity={quantity} 
                                         isUpdating = {isUpdating}
                                     />

@@ -63,7 +63,8 @@ const intialStore = {
         data: []
     },
     auction: {
-        isLoading: true,
+        isLoading: false,
+        isTimeLoading: true,
         time: null
     }
 }
