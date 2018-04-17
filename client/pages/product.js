@@ -21,6 +21,10 @@ class Product extends Component {
             errorModal: false,
             bidding: false
         }
+        const { url: { query: { id: productId, type: itemType } } } = this.props
+        if (itemType === 'auction') {
+            this.fetchingAuction = setInterval(() => { this.props.fetchAuctionItem(productId) }, 2500);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -42,9 +46,10 @@ class Product extends Component {
     componentDidMount() {
         const { url: { query: { id: productId, type: itemType } } } = this.props
         this.props.fetchProductItem(productId)
-        if (itemType === 'auction') {
-            setInterval(() => { this.props.fetchAuctionItem(productId) }, 2500);
-        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.fetchingAuction)
     }
 
     handleAddToCart(itemId, attributeId) {
