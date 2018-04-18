@@ -33,6 +33,16 @@ class Products extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.url.query.type !== this.props.url.query.type) {
+            if (nextProps.url.query.type === 'auction') {
+                this.props.fetchAuctionProducts()
+            } else {
+                this.props.fetchBuyProducts()
+            }
+        }
+    }
+
     componentDidMount() {
         const { url: { query: { type: productType } } } = this.props
         if (productType === 'auction') {
