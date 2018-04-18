@@ -27,7 +27,8 @@ class Posting extends Component {
             attributeName: '',
             attributes: [],
             hasAttribute: false,
-            images: []
+            images: [],
+            submittingProduct: false
         }
     }
 
@@ -107,10 +108,13 @@ class Posting extends Component {
             }
             this.props.createAuctionProduct(product, images)
         }
+        this.setState({
+            submittingProduct: true
+        })
     }
 
     render() {
-        const { menuActive, showConfirmModal } = this.state
+        const { menuActive, showConfirmModal, submittingProduct } = this.state
         const { product: { isCreating } } = this.props
         const renderForm = () => {
             if(menuActive === 'selling') {
@@ -134,7 +138,7 @@ class Posting extends Component {
                     เพิ่มสินค้าเข้าระบบ
                 </Header>
                 <Modal open={showConfirmModal}>
-                    { ( isCreating ) && <Dimmer active><Loader /></Dimmer> }
+                    { ( submittingProduct ) && <Dimmer active><Loader /></Dimmer> }
                     <Modal.Header>ยืนยันการเพิ่มสินค้า</Modal.Header>
                     <Modal.Content>
                         <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.handleProductSubmit()} />
