@@ -114,6 +114,11 @@ class User extends Component {
                 value: 'issue',
                 title: 'แจ้งปัญหา',
                 icon: 'issue'
+            },
+            {
+                value: 'logout',
+                title: 'ออกจากระบบ',
+                icon: 'logout'
             }
         ]
 
@@ -186,6 +191,16 @@ class User extends Component {
                         <div className="button-group">
                             <Button color="green" size="large">แจ้งปัญหา</Button>
                         </div>
+                    </Container>
+                )
+            } else if (activeBar === 'logout') {
+                cookie.remove('userId')
+                Router.push({
+                    pathname: '/'
+                })
+                return (
+                    <Container>
+                        <Loader wrapped />
                     </Container>
                 )
             }
