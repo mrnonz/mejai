@@ -19,11 +19,8 @@ class Product extends Component {
         this.state = {
             showModal: false,
             errorModal: false,
-            bidding: false
-        }
-        const { url: { query: { id: productId, type: itemType } } } = this.props
-        if (itemType === 'auction') {
-            this.fetchingAuction = setInterval(() => { this.props.fetchAuctionItem(productId) }, 2500);
+            bidding: false,
+            intervalId: 0
         }
     }
 
@@ -46,10 +43,14 @@ class Product extends Component {
     componentDidMount() {
         const { url: { query: { id: productId, type: itemType } } } = this.props
         this.props.fetchProductItem(productId)
+        if (itemType === 'auction') {
+            const intervalId = setInterval(() => { this.props.fetchAuctionItem(productId) }, 2500);
+            this.setState({ intervalId })
+        }
     }
 
     componentWillUnmount() {
-        clearInterval(this.fetchingAuction)
+        clearInterval(this.state.intervalId)
     }
 
     handleAddToCart(itemId, attributeId) {
@@ -103,7 +104,8 @@ class Product extends Component {
         const { 
             product: { 
                 data: product = [], 
-                isLoading }, 
+                isLoading 
+            }, 
             cart: { 
                 isUpdating = false, 
                 updated = false },
