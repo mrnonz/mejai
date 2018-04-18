@@ -19,4 +19,9 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('product.urls')),
+    url(r'^', include('organization.urls')),
+    url(r'^', include('customer.urls')),
+    url(r'^', include('order.urls')),
+    url(r'^', include('auction.urls')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
 ]

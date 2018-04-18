@@ -1,0 +1,61 @@
+nameOverride: mejai
+
+serviceNameSuffix: service
+
+replicaCount: 5
+
+imagePullSecrets: {}
+
+image:
+  repository: mrnonz/mejai
+  tag: latest
+  pullPolicy: Always
+
+containerPorts:
+  - 80
+
+environments:
+  - name: MYSQL_ROOT_PASSWORD
+    secret:
+      name: mejai
+      key: MYSQL_ROOT_PASSWORD
+  - name: MYSQL_PASSWORD
+    secret:
+      name: mejai
+      key: MYSQL_PASSWORD
+  - name: MYSQL_DATABASE
+    value: mejai
+  - name: MYSQL_HOST
+    value: 10.148.0.5
+  - name: MYSQL_USER
+    value: root
+  - name: ALLOWED_HOSTS
+    value: 35.187.233.55
+  - name: GOOGLE_APPLICATION_CREDENTIALS
+    value: /code/gcs-credential.json
+
+healthCheck: {}
+
+annotations: {}
+
+service:
+  type: LoadBalancer
+  ports:
+    - name: mejai-http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+resources: {}
+nodeSelector: {}
+livenessProbe:
+  initialDelaySeconds: 180
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
