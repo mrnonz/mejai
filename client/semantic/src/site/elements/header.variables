@@ -1,0 +1,10 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+
+/*-------------------
+      Dividing
+--------------------*/
+@dividedColoredBorderWidth: 1px;
+@dividedBorder: @dividedColoredBorderWidth solid @orange;

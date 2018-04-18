@@ -1,0 +1,30 @@
+.item-table {
+    .quantity-input{
+        a {
+            font-size: 2em;
+            margin: 0 2rem;
+            cursor: pointer;
+        }
+
+        span {
+            font-size: 1.2em;
+        }
+    }
+
+    .cell-price{
+        min-width: 100px;
+        >.price {
+            color: $colorOrange;
+        }
+    }
+
+    p {
+        color: $colorGrey;
+    }
+
+    svg {
+        height: 1em;
+        width: auto;
+        cursor: pointer;
+    }
+}

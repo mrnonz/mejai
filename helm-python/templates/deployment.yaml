@@ -1,0 +1,179 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      terminationGracePeriodSeconds: 10
+      {{- if .Values.podAntiAffinity }}
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                  matchExpressions:
+                    - key: "app"
+                      operator: In
+                      values:
+                      - {{ template "name" . }}
+              topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecrets.name }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{- range $key, $val := .Values.nodeSelector }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: {{ template "name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.workingDir }}
+          workingDir: {{ .Values.workingDir }}
+          {{- end }}
+          {{- if .Values.command }}
+          command:
+            {{- range .Values.command }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.environments }}
+          env:
+            {{- range .Values.environments }}
+            - name: {{ .name }}
+              {{- if .secret }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.name }}
+                  key: {{ .secret.key }}
+              {{- else if .configmap }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .configmap.name }}
+                  key: {{ .configmap.key }}
+              {{- else }}
+              value: {{ .value | quote }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.containerPorts }}
+          ports:
+            {{- range .Values.containerPorts }}
+            - containerPort: {{ . }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.resources }}
+          resources:
+            {{- if .Values.resources.requests }}
+            requests:
+              {{- if .Values.resources.requests.cpu }}
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              {{- end }}
+              {{- if .Values.resources.requests.memory }}
+              memory: "{{ .Values.resources.requests.memory }}"
+              {{- end }}
+            {{- end }}
+            {{- if .Values.resources.limits }}
+            limits:
+              {{- if .Values.resources.limits.cpu }}
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              {{- end }}
+              {{- if .Values.resources.limits.memory }}
+              memory: "{{ .Values.resources.limits.memory }}"
+              {{- end }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.volumeMounts }}
+          volumeMounts:
+            {{- range .Values.volumeMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+          {{- end }}
+          {{- if .Values.healthCheck }}
+          readinessProbe:
+            {{- if .Values.healthCheck.exec }}
+            command:
+              {{- range .Values.healthCheck.exec }}
+              - {{ . }}
+              {{- end }}
+            {{- else if .Values.healthCheck.tcpSocket }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.tcpSocket.port }}
+            {{- else }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpGet.path }}
+              port: {{ .Values.healthCheck.httpGet.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          livenessProbe:
+            {{- if .Values.healthCheck.exec }}
+            command:
+              {{- range .Values.healthCheck.exec }}
+              - {{ . }}
+              {{- end }}
+            {{- else if .Values.healthCheck.tcpSocket }}
+            tcpSocket:
+              port: {{ .Values.healthCheck.tcpSocket.port }}
+            {{- else }}
+            httpGet:
+              path: {{ .Values.healthCheck.httpGet.path }}
+              port: {{ .Values.healthCheck.httpGet.port }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          {{- end }}
+  {{- if .Values.volumes }}
+  {{- if .Values.volumes.volumeClaimTemplates }}
+  volumeClaimTemplates:
+    {{- range .Values.volumes.volumeClaimTemplates }}
+    - metadata:
+        name: {{ .name }}
+      spec:
+        storageClassName: {{ .storageClass | default "default" | quote }}
+        accessModes: [ {{ .accessModes | quote }} ]
+        resources:
+          requests:
+            storage: {{ .size }}
+    {{- end }}
+  {{- else if .Values.volumes.volumes }}
+      volumes:
+        {{- range .Values.volumes.volumes }}
+        - name: {{ .name }}
+          {{- if .hostPath }}
+          hostPath:
+            path: {{ .hostPath }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+        {{- end }}
+  {{- end }}
+  {{- end }}

@@ -1,0 +1,28 @@
+{
+  "presets": [
+        "es2015",
+        "react",
+        "stage-0"
+    ],
+    "plugins": [
+        "transform-react-jsx",
+        "transform-class-properties",
+        [
+            "babel-plugin-styled-components", {
+                "ssr": true
+            }
+        ],
+        [
+            "module-resolver", {
+                "root": [
+                    "./"
+                ],
+                "alias": {
+                    "atom": "./components/atoms",
+                    "molecules": "./components/molecules",
+                    "organisms": "./components/organisms"
+                }
+            }
+        ]
+    ]
+}

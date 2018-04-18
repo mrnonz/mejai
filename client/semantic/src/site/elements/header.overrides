@@ -1,0 +1,7 @@
+/*******************************
+         Site Overrides
+*******************************/
+h2.ui.header {
+    font-weight: 500;
+    margin: @topMargin 0em 1rem;
+}

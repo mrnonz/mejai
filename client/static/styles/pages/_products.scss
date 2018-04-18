@@ -1,0 +1,103 @@
+.products-page {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 50% 80%;
+    grid-template-columns: auto;
+
+    >header{
+        background: url('static/headerBG.jpg');
+        background-size: 100% auto;
+        background-position: center; 
+
+        >.background-mask{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba($color: #9e9e9e, $alpha: 0.5); 
+
+            >h1 {
+                color: $colorWhite;
+
+                text-align: center;
+                font-size: 4em;
+            }
+
+            
+
+            >p {
+                width: 40%;
+                text-align: center;
+
+                color: $colorLightGrey;
+
+                font-size: 18px;
+            }
+        }
+    }
+
+    >main {
+        display: grid;
+        grid-template-columns: 235px 1fr;
+
+        aside{
+            @include layout-content;
+            background: $colorWhite;
+            
+            padding-left: 10px; 
+            padding-right: 10px; 
+            box-shadow: 10px 0px 25px -11px rgba(161,161,161, 1);
+            
+            z-index: 2;
+        }
+        
+        .list-container{
+            @include layout-content;
+            display: grid;
+            grid-template-rows: min-content 1fr;
+            grid-template-columns: auto auto;
+            
+            padding-left: 30px; 
+            padding-right: 10px; 
+            background: $contentBackgroundColor;
+
+            z-index: 1;
+
+            >:not(main) {
+                align-self: end;
+            }
+
+            >.product-count {
+                >h3 {
+                    margin: 0 !important;
+                }
+
+                >:not(h3) {
+                    color: $colorGrey;
+                }
+            }
+
+            >.product-sort {
+                justify-self: end;
+                padding-right: 100px;
+            }
+
+            >.product-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, 225px);
+                grid-auto-rows: min-content;
+                grid-column-gap: 25px;
+                grid-column: 1 / span 2;
+            }
+
+            >.pagination {
+                justify-self: center;
+                grid-column: 1 / span 2;  
+            }
+        }
+    }
+}

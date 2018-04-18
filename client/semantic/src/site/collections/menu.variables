@@ -1,0 +1,8 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+@dividerSize: 0;
+@itemVerticalPadding: 0.8em;
+
+@activeItemBackground: none;
+@activeHoverItemBackground: none;

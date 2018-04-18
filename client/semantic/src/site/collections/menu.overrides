@@ -1,0 +1,16 @@
+/*******************************
+         Site Overrides
+*******************************/
+.ui.menu {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.ui.menu .item {
+    cursor: pointer;
+    margin: 0 10em;
+}
+
+.ui.menu .active.item {
+    border-bottom: 5px solid @teal;
+}

@@ -1,0 +1,41 @@
+.organization-category {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    padding: 2em 0;
+    background: $colorWhite;
+    box-shadow: 0px 3px 10px 0px rgba(120,120,120,1);
+
+    >.category {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        margin: 0 2em;
+        cursor: pointer;
+
+        span {
+            text-align: center;
+        }
+
+        svg {
+            height: 2.5em;
+            path {
+                fill: $colorBlack;
+            }
+        }
+
+        &.active {
+            span {
+                color: $colorOrange;
+            }
+
+            svg {
+                path {
+                    fill: $colorOrange;
+                }
+            }
+        }
+    }
+}

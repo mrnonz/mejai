@@ -1,0 +1,13 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+/* Size */
+@miniWidth: 35px;
+@tinyWidth: 80px;
+@smallWidth: 150px;
+@mediumWidth: 300px;
+@largeWidth: 500px;
+@bigWidth: 600px;
+@hugeWidth: 800px;
+@massiveWidth: 960px;

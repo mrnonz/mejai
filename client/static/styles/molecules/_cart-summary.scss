@@ -1,0 +1,18 @@
+.cart-summary {
+    .cell-item {
+        >.item {
+            color: $colorGrey;
+        }
+
+        >.price {
+            text-align: right;
+        }
+    }
+
+    .summary-row {
+        .price {
+            font-weight: 500;
+            color: $colorOrange;
+        }
+    }
+}

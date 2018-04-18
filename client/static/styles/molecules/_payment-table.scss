@@ -1,0 +1,25 @@
+.payment-table {
+    .content {
+        >.header {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        >.description {
+            color: $colorGrey;
+        }
+
+        p {
+            >.price {
+                color: $colorOrange;
+            }
+        }
+
+        
+    }
+
+    .qr-code {
+        width: 200px;
+        height: auto;
+    }
+}

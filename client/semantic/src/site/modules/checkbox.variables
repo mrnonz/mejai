@@ -1,0 +1,12 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+@solidBorderColor: #000000;
+@checkboxPressedBorderColor: #000000;
+@checkboxFocusBorderColor: #000000;
+
+@checkboxBorderRadius: 0px;
+@checkboxBorder: 1.7px solid @solidBorderColor;
+
+@labelFontSize: 20px;

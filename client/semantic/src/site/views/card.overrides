@@ -1,0 +1,13 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+.ui.cards > .card > .content,
+.ui.card > .content {
+    overflow-x: hidden;
+}
+
+.ui.cards > .card > .content > .description,
+.ui.card > .content > .description {
+    height: 5em;
+    margin-bottom: 1em;
+}
