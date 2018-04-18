@@ -1,23 +1,28 @@
 from rest_framework import serializers
 from .models import Product
+from organization.serializers import OrganizationSerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    organization = OrganizationSerializer(read_only=True)
+    productId = serializers.IntegerField(source='id')
+    info = serializers.CharField(source='detail')
+
     class Meta:
         model = Product
         fields = (
-            'id',
+            'productId',
             'name',
-            'detail',
+            'info',
             'price',
             'quantity',
             'auction',
             'type',
-            'user_id',
+            'owner_id',
             'viewer',
             'hit',
             'thumbnail',
             'created_time',
-            'organization_id',
+            'organization',
             'category_id'
         )

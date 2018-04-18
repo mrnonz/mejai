@@ -25,7 +25,7 @@ SECRET_KEY = '))ds7*+#fp#bkg-t^0ubyw4)l7x4+jod*no%%h(-sf*q&wsh_c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ['ALLOWED_HOSTS']]
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'product.apps.ProductConfig',
     'order.apps.OrderConfig',
     'auction.apps.AuctionConfig',
@@ -46,11 +48,20 @@ INSTALLED_APPS = [
     'organization.apps.OrganizationConfig',
     'bank.apps.BankConfig',
     'organization_bank.apps.OrganizationBankConfig',
+    'organization_promptpay.apps.OrganizationPromptpayConfig',
+    'order_organization.apps.OrderOrganizationConfig',
+    'cart.apps.CartConfig',
+    'cart_product.apps.CartProductConfig',
+    'product_image.apps.ProductImageConfig',
+    'product_attribute.apps.ProductAttributeConfig',
+    'product_category.apps.ProductCategoryConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -91,8 +102,11 @@ if 'MYSQL_DATABASE' in os.environ:
             'NAME': os.environ['MYSQL_DATABASE'],
             'USER': os.environ['MYSQL_USER'],
             'PASSWORD': os.environ['MYSQL_PASSWORD'],
-            'HOST': 'db',
-            'PORT': 3306
+            'HOST': os.environ['MYSQL_HOST'],
+            'PORT': 3306,
+            'OPTIONS': {
+                "init_command": "SET foreign_key_checks = 0;",
+            },
         }
     }
 else:
@@ -128,7 +142,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -141,3 +155,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+AUTH_USER_MODEL = 'customer.Customer'
+CORS_ORIGIN_ALLOW_ALL = True
