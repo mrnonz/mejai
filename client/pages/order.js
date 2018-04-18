@@ -156,7 +156,7 @@ class Order extends Component {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <HelpingTable organization={ order.Organization } />
+                            <HelpingTable organization={ order.Organization } price={ order.Price } />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

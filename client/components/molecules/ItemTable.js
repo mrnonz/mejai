@@ -34,7 +34,7 @@ class ItemTable extends Component {
                                     <QuantityInput
                                         item={item}
                                         onEdit={onEdit}
-                                        editable={!auction}
+                                        editable={!auction && editable}
                                         quantity={quantity} 
                                         isUpdating = {isUpdating}
                                     />

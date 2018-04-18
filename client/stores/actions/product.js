@@ -10,6 +10,11 @@ export const fetchingProducts = () => {
     }
 }
 
+export const fetchingProduct = () => ({
+    type: 'LOADING_PRODUCT',
+    isLoading: true
+})
+
 export const fetchProductsSuccess = (product) => {
     return {
         type: 'SUCCESS_PRODUCTS',
@@ -56,7 +61,7 @@ export const fetchAuctionProducts = () => {
 
 export const fetchProductItem = (id) => {
     return (dispatch) => {
-        dispatch(fetchingProducts())
+        dispatch(fetchingProduct())
         const fetchUrl = `${url}/product/${id}/`
         return Axios.get(fetchUrl)
             .then((response) => {
@@ -72,7 +77,6 @@ export const fetchProductItem = (id) => {
 
 export const fetchAuctionItem = (id) => {
     return (dispatch) => {
-        dispatch(fetchingProducts())
         const fetchUrl = `${url}/product/${id}/`
         return Axios.get(fetchUrl)
             .then((response) => {

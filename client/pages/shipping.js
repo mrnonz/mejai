@@ -25,12 +25,12 @@ class Shipping extends Component {
             district: '',
             subDistrict: '',
             province: '',
-            postcode: ''
+            postcode: '',
+            creatingOrder: false
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        // TODO Change logic
         if(nextProps.order.isCreated) {
             Router.push({
                 pathname: '/user'
@@ -84,10 +84,13 @@ class Shipping extends Component {
         }
         const customerId = cookie.load('userId')
         this.props.createOrder(customerId, cart, address)
+        this.setState({
+            creatingOrder: true
+        })
     }
 
     render() {
-        const { showConfirmModal } = this.state
+        const { showConfirmModal, creatingOrder } = this.state
         const { 
             cart: { 
                 data: cart, 
@@ -107,11 +110,12 @@ class Shipping extends Component {
         return (
             <Container className="shipping-page">
                 <Modal open={showConfirmModal}>
-                { isOrderCreating && <Dimmer active> <Loader /> </Dimmer> }
+                { creatingOrder && <Dimmer active> <Loader /> </Dimmer> }
                     <Modal.Header>ยืนยันคำสั่งซื้อของคุณ</Modal.Header>
                     <Modal.Content>
                         <ItemTable 
                             items={userCart.items} 
+                            editable={false}
                         />
                         <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.handleConfirmModal()} />
                         <Button negative icon='close' labelPosition='right' content="ย้อนกลับ" onClick={() => this.hideConfirmModal()} />
