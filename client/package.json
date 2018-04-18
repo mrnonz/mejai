@@ -53,17 +53,16 @@
     "slick-carousel": "^1.8.1",
     "style-loader": "^0.19.1",
     "styled-components": "^2.2.3",
-    "url-loader": "^0.6.2"
-  },
-  "devDependencies": {
+    "url-loader": "^0.6.2",
+    "copy-webpack-plugin": "^4.3.1",
     "babel-plugin-styled-components": "^1.5.0",
     "babel-preset-stage-0": "^6.24.1",
-    "copy-webpack-plugin": "^4.3.1",
     "json-loader": "^0.5.7",
     "postcss-loader": "^2.0.10",
     "postcss-partial-import": "^4.1.0",
     "raw-loader": "^0.5.1",
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6"
-  }
+  },
+  "devDependencies": {}
 }
