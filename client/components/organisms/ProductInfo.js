@@ -43,7 +43,7 @@ class ProductInfo extends Component {
                         </Grid.Row>
                         <Grid.Row centered columns={2}>
                             <Grid.Column>
-                                <Image src="static/OrganizationImage1.jpg" size="large"/>
+                                <Image src={organization.thumbnail} size="large"/>
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
