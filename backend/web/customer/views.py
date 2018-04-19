@@ -40,6 +40,23 @@ def customer_list(request):
 
 
 @csrf_exempt
+def customer_login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        email = data['email']
+        password = data['password']
+
+        try:
+            customer = Customer.objects.get(email=email, password=password)
+
+            serializerCustomer = CustomerSerializer(customer)
+            return JsonResponse(serializerCustomer.data, status=200)
+        except Customer.DoesNotExist:
+            return HttpResponse(status=404)
+
+
+@csrf_exempt
 def customer_detail(request, pk):
     try:
         customer = Customer.objects.get(pk=pk)

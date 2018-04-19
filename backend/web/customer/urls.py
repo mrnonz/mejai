@@ -3,6 +3,7 @@ from customer import views
 
 urlpatterns = [
     url(r'^customer/$', views.customer_list),
+    url(r'^customer/login/$', views.customer_login),
     url(r'^customer/create/$', views.customer_create),
     url(r'^customer/(?P<pk>[0-9]+)/pic_profile/$',
         views.customer_pic_profile),
