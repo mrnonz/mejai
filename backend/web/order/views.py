@@ -74,7 +74,7 @@ def order_status(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        if order.status < 4:
+        if order.status < 5:
             order.status += 1
 
         order.save()
