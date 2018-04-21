@@ -44,13 +44,14 @@ class ProductData extends Component {
     render() {
         moment.locale('th')
         const { showPriceInput, selectAttribute } = this.state
-        const { product, onAdd } = this.props
+        const { product, onAdd, currentTime } = this.props
         const userId = cookie.load('userId')
         const productOptions = !isEmpty(product.attributes) && product.attributes.map((attribute, index) => ({
             key: index,
             text: attribute.value,
             value: index
         }))
+        console.log(product.auction.exp_time, currentTime)
         return (
             !product.auction ? 
             <div className="product-data">
@@ -88,7 +89,7 @@ class ProductData extends Component {
                 <Header as="h3" color="grey">องค์กรที่ช่วยเหลือ</Header>
                 <p>{ product.organization.name }</p>
                 <Header as="h3" color="grey">เวลาสิ้นสุดการประมูล</Header>
-                <p>{moment(product.auction.exp_time).format('LLL')}</p>
+                <p>{ currentTime > product.auction.exp_time ? 'หมดเวลาการประมูล' : moment(product.auction.exp_time).format('LLL')}</p>
                 <div className="data-auction" >
                     { showPriceInput ? 
                         <Input 

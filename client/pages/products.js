@@ -15,7 +15,9 @@ class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productPage: 0
+            productPage: 0,
+            filterApplied: false,
+            filterCategory: null,
         }
     }
 
@@ -30,6 +32,19 @@ class Products extends Component {
         Router.push({
             pathname: '/product',
             query: { type: productType, id: productId }
+        })
+    }
+
+    handleFilter = (filterCategory) => {
+        this.setState({
+            filterApplied: true,
+            filterCategory
+        })
+    }
+
+    handleClearFilter = () => {
+        this.setState({
+            filterApplied: false
         })
     }
 
@@ -53,9 +68,11 @@ class Products extends Component {
     }
 
     render() {
-        const { productPage } = this.state
-        const { products: { data: products = [], isLoading } } = this.props
+        const { productPage, filterApplied, filterCategory } = this.state
+        const { products: { data: allProducts = [], isLoading } } = this.props
         const { url: { query: { type: productType } } } = this.props
+        const filteredProduct = allProducts.filter((product) => product.category_id == filterCategory)
+        const products = filterApplied ? filteredProduct : allProducts
         const itemCount = products.length
         const totalPage = Math.ceil(itemCount / 12)
         const pageItems = products.slice(productPage * 12, productPage * 12 + 12)
@@ -72,7 +89,11 @@ class Products extends Component {
                 <main>
                     {/* TODO Add Filter Feature */}
                     <aside>
-                        <FilterProduct categories={categories.list} />
+                        <FilterProduct 
+                            categories={categories.list} 
+                            onFilterSelected={this.handleFilter.bind(this)}
+                            onFilterClear={this.handleClearFilter.bind(this)}
+                        />
                     </aside>
                     { isLoading ? <section className="page-loader-wrapper"><Loader /></section> :
                     <section className="list-container">
