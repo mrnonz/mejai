@@ -16,7 +16,6 @@ class Gallery extends Component {
     }
 
     render () {
-        // TODO Fix Gallery for 5 images
         const { mainImage } = this.state
         const { images } = this.props
         return (
