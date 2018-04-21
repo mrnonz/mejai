@@ -69,8 +69,10 @@ class Organizations extends Component {
 
     render() {
         const { activeCategory, organizationPage, showInfo } = this.state
-        const { organization: { data: organizations, isLoading, info: { name: infoName, info, thumbnail } }  } = this.props
+        const { organization: { data: allOrganizations, isLoading, info: { name: infoName, info, thumbnail } }  } = this.props
         const { url: { query: { type: userType } } } = this.props
+        const filteredOrganization = allOrganizations.filter((organization) => organization.category == activeCategory)
+        const organizations = activeCategory ? filteredOrganization : allOrganizations
         const organizationCount = organizations.length
         const totalPage = Math.ceil(organizations.length / 12)
         const pageItems = organizations.slice(organizationPage * 12, organizationPage * 12 + 12)
@@ -91,12 +93,12 @@ class Organizations extends Component {
                         type={userType}
                     />
                 ))}
-                <Pagination 
+                { !!organizationCount && <Pagination 
                     pageCount={totalPage}   
                     pageRangeDisplayed={4}
                     forcePage={organizationPage}
                     onPageChange={(page) => this.handlePageClick(page)}
-                />
+                /> }
             </div>
         ])
 
