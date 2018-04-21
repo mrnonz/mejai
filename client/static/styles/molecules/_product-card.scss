@@ -16,4 +16,10 @@
         white-space: nowrap !important;
         margin-bottom: 0.5em !important;
     }
+
+    .card-organization {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 }

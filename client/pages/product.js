@@ -20,7 +20,9 @@ class Product extends Component {
             showModal: false,
             errorModal: false,
             bidding: false,
-            intervalId: 0
+            intervalId: 0,
+            gettingTime: false,
+            bidPrice: 0
         }
     }
 
@@ -30,6 +32,28 @@ class Product extends Component {
                 showModal: true
             })
         }
+
+        if(this.state.gettingTime && this.state.bidding) {
+            const { lastest_price, price_step } = this.props.product.data.auction
+            const { url: { query: { id: productId } } } = this.props
+            const userId = cookie.load('userId')
+            if(price >= +lastest_price + +price_step) {
+                const bid = { userId, price }
+                this.props.bidAuction(productId, bid)
+                this.setState({
+                    bidding: true,
+                    gettingTime: false,
+                    bidding: false
+                })
+            } else {
+                this.setState({
+                    errorModal: true,
+                    gettingTime: false,
+                    bidding: false
+                })
+            }
+        }
+
         if(this.state.bidding && nextProps.auction.isSuccess) {
             const { url: { query: { id: productId, type: itemType } } } = this.props            
             this.props.fetchProductItem(productId)
@@ -43,6 +67,7 @@ class Product extends Component {
     componentDidMount() {
         const { url: { query: { id: productId, type: itemType } } } = this.props
         this.props.fetchProductItem(productId)
+        this.props.getCurrentTime()
         if (itemType === 'auction') {
             const intervalId = setInterval(() => { this.props.fetchAuctionItem(productId) }, 2500);
             this.setState({ intervalId })
@@ -65,20 +90,11 @@ class Product extends Component {
     } 
 
     handleBidding(price) {
-        const { lastest_price, price_step } = this.props.product.data.auction
-        const { url: { query: { id: productId } } } = this.props
-        const userId = cookie.load('userId')
-        if(price >= +lastest_price + +price_step) {
-            const bid = { userId, price }
-            this.props.bidAuction(productId, bid)
-            this.setState({
-                bidding: true
-            })
-        } else {
-            this.setState({
-                errorModal: true
-            })
-        }
+        this.props.getCurrentTime()
+        this.setState({
+            gettingTime: true,
+            bidPrice: price
+        })
     }
 
     closeModal() {
@@ -114,9 +130,10 @@ class Product extends Component {
                 orders
                 },
             auction: {
-                isLoading: isAuctionLoading
+                isLoading: isAuctionLoading,
+                time: currentTime
             } 
-            } = this.props
+        } = this.props
         const { url: { query: { type: itemType } } } = this.props
         return (
             <Container className="product-page">
@@ -152,6 +169,7 @@ class Product extends Component {
                         isUpdating={isUpdating}
                         isLoadingOrder={isLoadingOrder}
                         orders={orders}
+                        currentTime={currentTime}
                         onBid={this.handleBidding.bind(this)}
                         onAdd={this.handleAddToCart.bind(this)}
                     />,
