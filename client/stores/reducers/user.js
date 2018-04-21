@@ -30,6 +30,12 @@ const user = (state = {}, action) => {
                 ...state,
                 isUpdating: action.isUpdating
             }
+        case 'USER_LOGGING_IN':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                isLoggingError: action.isLoggingError
+            }
         case 'CREATE_USER_SUCCESS':
             return {
                 ...state,
@@ -68,6 +74,18 @@ const user = (state = {}, action) => {
             return {
                 ...state,
                 isUpdating: action.isUpdating
+            }
+        case 'USER_LOGIN_SUCCESS':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                user: action.user
+            }
+        case 'USER_LOGIN_FAILED':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                isLoggingError: action.isLoggingError
             }
         default:
             return state

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
+import Router from 'next/router'
 import { makeStore } from '../stores'
+import cookie from 'react-cookie'
 import withTopbar from 'hocs/withTopbar'
-import { Form, Container, Grid, Button } from 'semantic-ui-react'
+import { Form, Container, Grid, Button, Segment } from 'semantic-ui-react'
 import SiteLogo from 'molecules/SiteLogo'
 import FormInput from 'molecules/FormInput'
-import { createUser } from 'stores/actions/user'
+import { createUser, userLogin } from 'stores/actions/user'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -13,6 +15,8 @@ class LoginPage extends Component {
     this.state = {
       showLoginForm: true,
       creatingUser: false,
+      loggingUser: false,
+      errorLogin: false,
       loginForm: {
         email: '',
         password: '',
@@ -26,15 +30,31 @@ class LoginPage extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-      if(this.state.creatingUser) {
-          if(!nextProps.user.isCreating) {
-              this.setState({
-                showLoginForm: true
-              })
-          }
-      }
-  }
+    componentWillReceiveProps(nextProps) {
+        if(this.state.creatingUser) {
+            if(!nextProps.user.isCreating) {
+                this.setState({
+                    creatingUser: false,
+                    showLoginForm: true
+                })
+            }
+        }
+        if(this.state.loggingUser) {
+            const { user } = nextProps.user
+            if(user.userId) {
+                cookie.save('userId', user.userId)
+                Router.push({
+                    pathname: '/'
+                })
+            }
+            if(nextProps.user.isLoggingError) {
+                this.setState({
+                    errorLogin: true,
+                    loggingUser: false
+                })
+            }
+        }
+    }
 
   hideLoginForm() {
     this.setState({
@@ -48,6 +68,15 @@ class LoginPage extends Component {
     })
   }
 
+  handleLoginSubmit() {
+      const { email, password } = this.state.loginForm
+      const userData = { email, password }
+      this.props.userLogin(userData)
+      this.setState({
+          loggingUser: true
+      })
+  }
+
   handleRegisterSubmit() {
     const { email, name, password, confirmPassword } = this.state.registerForm
     const userData = {
@@ -57,6 +86,9 @@ class LoginPage extends Component {
       password
     }
     this.props.createUser(userData)
+    this.setState({
+        creatingUser: true
+    })
   }
 
   handleLoginChange = ({ target: { name , value } }) => {
@@ -70,7 +102,6 @@ class LoginPage extends Component {
 
   handleRegisterChange = ({ target: { name , value } }) => {
     this.setState({
-      creatingUser: true,
       registerForm: {
         ...this.state.registerForm,
         [name]: value
@@ -79,7 +110,7 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { showLoginForm } = this.state
+    const { showLoginForm, loggingUser, errorLogin } = this.state
     const { user: { isCreating } } = this.props
     return (
       <div className="login-page">
@@ -88,10 +119,10 @@ class LoginPage extends Component {
             {
               showLoginForm ?
               <Form>
-                <FormInput onChange={this.handleLoginChange} label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleLoginChange} autocomplete="off" label="อีเมล์" name="email" required />
                 <FormInput onChange={this.handleLoginChange} label="รหัสผ่าน" name="password" type="password" required />
-                <Button fluid className="login-button" color="green">เข้าสู่ระบบ</Button>
-                <Button fluid className="login-button" color="teal" onClick={this.hideLoginForm.bind(this)}>สมัครสมาชิก</Button>
+                <Button fluid loading={ loggingUser }  className="login-button" color="green" onClick={this.handleLoginSubmit.bind(this)}>เข้าสู่ระบบ</Button>
+                <Button fluid loading={ loggingUser } className="login-button" color="teal" onClick={this.hideLoginForm.bind(this)}>สมัครสมาชิก</Button>
               </Form>
               :
               <Form>
@@ -105,6 +136,9 @@ class LoginPage extends Component {
                 </div> 
               </Form>
             }
+            { errorLogin && <Segment inverted color='red'>
+                อีเมล์ หรือ รหัสผ่านผิดพลาด
+            </Segment> }
         </div>
       </div>
     )
@@ -120,6 +154,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     createUser: (userData) => {
         dispatch(createUser(userData))
+    },
+    userLogin: (userData) => {
+        dispatch(userLogin(userData))
     }
   }
 }

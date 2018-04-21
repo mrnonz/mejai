@@ -49,6 +49,8 @@ const intialStore = {
         isLoadingOrder: true,
         isUpdating: false,
         isCreating: false,
+        isLogging: false,
+        isLoggingError: false,
         user: {},
         address: '',
         orders: []

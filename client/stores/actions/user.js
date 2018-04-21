@@ -40,6 +40,12 @@ export const updatingUserDetail = () => {
     }
 }
 
+export const userLogging = () => ({
+    type: 'USER_LOGGING_IN',
+    isLogging: true,
+    isLoggingError: false,
+})
+
 export const createUserSuccess = (user) => ({
     type: 'CREATE_USER_SUCCESS',
     isCreating: false,
@@ -48,6 +54,7 @@ export const createUserSuccess = (user) => ({
 
 export const createUserFailed = () => ({
     type: 'CREATE_USER_FAILED',
+    isLogging: false,
     isCreating: false
 })
 
@@ -73,7 +80,6 @@ export const fetchAddressSuccess = (address) => {
     }
 }
 
-
 export const updatingUserAddressSuccess = () => {
     return {
         type: 'UPDATING_ADDRESS_SUCCESS',
@@ -84,6 +90,18 @@ export const updatingUserAddressSuccess = () => {
 export const updateUserDetailSuccess = () => ({
     type: 'UPDATE_USER_DETAIL_SUCCESS',
     isUpdating: false
+})
+
+export const userLoginSuccess = (data) => ({
+    type: 'USER_LOGIN_SUCCESS',
+    user: data.data,
+    isLogging: false
+})
+
+export const userLoginFailed = () => ({
+    type: 'USER_LOGIN_FAILED',
+    isLogging: false,
+    isLoggingError: true
 })
 
 export const createUser = (userData) => (
@@ -98,8 +116,7 @@ export const createUser = (userData) => (
         .then((response) => {
             return dispatch(createUserSuccess(response))
         })
-        .catch((error) => {
-            dispatch(createUserFailed())
+        .catch(error => {
             throw(error);
         })
     }
@@ -147,6 +164,24 @@ export const fetchUserAddress = (id) => {
     }
 }
 
+export const userLogin = (data) => (
+    (dispatch) => {
+        dispatch(userLogging())
+        const logUrl = `${url}/customer/login/`
+        return Axios({
+            method: 'POST',
+            url: logUrl,
+            data
+        })
+        .then((response) => {
+            dispatch(userLoginSuccess(response))
+        })
+        .catch((error) => {
+            dispatch(userLoginFailed())
+        })
+    }
+)
+
 export const updateUserAddress = (id, address) => {
     return (dispatch) => {
         dispatch(updatingUserAddress())
@@ -161,6 +196,7 @@ export const updateUserAddress = (id, address) => {
             return dispatch(fetchUserAddress(id))
         })
         .catch((error) => {
+            dispatch(userLoginFailed())
             throw(error);
         })
     }
