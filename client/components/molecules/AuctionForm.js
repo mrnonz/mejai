@@ -31,6 +31,7 @@ class AuctionForm extends Component {
                 value={displayTime} 
                 placeholder='เวลาสิ้นสุดการประมูล' 
                 onClick={props.onClick} 
+                readOnly
             />
         )
         const { onChange, onFileUpload, onSubmit } = this.props
@@ -69,8 +70,8 @@ class AuctionForm extends Component {
                     <Form.Field required control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Input required name="price" width={4} label='ราคาเริ่มต้น' placeholder='ราคาเริ่มต้นเมื่อการประมูลเริ่ม' onChange={onChange} />
-                    <Form.Input required name="price_step" width={4} label='ขั้นของราคา' placeholder='ราคาขั้นต่ำต่อครั้งการประมูล' onChange={onChange} />
+                    <Form.Input required name="price" width={4} label='ราคาเริ่มต้น' placeholder='ราคาเริ่มต้นเมื่อการประมูลเริ่ม' onChange={onChange} type="number"/>
+                    <Form.Input required name="price_step" width={4} label='ขั้นของราคา' placeholder='ราคาขั้นต่ำต่อครั้งการประมูล' onChange={onChange} type="number"/>
                     <DatePicker
                         name="exp_time"
                         selected={this.state.selectedTime}

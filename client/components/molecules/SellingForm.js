@@ -105,8 +105,8 @@ class SellingForm extends Component {
                     <Form.Field required control={Select} fluid name="category" options={categoriesOption} label='หมวดหมู่' placeholder='ประเภทสินค้า' onChange={onChange} />
                 </Form.Group>
                 <Form.Group widths='equal'>
-                    <Form.Input required fluid name="price" label='ราคา' placeholder='ราคาสินค้าต่อชิ้นที่เหมาะสม' onChange={onChange} />
-                    <Form.Input required={!hasAttribute} disabled={hasAttribute} fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้า' onChange={onChange} />
+                    <Form.Input required fluid name="price" label='ราคา' placeholder='ราคาสินค้าต่อชิ้นที่เหมาะสม' onChange={onChange} type="number"/>
+                    <Form.Input required={!hasAttribute} disabled={hasAttribute} fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้า' onChange={onChange} type="number"/>
                 </Form.Group>
                 <Table basic className="attribute-table" fixed>
                     <Table.Row>
@@ -116,13 +116,13 @@ class SellingForm extends Component {
                         <Table.Cell className="attribute-value" width={8}>
                             <Form.Group widths='equal'>
                                 <Form.Input required fluid name="value" label='ชื่อ' placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
-                                <Form.Input required fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,0)} />
+                                <Form.Input required fluid name="quantity" label='จำนวน' placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,0)} type="number"/>
                             </Form.Group>
                             {
                                 attributes.map((a, index) => (
                                     !!index &&<Form.Group widths='equal'>
                                         <Form.Input required fluid name="value" placeholder='เช่น ขนาดเล็ก, สีน้ำเงิน' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
-                                        <Form.Input required fluid name="quantity" placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,index)} />
+                                        <Form.Input required fluid name="quantity" placeholder='จำนวนสินค้าคุณสมบัติ' onChange={(e,value) => this.handleAttributeChange(e,value,index)} type="number"/>
                                     </Form.Group>
                                 ))
                             }
