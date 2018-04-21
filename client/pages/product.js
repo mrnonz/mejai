@@ -19,6 +19,7 @@ class Product extends Component {
         this.state = {
             showModal: false,
             errorModal: false,
+            errorMessage: '',
             bidding: false,
             intervalId: 0,
             gettingTime: false,
@@ -48,6 +49,7 @@ class Product extends Component {
             } else {
                 this.setState({
                     errorModal: true,
+                    errorMessage: 'ราคาที่เพิ่มน้อยกว่าขั้นต่ำ',
                     gettingTime: false,
                     bidding: false
                 })
@@ -81,20 +83,33 @@ class Product extends Component {
     handleAddToCart(itemId, attributeId) {
         const userId = cookie.load('userId')
         const { product: { data: { attributes } } } = this.props
-        if (isEmpty(attributes)) {
-            this.props.updateCartItem(userId, itemId, null, 1)
+        if (userId) {
+            if (isEmpty(attributes)) {
+                this.props.updateCartItem(userId, itemId, null, 1)
+            } else {
+                this.props.updateCartItem(userId, itemId, attributes[attributeId].id, 1)
+            }
         } else {
-            this.props.updateCartItem(userId, itemId, attributes[attributeId].id, 1)
+            this.setState({
+                errorModal: true,
+                errorMessage: 'กรุณาเข้าสู่ระบบ'
+            })
         }
-        
     } 
 
     handleBidding(price) {
         this.props.getCurrentTime()
-        this.setState({
-            gettingTime: true,
-            bidPrice: price
-        })
+        if (userId) {
+            this.setState({
+                gettingTime: true,
+                bidPrice: price
+            })
+        } else {
+            this.setState({
+                errorModal: true,
+                errorMessage: 'กรุณาเข้าสู่ระบบ'
+            })
+        }
     }
 
     closeModal() {
@@ -116,7 +131,7 @@ class Product extends Component {
     }
 
     render() {
-        const { showModal, errorModal } = this.state
+        const { showModal, errorModal, errorMessage } = this.state
         const { 
             product: { 
                 data: product = [], 
@@ -150,7 +165,7 @@ class Product extends Component {
                     <Segment basic textAlign="center">
                         <Icon name="check close" size="massive" color="red" />
                         <Header as='h5' >
-                            ราคาที่เพิ่มน้อยกว่าขั้นต่ำ
+                            { errorMessage }
                         </Header>
                         <Button 
                             color="teal" 
