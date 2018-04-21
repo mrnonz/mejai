@@ -57,8 +57,8 @@ class Organizations extends Component {
             })
         } else {
             Router.push({
-                pathname: '/products',
-                query: { type }
+                pathname: '/products-help',
+                query: { type, id }
             })
         }
     }

@@ -10,9 +10,10 @@ import Loader from 'molecules/Loader'
 import FilterProduct from 'organisms/FilterProduct'
 import categories from 'stores/mock/categories.json'
 import { fetchBuyProducts, fetchAuctionProducts } from 'stores/actions/product'
+import { fetchOrganizationInfo } from 'stores/actions/organization'
 import Categories from 'stores/models/Categories'
 
-class Products extends Component {
+class ProductsHelp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +61,8 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        const { url: { query: { type: productType } } } = this.props
+        const { url: { query: { type: productType, id: organizationId } } } = this.props
+        this.props.fetchOrganizationInfo(organizationId)
         if (productType === 'auction') {
             this.props.fetchAuctionProducts()
         } else {
@@ -70,10 +72,19 @@ class Products extends Component {
 
     render() {
         const { productPage, filterApplied, filterCategory } = this.state
-        const { products: { data: allProducts = [], isLoading } } = this.props
-        const { url: { query: { type: productType } } } = this.props
-        const filteredProduct = allProducts.filter((product) => product.category_id == filterCategory)
-        const products = filterApplied ? filteredProduct : allProducts
+        const { 
+            products: { 
+                data: allProducts = [], 
+                isLoading 
+            },
+            organization: {
+                info: organization
+            }
+        } = this.props
+        const { url: { query: { type: productType, id: organizationId } } } = this.props
+        const helpProduct = allProducts.filter((product) => product.organization.organizationId == organizationId)
+        const filteredProduct = helpProduct.filter((product) => product.category_id == filterCategory)
+        const products = filterApplied ? filteredProduct : helpProduct
         const itemCount = products.length
         const totalPage = Math.ceil(itemCount / 12)
         const pageItems = products.slice(productPage * 12, productPage * 12 + 12)
@@ -84,7 +95,7 @@ class Products extends Component {
                 <header>
                     <div className="background-mask">
                         <h1>เลือกสินค้า</h1>
-                        <p>ผู้ใช้เลือกสินค้าที่ถูกใจ โดยรายได้จากสินค้าเหล่านั้นจะนำไปช่วยเหลือองค์กรการกุศลที่ผู้ขายเลือก</p>
+                        <p>สินค้าที่แสดงจะนำรายได้ไปช่วยเหลือ { organization.name }</p>
                     </div>
                 </header>
                 <main>
@@ -120,7 +131,8 @@ class Products extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        products: state.products
+        products: state.products,
+        organization: state.organization
     }
 )
 
@@ -131,8 +143,11 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchAuctionProducts: () => {
             dispatch(fetchAuctionProducts())
+        },
+        fetchOrganizationInfo: (id) => {
+            dispatch(fetchOrganizationInfo(id))
         }
     }
 }
 
-export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Products))
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(ProductsHelp))
