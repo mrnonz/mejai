@@ -9,6 +9,7 @@ const ProductCard = ({ productId, name, organization, auctionData, thumbnail, pr
                     auction ? (
                     <Card.Content> 
                         <Header as="h5" dividing>{name}</Header>
+                        <p className="card-organization">{ organization.name }</p>
                         <span className="card-price">เริ่มต้นที่ {price.toLocaleString()} บาท </span>
                     </Card.Content>
                     ) : (
