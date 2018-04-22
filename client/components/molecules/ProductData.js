@@ -100,7 +100,7 @@ class ProductData extends Component {
                         /> : 
                         userId == product.auction.userId ? 
                         <Button color="red" size="huge" fluid>ราคาของคุณ</Button> : 
-                        <Button color="teal" size="huge" onClick={this.handleShowPriceInput.bind(this)} fluid>ร่วมประมูล</Button> 
+                        currentTime > product.auction.exp_time ? <Button color="red" size="huge" fluid>สิ้นสุดการประมูล</Button> : <Button color="teal" size="huge" onClick={this.handleShowPriceInput.bind(this)} fluid>ร่วมประมูล</Button>
                     }
                 </div>
             </div>
