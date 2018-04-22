@@ -10,6 +10,12 @@
         background-size: 100% auto;
         background-position: center; 
 
+        &.sub{
+            background: url('static/helping1.jpg');
+            background-size: cover;
+            background-position: center; 
+        }
+
         >.background-mask{
             display: flex;
             align-items: center;
