@@ -51,7 +51,6 @@ class ProductData extends Component {
             text: attribute.value,
             value: index
         }))
-        console.log(product.auction.exp_time, currentTime)
         return (
             !product.auction ? 
             <div className="product-data">

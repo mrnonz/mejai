@@ -8,7 +8,7 @@ import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
 import ProductDetail from 'organisms/ProductDetail'
 import ProductInfo from 'organisms/ProductInfo'
-import { Container, Modal, Button, Icon, Segment, Header } from 'semantic-ui-react'
+import { Container, Modal, Button, Icon, Segment, Header, Transition } from 'semantic-ui-react'
 import { fetchProductItem, fetchAuctionItem } from 'stores/actions/product'
 import { updateCartItem } from 'stores/actions/cart'
 import { getCurrentTime, bidAuction } from 'stores/actions/auction'
@@ -153,28 +153,32 @@ class Product extends Component {
         return (
             <Container className="product-page">
                 {/* TODO Modify Modal */}
-                <Modal open={showModal}>
-                    <Modal.Header>เพิ่มสินค้าในตะกร้าสำเร็จ</Modal.Header>
-                    <Modal.Content>
-                        <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.closeModal()} />
-                        <Button color="yellow" icon='cart' labelPosition='right' content="ตะกร้าสินค้า" onClick={() => this.redirectToPage('/cart')} />
-                        <Button content="กลับสู่หน้าหลัก" onClick={() => this.redirectToPage('/')} />
-                    </Modal.Content>
-                </Modal>
-                <Modal open={errorModal}>
-                    <Segment basic textAlign="center">
-                        <Icon name="check close" size="massive" color="red" />
-                        <Header as='h5' >
-                            { errorMessage }
-                        </Header>
-                        <Button 
-                            color="teal" 
-                            size="large"
-                            content="ยืนยัน"
-                            onClick={ () => this.closeErrorModal() }
-                        />
-                    </Segment>
-                </Modal>
+                <Transition visible={showModal} animation='fade up' duration={500} unmountOnHide >
+                    <Modal open={true}>
+                        <Modal.Header>เพิ่มสินค้าในตะกร้าสำเร็จ</Modal.Header>
+                        <Modal.Content>
+                            <Button positive icon='checkmark' labelPosition='right' content="ยืนยัน" onClick={() => this.closeModal()} />
+                            <Button color="yellow" icon='cart' labelPosition='right' content="ตะกร้าสินค้า" onClick={() => this.redirectToPage('/cart')} />
+                            <Button content="กลับสู่หน้าหลัก" onClick={() => this.redirectToPage('/')} />
+                        </Modal.Content>
+                    </Modal>
+                </Transition>
+                <Transition visible={errorModal} animation='fade up' duration={500} unmountOnHide >
+                    <Modal open={true}>
+                        <Segment basic textAlign="center">
+                            <Icon name="check close" size="massive" color="red" />
+                            <Header as='h5' >
+                                { errorMessage }
+                            </Header>
+                            <Button 
+                                color="teal" 
+                                size="large"
+                                content="ยืนยัน"
+                                onClick={ () => this.closeErrorModal() }
+                            />
+                        </Segment>
+                    </Modal>
+                </Transition>
                 { isAuctionLoading || isLoading || isUpdating ? <Loader wrapped />
                 :
                 [
