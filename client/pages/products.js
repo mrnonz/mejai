@@ -88,16 +88,15 @@ class Products extends Component {
                     </div>
                 </header>
                 <main>
-                    {/* TODO Add Filter Feature */}
                     <aside>
                         <FilterProduct 
                             categories={categories.list} 
                             onFilterSelected={this.handleFilter.bind(this)}
                             onFilterClear={this.handleClearFilter.bind(this)}
                         />
-                    </aside>
-                    { isLoading ? <section className="page-loader-wrapper"><Loader /></section> :
+                    </aside>                    
                     <section className="list-container">
+                        { isLoading && <section className="page-loader-wrapper"><Loader /></section> }
                         <div className="product-count">
                             { filterApplied ? <h3>{new Categories(filterCategory).categoryName}</h3> :
                             <h3>แสดงทั้งหมด</h3> }
@@ -112,7 +111,6 @@ class Products extends Component {
                             onPageChange={(page) => this.handlePageClick(page)}
                         />
                     </section>
-                    }
                 </main>
             </div>
         )
