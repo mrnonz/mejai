@@ -23,6 +23,14 @@ export const fetchProductsSuccess = (product) => {
     }
 }
 
+export const fetchProductsAuctionSuccess = (product) => {
+    return {
+        type: 'SUCCESS_AUCTION_PRODUCTS',
+        isLoading: false,
+        product
+    }
+}
+
 export const fetchProductItemSuccess = (product) => {
     return {
         type: 'SUCCESS_PRODUCT',
@@ -51,7 +59,7 @@ export const fetchAuctionProducts = () => {
         const fetchUrl = url + '/product/auction/'
         return Axios.get(fetchUrl)
             .then((response) => {
-                dispatch(fetchProductsSuccess(response))
+                dispatch(fetchProductsAuctionSuccess(response))
             })
             .catch((error) => {
                 throw(error);

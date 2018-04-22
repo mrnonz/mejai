@@ -7,8 +7,17 @@ const products = (state = {}, action) => {
             }
         case 'SUCCESS_PRODUCTS':
             return {
+                ...state,
                 isLoading: action.isLoading,
-                data: action.product.data.data
+                data: action.product.data.data,
+                buying: action.product.data.data
+            }
+        case 'SUCCESS_AUCTION_PRODUCTS':
+            return {
+                ...state,
+                isLoading: action.isLoading,
+                data: action.product.data.data,
+                auction: action.product.data.data
             }
         default:
             return state

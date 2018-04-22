@@ -32,7 +32,9 @@ const intialStore = {
     },
     products: {
         isLoading: true,
-        data: []
+        data: [],
+        buying: [],
+        auction: []
     },
     organization: {
         isLoading: true,
