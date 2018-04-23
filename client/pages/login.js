@@ -129,8 +129,8 @@ class LoginPage extends Component {
               :
               <Form>
                 <AvatarUpload onFileChange={this.handleRegisterChange.bind(this)} />
-                <FormInput onChange={this.handleRegisterChange} label="อีเมล์" name="email" required />
-                <FormInput onChange={this.handleRegisterChange} label="ชื่อ - สกุล" name="name" required />
+                <FormInput onChange={this.handleRegisterChange} autocomplete="off" label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleRegisterChange} autocomplete="off" label="ชื่อ - สกุล" name="name" required />
                 <FormInput onChange={this.handleRegisterChange} label="รหัสผ่าน" name="password" required type="password" />
                 <FormInput onChange={this.handleRegisterChange} label="ยืนยันรหัสผ่าน" name="confirmPassword" required type="password" />
                 <div className="button-group">
