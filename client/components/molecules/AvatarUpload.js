@@ -39,7 +39,7 @@ class AvatarUpload extends Component {
         
         return (
             <div className="avatar-wrapper">
-                <input type="file" onChange={this.handleImageChange.bind(this)} className="upload-form"/>
+                <input type="file" accept="image/*" onChange={this.handleImageChange.bind(this)} className="upload-form"/>
                 <Image src={avatarUrl} size="tiny" className="avatar" avatar />
             </div>
         )
