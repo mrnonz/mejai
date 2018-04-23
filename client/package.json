@@ -8,7 +8,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "immutable-start": "npm run build && npm run start"
+    "immutable-start": "gulp build && npm run build && npm run start"
   },
   "author": "",
   "license": "ISC",
