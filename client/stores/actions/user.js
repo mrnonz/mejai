@@ -40,6 +40,10 @@ export const updatingUserDetail = () => {
     }
 }
 
+export const uploadingUserAvatar = () => ({
+    type: 'UPLOADING_AVATAR'
+})
+
 export const userLogging = () => ({
     type: 'USER_LOGGING_IN',
     isLogging: true,
@@ -104,7 +108,7 @@ export const userLoginFailed = () => ({
     isLoggingError: true
 })
 
-export const createUser = (userData) => (
+export const createUser = (userData, image) => (
     (dispatch) => {
         dispatch(creatingUser())
         const createUrl = `${url}/customer/create/`
@@ -114,7 +118,12 @@ export const createUser = (userData) => (
             data: userData
         })
         .then((response) => {
-            return dispatch(createUserSuccess(response))
+            const userId = response.data.userId
+            dispatch(uploadUserAvatar(userId, image))
+            .then((response) => dispatch(createUserSuccess(response)))
+            .catch((error) => {
+                throw (error)
+            })
         })
         .catch(error => {
             throw(error);
@@ -213,6 +222,26 @@ export const updateUserDetail = (id, detail) => {
         })
         .then((response) => {
             dispatch(updateUserDetailSuccess(response))
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+}
+
+export const uploadUserAvatar = (id ,image) => {
+    return (dispatch) => {
+        dispatch(uploadingUserAvatar())
+        const uploadUrl =`${url}/customer/${id}/pic_profile/`
+        const data = new FormData()
+        data.append('image', image)
+        return Axios({
+            method: 'POST',
+            url: uploadUrl,
+            data
+        })
+        .then((response) => {
+            return response
         })
         .catch((error) => {
             throw(error);

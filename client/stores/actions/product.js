@@ -199,14 +199,14 @@ export const uploadProductImages = (id, image) => {
     return (dispatch) => {
         dispatch(uploadingProductImage())
         const uploadUrl = `${url}/product/${id}/image/`
-        const data = new FormData();
+        const data = new FormData()
         data.append('image', image)
         return Axios({
             method: 'POST',
             url: uploadUrl,
             data
-        }).
-        then((response) => {
+        })
+        .then((response) => {
             return response
         })
         .catch((error) => {

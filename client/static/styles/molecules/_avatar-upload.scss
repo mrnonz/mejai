@@ -1,0 +1,24 @@
+.avatar-wrapper {
+    position: relative;
+    width: 80px;
+    margin: 0 auto;
+
+    >.upload-form {
+        position: absolute;
+        width: 80px !important;
+        height: 80px !important;
+
+        opacity: 0;
+        z-index: 2;
+
+        cursor: pointer;
+    }
+
+    >.avatar {
+        position: absolute;
+        width: 80px !important;
+        height: 80px !important;
+
+        pointer-events: none;
+    }
+}

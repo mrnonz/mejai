@@ -7,6 +7,7 @@ import withTopbar from 'hocs/withTopbar'
 import { Form, Container, Grid, Button, Segment } from 'semantic-ui-react'
 import SiteLogo from 'molecules/SiteLogo'
 import FormInput from 'molecules/FormInput'
+import AvatarUpload from 'molecules/AvatarUpload'
 import { createUser, userLogin } from 'stores/actions/user'
 
 class LoginPage extends Component {
@@ -22,6 +23,7 @@ class LoginPage extends Component {
         password: '',
       },
       registerForm: {
+        avatar: null,
         email: '',
         name: '',
         password: '',
@@ -78,14 +80,14 @@ class LoginPage extends Component {
   }
 
   handleRegisterSubmit() {
-    const { email, name, password, confirmPassword } = this.state.registerForm
+    const { avatar, email, name, password, confirmPassword } = this.state.registerForm
     const userData = {
       email,
       firstname: name.split(' ')[0],
       lastname: name.split(' ')[1],
       password
     }
-    this.props.createUser(userData)
+    this.props.createUser(userData, avatar)
     this.setState({
         creatingUser: true
     })
@@ -126,6 +128,7 @@ class LoginPage extends Component {
               </Form>
               :
               <Form>
+                <AvatarUpload onFileChange={this.handleRegisterChange.bind(this)} />
                 <FormInput onChange={this.handleRegisterChange} label="อีเมล์" name="email" required />
                 <FormInput onChange={this.handleRegisterChange} label="ชื่อ - สกุล" name="name" required />
                 <FormInput onChange={this.handleRegisterChange} label="รหัสผ่าน" name="password" required type="password" />
@@ -152,8 +155,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createUser: (userData) => {
-        dispatch(createUser(userData))
+    createUser: (userData, avatar) => {
+        dispatch(createUser(userData, avatar))
     },
     userLogin: (userData) => {
         dispatch(userLogin(userData))
