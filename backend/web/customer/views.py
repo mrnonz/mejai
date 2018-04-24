@@ -169,7 +169,11 @@ def customer_cart(request, pk):
         itemId = data['itemId']
         quantity = data['quantity']
 
-        cart, created = Cart.objects.get_or_create(customer_id=pk)
+        try:
+            cart = Cart.objects.get(customer_id=pk)
+        except model.DoesNotExist:
+            cart = Cart.objects.create(pk=1, time=datetime.now())
+
         product = Product.objects.get(pk=itemId)
 
         if 'productAttributeId' in data:
