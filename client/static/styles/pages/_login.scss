@@ -48,4 +48,12 @@
             }
         }
     }
+
+    &.login-organization {
+        background-image: url('/static/loginBG2.jpeg');
+
+        >.notice {
+            margin-top: 1.5em;
+        }
+    }
 }

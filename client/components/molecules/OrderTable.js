@@ -1,5 +1,4 @@
 import React from 'react'
-import Router from 'next/router'
 import { Table, Header } from 'semantic-ui-react'
 import Order from 'stores/models/Order'
 
