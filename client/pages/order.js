@@ -60,11 +60,17 @@ class Order extends Component {
     }
 
     handleUpdateOrderStatus() {
-        const { url: { query: { id: orderId } } } = this.props
+        const { url: { query: { id: orderId, type } } } = this.props
         this.props.updateOrderStatus(orderId)
-        Router.push({
-            pathname: '/user'
-        })
+        if(type == organization) {
+            Router.push({
+                pathname: '/organization'
+            })
+        } else {
+            Router.push({
+                pathname: '/user'
+            })
+        }
     }
 
     handleSubmitSlip() {
@@ -160,19 +166,12 @@ class Order extends Component {
                     <Image src={ order.Slip } size="big" /> }
                 </div>
                 <div className="button-group">
-                    { type === 'organization' ?
-                        order.OrderStatusId == 2 && 
-                        <OrderButton 
-                            onHandleShipping={() => this.handleUpdateOrderStatus()} 
-                            orderStatus={ order.OrderStatusId } 
-                        /> :
-                        order.OrderStatusId != 2 && 
-                        <OrderButton 
-                            onHandleSlip={ () => this.showSlipForm() } 
-                            onHandleReceive={ () => this.handleUpdateOrderStatus() }
-                            orderStatus={ order.OrderStatusId } 
-                        />
-                    }
+                    <OrderButton 
+                        userType={type}
+                        onHandleSlip={ () => this.showSlipForm() } 
+                        onUpdateStatus={ () => this.handleUpdateOrderStatus() }
+                        orderStatus={ order.OrderStatusId } 
+                    />
                     <Button 
                         color="teal" 
                         size="large"

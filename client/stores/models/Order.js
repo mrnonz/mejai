@@ -15,10 +15,12 @@ export default class Order {
             case 1:
                 return "รอเพิ่มหลักฐานการโอน"
             case 2:
-                return "รอการส่งของ"
+                return "รอการยืนยันหลักฐาน"
             case 3:
-                return "ส่งของแล้ว"
+                return "รอการส่งสินค้า"
             case 4:
+                return "ส่งสินค้าแล้ว"
+            case 5:
                 return "สำเร็จ"
             default:
                 return "สถานะคำสั่งซื้อ"
@@ -38,6 +40,8 @@ export default class Order {
             case 3:
                 return "shipping"
             case 4:
+                return "success"
+            case 5:
                 return "success"
             default:
                 return "wait"
