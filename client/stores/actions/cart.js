@@ -51,6 +51,13 @@ export const updateCartSuccess = () => {
     }
 }
 
+export const updateCartFailed = () => {
+    return {
+        type: 'UPDATE_CART_FAILED',
+        isUpdating: false
+    }
+}
+
 export const updateCartItem = (customerId, itemId, attributeId, qty) => {
     return (dispatch) => {
         dispatch(updatingCart())
@@ -69,6 +76,7 @@ export const updateCartItem = (customerId, itemId, attributeId, qty) => {
             dispatch(fetchCart(customerId))
         })
         .catch((error) => {
+            dispatch(updateCartFailed())
             throw(error);
         })
     }
@@ -90,6 +98,7 @@ export const deleteCartItem = (customerId, itemId, productAttributeId) => {
             dispatch(fetchCart(customerId))
         })
         .catch((error) => {
+            dispatch(updateCartFailed())
             throw(error);
         })
     }

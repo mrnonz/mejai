@@ -20,6 +20,11 @@ const cart = (state = {}, action) => {
                 isUpdating: action.isUpdating,
                 updated: true
             }
+        case 'UPDATE_CART_FAILED':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
+            }
         case 'SUCCESS_CART':
             return {
                 isLoading: action.isLoading,

@@ -35,14 +35,14 @@ class Product extends Component {
         }
 
         if(this.state.gettingTime && this.state.bidding) {
+            const { bidPrice } = this.state
             const { lastest_price, price_step } = this.props.product.data.auction
             const { url: { query: { id: productId } } } = this.props
             const userId = cookie.load('userId')
-            if(price >= +lastest_price + +price_step) {
-                const bid = { userId, price }
+            if(bidPrice >= +lastest_price + +price_step) {
+                const bid = { userId, price: bidPrice }
                 this.props.bidAuction(productId, bid)
                 this.setState({
-                    bidding: true,
                     gettingTime: false,
                     bidding: false
                 })
@@ -98,10 +98,12 @@ class Product extends Component {
     } 
 
     handleBidding(price) {
+        const userId = cookie.load('userId')
         this.props.getCurrentTime()
         if (userId) {
             this.setState({
                 gettingTime: true,
+                bidding: true,
                 bidPrice: price
             })
         } else {
