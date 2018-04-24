@@ -173,6 +173,7 @@ def customer_cart(request, pk):
             cart = Cart.objects.get(customer_id=pk)
         except Cart.DoesNotExist:
             cart = Cart.objects.create(customer_id=pk, time=datetime.now())
+            cart = Cart.objects.get(customer_id=pk)
 
         product = Product.objects.get(pk=itemId)
 
