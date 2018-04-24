@@ -5,6 +5,11 @@ const organization = (state = {}, action) => {
                 ...state,
                 isLoading: action.isLoading
             }
+        case 'LOADING_ORGANIZATION_ORDERS':
+            return {
+                ...state,
+                isLoadingOrder: action.isLoadingOrder
+            }
         case 'SUCCESS_ORGANIZATION':
             return {
                 ...state,
@@ -16,6 +21,12 @@ const organization = (state = {}, action) => {
                 ...state,
                 isLoading: action.isLoading,
                 info: action.info.data
+            }
+        case 'SUCCESS_ORGANIZATION_ORDER':
+            return {
+                ...state,
+                isLoadingOrder: action.isLoadingOrder,
+                orders: action.orders.data.data
             }
         default:
             return state

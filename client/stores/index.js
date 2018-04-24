@@ -38,8 +38,10 @@ const intialStore = {
     },
     organization: {
         isLoading: true,
+        isLoadginOrder: true,
         data: [],
-        info: {}
+        info: {},
+        orders: []
     },
     cart: {
         isLoading: true,

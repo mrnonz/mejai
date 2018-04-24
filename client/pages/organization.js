@@ -9,24 +9,21 @@ import cookie from 'react-cookie'
 import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
-import ProductList from 'molecules/ProductList'
 import IssueForm from 'molecules/IssueForm'
-import UserForm from 'molecules/UserForm'
-import UserProducts from 'stores/models/UserProducts'
-
+import { fetchOrganizationOrders } from 'stores/actions/organization'
 
 class Organization extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            activeBar: 'history'
+            activeBar: 'organization-order'
         }
     }
 
     componentDidMount() {
-        const userId = cookie.load('userId')
-        
+        const organizationId = cookie.load('organizationId')
+        this.props.fetchOrganizationOrders(organizationId)
     }
 
     handleBarClick(value) {
@@ -34,35 +31,28 @@ class Organization extends Component {
             activeBar: value
         })
     }
-
-    handleCardClick = () => {
-        Router.push({
-            pathname: '/product'
-        })
-    }
-
     
-    handleOrderRowClick = (orderId, isSeller) => {
+    handleOrderRowClick = (orderId) => {
         Router.push({
             pathname: '/order',
             query: {
                 id: orderId,
-                type: isSeller && 'seller'
+                type: 'organization'
             }
         })
     }
 
-    handleUpdateUserDetail = (detail) => {
-        const userId = cookie.load('userId')
-        this.props.updateUserDetail(userId, detail)
-    }
-
     render() {
         const { activeBar } = this.state
-        const userId = cookie.load('userId')
+        const {
+            organization: {
+                isLoadingOrders,
+                orders
+            }
+        } = this.props
         const SidebarItems = [
             {
-                value: 'seller-order',
+                value: 'organization-order',
                 title: 'รายการสั่งซื้อถึงคุณ',
                 icon: 'seller-order'
             },
@@ -79,15 +69,19 @@ class Organization extends Component {
         ]
 
         const renderContent = () => {
-            if (activeBar === 'seller-order') {
-                const sortedOrder = reverse(sortBy(sellerOrders, (order) => order.created_by))
+            if (activeBar === 'organization-order') {
+                const sortedOrder = reverse(sortBy(orders, (order) => order.created_by))
                 return (
                     <Container>
                         <Container>
                             <Header as='h2' dividing color="orange" >
-                                รายการสั่งซื้อถึงคุณ
+                                รายการสั่งซื้อถึงองค์กรของคุณ
                             </Header>
-                            { isSellerOrderLoading ? <Loader wrapped /> : <OrderTable handleOrderRowClick={this.handleOrderRowClick.bind(Organization)} isSeller orders={sortedOrder} /> }
+                            { isLoadingOrders ? <Loader wrapped /> : 
+                            <OrderTable 
+                                handleOrderRowClick={this.handleOrderRowClick.bind(Organization)} 
+                                orders={sortedOrder} /> 
+                            }
                         </Container>
                     </Container>
                 )
@@ -135,12 +129,16 @@ class Organization extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        
+        organization: state.organization   
     }
 )
 
 const mapDispatchToProps = (dispatch) => {
-    
+    return {
+        fetchOrganizationOrders: (organizationId) => {
+            dispatch(fetchOrganizationOrders(organizationId))
+        }
+    }
 }
 
 export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Organization))

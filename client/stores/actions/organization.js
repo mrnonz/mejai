@@ -9,6 +9,13 @@ export const fetchingOrganization = () => {
     }
 }
 
+export const fetchingOrganizationOrders = () => {
+    return {
+        type: 'LOADING_ORGANIZATION_ORDERS',
+        isLoadingOrder: true
+    }
+}
+
 export const fetchOrganizationSuccess = (organization) => {
     return {
         type: 'SUCCESS_ORGANIZATION',
@@ -22,6 +29,14 @@ export const fetchOrganizationInfoSuccess = (info) => {
         type: 'SUCCESS_ORGANIZATION_INFO',
         isLoading: false,
         info
+    }
+}
+
+export const fetchOrganizationOrderSuccess = (orders) => {
+    return {
+        type: 'SUCCESS_ORGANIZATION_ORDER',
+        isLoadingOrder: false,
+        orders
     }
 }
 
@@ -46,6 +61,20 @@ export const fetchOrganizationInfo = (id) => {
         return Axios.get(fetchUrl)
             .then((response) => {
                 dispatch(fetchOrganizationInfoSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
+
+export const fetchOrganizationOrders = (id) => {
+    return (dispatch) => {
+        dispatch(fetchingOrganizationOrders())
+        const fetchUrl = `${url}/organization/${id}/sell_order/`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchOrganizationOrderSuccess(response))
             })
             .catch((error) => {
                 throw(error);

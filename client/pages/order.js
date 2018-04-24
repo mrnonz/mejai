@@ -58,16 +58,8 @@ class Order extends Component {
             slip: uploadFiles
         })
     }
-    
-    handleShipping() {
-        const { url: { query: { id: orderId } } } = this.props
-        this.props.updateOrderStatus(orderId)
-        Router.push({
-            pathname: '/user'
-        })
-    }
 
-    handleReceive() {
+    handleUpdateOrderStatus() {
         const { url: { query: { id: orderId } } } = this.props
         this.props.updateOrderStatus(orderId)
         Router.push({
@@ -168,16 +160,16 @@ class Order extends Component {
                     <Image src={ order.Slip } size="big" /> }
                 </div>
                 <div className="button-group">
-                    { type === 'seller' ?
+                    { type === 'organization' ?
                         order.OrderStatusId == 2 && 
                         <OrderButton 
-                            onHandleShipping={() => this.handleShipping()} 
+                            onHandleShipping={() => this.handleUpdateOrderStatus()} 
                             orderStatus={ order.OrderStatusId } 
                         /> :
                         order.OrderStatusId != 2 && 
                         <OrderButton 
                             onHandleSlip={ () => this.showSlipForm() } 
-                            onHandleReceive={ () => this.handleReceive() }
+                            onHandleReceive={ () => this.handleUpdateOrderStatus() }
                             orderStatus={ order.OrderStatusId } 
                         />
                     }
