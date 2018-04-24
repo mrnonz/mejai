@@ -13,6 +13,7 @@ import OrderModel from 'stores/models/Order'
 import HelpingTable from 'molecules/HelpingTable'
 import UploadForm from 'molecules/UploadForm'
 import { fetchOrder, uploadSlip, updateOrderStatus } from 'stores/actions/order'
+import { fetchOrganizationBank } from 'stores/actions/organization'
 
 class Order extends Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class Order extends Component {
             showUploadForm: false,
             submitingSlip: false,
             submitedSlip: false,
+            loadingBank: true,
             slip: []
         }
     }
@@ -38,6 +40,13 @@ class Order extends Component {
                     submitedSlip: true
                 })
             }
+        }
+
+        if(!!nextProps.order && this.state.loadingBank) {
+            this.props.fetchOrganizationBank(nextProps.order.data.organizationId)
+            this.setState({
+                loadingBank: false
+            })
         }
     }
 
@@ -97,11 +106,16 @@ class Order extends Component {
                 isUploading,
                 data, 
                 data: { address = '' } 
-            } 
+            },
+            organization: {
+                isLoadingBank,
+                bank
+            },
+            organization
         } = this.props
         const { url: { query: { type } } } = this.props
         const order = new OrderModel(data)
-        return isLoading ? <Loader wrapped /> :
+        return isLoading || isLoadingBank ? <Loader wrapped /> :
             <Container className="order-page">
                 <Modal open={showUploadForm} className="order-modal">
                     { ( submitingSlip && isUploading ) && <Dimmer active><Loader /></Dimmer> }
@@ -154,7 +168,7 @@ class Order extends Component {
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <HelpingTable organization={ order.Organization } price={ order.Price } />
+                            <HelpingTable organization={ order.Organization } price={ order.Price } bank={ bank }/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -184,7 +198,8 @@ class Order extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        order: state.order
+        order: state.order,
+        organization: state.organization
     }
 )
 
@@ -192,6 +207,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrder: (orderId) => {
             dispatch(fetchOrder(orderId))
+        },
+        fetchOrganizationBank: (organizationId) => {
+            dispatch(fetchOrganizationBank(organizationId))
         },
         uploadSlip: (file, orderId) => {
             dispatch(uploadSlip(file, orderId))

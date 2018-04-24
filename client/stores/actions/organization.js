@@ -16,6 +16,13 @@ export const fetchingOrganizationOrders = () => {
     }
 }
 
+export const fetchingOrganizationBank = () => {
+    return {
+        type: 'LOADING_ORGANIZATION_BANK',
+        isLoadingBank: true
+    }
+}
+
 export const fetchOrganizationSuccess = (organization) => {
     return {
         type: 'SUCCESS_ORGANIZATION',
@@ -37,6 +44,14 @@ export const fetchOrganizationOrderSuccess = (orders) => {
         type: 'SUCCESS_ORGANIZATION_ORDER',
         isLoadingOrder: false,
         orders
+    }
+}
+
+export const fetchOrganizationBankSuccess = (bank) => {
+    return {
+        type: 'SUCCESS_ORGANIZATION_BANK',
+        isLoadingBank: false,
+        bank
     }
 }
 
@@ -75,6 +90,20 @@ export const fetchOrganizationOrders = (id) => {
         return Axios.get(fetchUrl)
             .then((response) => {
                 dispatch(fetchOrganizationOrderSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
+    }
+}
+
+export const fetchOrganizationBank = (id) => {
+    return (dispatch) => {
+        dispatch(fetchingOrganizationBank())
+        const fetchUrl = `${url}/organization/${id}/bank/`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchOrganizationBankSuccess(response))
             })
             .catch((error) => {
                 throw(error);

@@ -39,6 +39,7 @@ const intialStore = {
     organization: {
         isLoading: true,
         isLoadginOrder: true,
+        isLoadingBank: true,
         data: [],
         info: {},
         orders: []
