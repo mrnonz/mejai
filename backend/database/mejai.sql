@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: backend_db_1
--- Generation Time: Apr 17, 2018 at 04:45 PM
+-- Host: mejai_db_1
+-- Generation Time: Apr 24, 2018 at 03:18 PM
 -- Server version: 5.7.21
--- PHP Version: 7.1.9
+-- PHP Version: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,8 +43,13 @@ CREATE TABLE `Auction` (
 --
 
 INSERT INTO `Auction` (`id`, `exp_time`, `lastest_price`, `price_step`, `product_id`, `customer_id`, `valid`) VALUES
-(1, '2018-04-17 11:16:43', '510.00', '440.00', 23, 22, 1),
-(2, '2018-04-17 11:30:07', '605.00', '50.00', 24, 20, 1);
+(1, '2018-04-17 17:26:40', '510.00', '440.00', 23, 22, 0),
+(2, '2018-04-17 17:26:40', '1100.00', '50.00', 24, 21, 0),
+(3, '2018-04-17 18:02:01', '505.00', '1.00', 25, 21, 0),
+(4, '2018-04-17 18:07:01', '1114.00', '100.00', 26, 21, 0),
+(5, '2018-04-18 08:31:01', '40.00', '5.00', 28, 21, 0),
+(6, '2018-04-18 12:31:01', '7500.00', '500.00', 29, 21, 0),
+(7, '2018-05-01 08:00:00', '150.00', '5.00', 32, 30, 1);
 
 -- --------------------------------------------------------
 
@@ -75,7 +80,27 @@ INSERT INTO `Auction_Customer` (`id`, `price`, `time`, `auction_id`, `customer_i
 (8, '500.00', '2018-04-17 12:21:50', 2, 20),
 (9, '550.00', '2018-04-17 12:22:02', 2, 20),
 (10, '554.00', '2018-04-17 12:23:10', 2, 20),
-(11, '605.00', '2018-04-17 12:24:36', 2, 20);
+(11, '605.00', '2018-04-17 12:24:36', 2, 20),
+(12, '655.00', '2018-04-17 17:24:27', 2, 21),
+(13, '710.00', '2018-04-17 17:24:37', 2, 20),
+(14, '760.00', '2018-04-17 17:25:10', 2, 21),
+(15, '810.00', '2018-04-17 17:25:19', 2, 20),
+(16, '860.00', '2018-04-17 17:26:02', 2, 21),
+(17, '910.00', '2018-04-17 17:28:34', 2, 20),
+(18, '960.00', '2018-04-17 17:28:42', 2, 21),
+(19, '1050.00', '2018-04-17 17:28:48', 2, 20),
+(20, '1100.00', '2018-04-17 17:28:52', 2, 21),
+(21, '505.00', '2018-04-17 17:48:57', 3, 21),
+(22, '1114.00', '2018-04-17 18:04:29', 4, 21),
+(23, '20.00', '2018-04-18 08:27:01', 5, 21),
+(24, '25.00', '2018-04-18 08:28:18', 5, 20),
+(25, '40.00', '2018-04-18 08:28:26', 5, 21),
+(26, '5500.00', '2018-04-18 12:06:47', 6, 21),
+(27, '6000.00', '2018-04-18 12:07:00', 6, 20),
+(28, '6500.00', '2018-04-18 12:08:26', 6, 21),
+(29, '7000.00', '2018-04-18 12:08:32', 6, 20),
+(30, '7500.00', '2018-04-18 12:08:35', 6, 21),
+(31, '150.00', '2018-04-24 07:55:57', 7, 30);
 
 -- --------------------------------------------------------
 
@@ -301,7 +326,12 @@ CREATE TABLE `Cart` (
 INSERT INTO `Cart` (`id`, `time`, `customer_id`) VALUES
 (3, '2018-03-04 00:00:00.000000', 1),
 (5, '2018-03-19 00:00:00.000000', 2),
-(6, '2018-03-20 00:00:00.000000', 3);
+(6, '2018-03-20 00:00:00.000000', 3),
+(7, '2018-04-17 17:26:40.653270', 22),
+(23, '2018-04-17 18:01:01.625586', 21),
+(24, '2018-04-24 08:09:05.201743', 29),
+(25, '2018-04-24 08:17:45.240670', 30),
+(26, '2018-04-24 12:24:30.872292', 32);
 
 -- --------------------------------------------------------
 
@@ -327,7 +357,14 @@ INSERT INTO `Cart_Product` (`id`, `time`, `price`, `quantity`, `cart_id`, `produ
 (5, '2018-03-13 00:00:00.000000', '444.23', 4, 6, 3, 2),
 (10, '2018-04-16 06:29:43.303482', '420.00', 1, 3, 16, NULL),
 (16, '2018-04-16 17:27:48.728724', '120.00', 2, 5, 17, 10),
-(17, '2018-04-16 17:39:51.626059', '1200.00', 1, 5, 18, NULL);
+(17, '2018-04-16 17:39:51.626059', '1200.00', 1, 5, 18, NULL),
+(18, '2018-04-17 17:26:40.662427', '510.00', 1, 7, 23, NULL),
+(26, '2018-04-18 16:15:52.641398', '24000.00', 1, 23, 19, 13),
+(27, '2018-04-22 10:20:57.000349', '24000.00', 22, 7, 19, 12),
+(28, '2018-04-24 08:14:17.406755', '24000.00', 1, 24, 19, 13),
+(29, '2018-04-24 08:17:45.261721', '24000.00', 1, 25, 19, 12),
+(30, '2018-04-24 08:18:58.261060', '5000.00', 1, 7, 27, 16),
+(31, '2018-04-24 12:24:30.916137', '650.00', 1, 26, 33, 18);
 
 -- --------------------------------------------------------
 
@@ -363,7 +400,17 @@ CREATE TABLE `Customer` (
 
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
 (20, 'useremail1@mail.com', 'useremail1@mail.com', '123456789', NULL, NULL, '\\สุวิทย์\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10225\\084-6664471', NULL, '', 0, 0, 0, '2018-04-17 08:00:44.101289', 'สุวิทย์', 1, 0, 0, NULL, 'จงใจหมาย'),
-(21, 'useremail2@mail.com', 'useremail2@mail.com', '123456789', NULL, NULL, 'ธรรมชาติ\\จิตใจ\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL, '', 0, 0, 0, '2018-04-17 08:02:07.438672', 'ธรรมชาติ', 1, 0, 0, NULL, 'จิตใจ');
+(21, 'useremail2@mail.com', 'useremail2@mail.com', '123456789', NULL, NULL, 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL, '', 0, 0, 0, '2018-04-17 08:02:07.438672', 'ณรง', 1, 0, 0, NULL, 'อิ่มเอม'),
+(22, 'abcmail@mail.com', 'abcmail@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-21 09:46:46.642308', 'สุชาติ', 1, 0, 0, NULL, 'จงใจ'),
+(23, 'testmm@mail.com', 'testmm@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:02:42.042762', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(24, 'testmail@mail.com', 'testmail@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:03:56.736289', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(25, 'testmail2@mail.com', 'testmail2@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:04:39.335211', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(27, 'mailmailami@mail.com', 'mailmailami@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/0da5a1c3f90b4956ab91799deafd4975.jpg', 0, 0, 0, '2018-04-23 06:06:11.408644', 'john', 1, 0, 0, NULL, 'doe'),
+(28, 'aaaaa@mao.com', 'aaaaa@mao.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/b31e9b7c6e1a4b24b69636e6e34c329c.jpg', 0, 0, 0, '2018-04-23 06:07:14.245865', 'Jhh', 1, 0, 0, NULL, 'DD'),
+(29, 'abcdef@mail.com', 'abcdef@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/a844a4973245443faafd3c8116bbc8f6.jpg', 0, 0, 0, '2018-04-23 07:37:50.993534', 'ดำ', 1, 0, 0, NULL, 'ขาว'),
+(30, 'aeiou@mail.com', 'aeiou@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/3641bb4fcfb047c995aea8ca907f09c3.jpeg', 0, 0, 0, '2018-04-24 07:45:02.272902', 'น้ำเงิน', 1, 0, 0, NULL, 'แดง'),
+(31, 'exmail1@mail.com', 'exmail1@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/c71327622d9a48c392347a6f549ab9d5.jpg', 0, 0, 0, '2018-04-24 12:21:53.400507', 'จิตใจ', 1, 0, 0, NULL, 'ดี'),
+(32, 'exmail2@mail.com', 'exmail2@mail.com', '123456789', NULL, NULL, '\\จิตใจ\\ไทย\\ไทย\\กทม\\555666\\8889996566', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/73f1b0fb21f74622a0f363bd287d7a77.jpg', 0, 0, 0, '2018-04-24 12:22:40.633507', 'จิตใจ', 1, 0, 0, NULL, 'งาม');
 
 -- --------------------------------------------------------
 
@@ -599,6 +646,18 @@ CREATE TABLE `Order` (
   `attribute_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `Order`
+--
+
+INSERT INTO `Order` (`id`, `time`, `quantity`, `price`, `status`, `product_id`, `buyer_id`, `slip`, `address`, `attribute_id`) VALUES
+(67, '2018-04-17 18:13:57', 1, '505.00', 1, 25, 21, '', 'ธรรมชาติ\\จิตใจ\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL),
+(68, '2018-04-17 18:13:57', 1, '1114.00', 4, 26, 21, 'https://storage.googleapis.com/mejai/bank/transfer/slip/4acbbe8adbed48acb511b6ea9aec0818.jpg', 'ธรรมชาติ\\จิตใจ\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL),
+(69, '2018-04-18 08:23:50', 1, '5000.00', 3, 27, 21, 'https://storage.googleapis.com/mejai/bank/transfer/slip/7c5e9419f98e4926868fe8571c37c8d8.jpeg', 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', 15),
+(70, '2018-04-18 08:31:34', 1, '40.00', 1, 28, 21, '', 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL),
+(71, '2018-04-18 16:17:51', 1, '24000.00', 1, 19, 21, '', 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', 13),
+(72, '2018-04-24 12:25:05', 1, '650.00', 5, 33, 32, 'https://storage.googleapis.com/mejai/bank/transfer/slip/dfda527962ee4e0a84df23e41625c07b.jpg', '\\จิตใจ\\ไทย\\ไทย\\กทม\\555666\\8889996566', 18);
+
 -- --------------------------------------------------------
 
 --
@@ -713,9 +772,16 @@ INSERT INTO `Product` (`id`, `name`, `detail`, `price`, `quantity`, `auction`, `
 (19, 'โน้ตบุ้ค', 'ทั้งเบาและบางเฉียบ ทั้งยังเร็วขึ้นและทรงพลังขึ้นยิ่งกว่า \nทั้งเป็นจอภาพโน้ตบุ๊ค Mac ที่สว่างและมีสีสันสดใสที่สุดเท่าที่เคยมีมา \nและยังมี Touch Bar แถบกระจกที่สามารถใช้งาน Multi-Touch ซึ่งได้รับ\nการผสานรวมให้เป็นส่วนหนึ่งของคีย์บอร์ด เพื่อให้คุณใช้งานเครื่องมือ\nที่ต้องการได้ในทุกเวลาที่ต้องการ ทั้งหมดนี้รวมอยู่ใน MacBook Pro \nที่สร้างขึ้นบนแนวคิดสุดล้ำ และวันนี้ก็พร้อมแล้วสำหรับแนวคิด\nที่ล้ำหน้าไม่แพ้กันของคุณ', '24000.00', 0, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/ad74aea8696f4351855ad7e0e06c5f30.jpg', '2018-04-17 08:21:56', 3, 2, 20),
 (20, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/af2e3addf11448d0a2af7f7a833b4839.jpg', '2018-04-17 08:39:24', 3, 1, 20),
 (21, 'รองเท้าสีขาว', 'รองเท้าสีขาวใส่สบาย ใหม่มาก', '2500.00', 1, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', '2018-04-17 08:39:27', 3, 1, 20),
-(22, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:33:17', 3, 1, 22),
-(23, 'เสื้อสีดำ', 'เสื้อสีดำ ราคาไม่', '420.00', 0, 1, 0, 0, 0, '', '2018-04-17 10:36:12', 3, 1, 22),
-(24, 'ส้อม 3 อัน', '', '300.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', '2018-04-17 11:39:14', 3, 3, 20);
+(24, 'ส้อม 3 อัน', '', '300.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', '2018-04-17 11:39:14', 3, 3, 20),
+(25, 'หนังสือเล่มเก่า', '', '500.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/c686371a3b974a21a9afa51379aab2a2.jpg', '2018-04-17 17:48:04', 3, 5, 21),
+(26, 'หนังสือเล่มใหม่', '', '20.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/ddbcca3814154889b505c567eed45be2.jpg', '2018-04-17 18:04:01', 3, 5, 21),
+(27, 'จักรยาน', 'รายละเอียดของสินค้านี้', '5000.00', 0, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/6bd84a2d99be42ccb60382e84b9c184e.jpeg', '2018-04-18 08:22:44', 3, 3, 21),
+(28, 'กระเป๋า', '', '10.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/18e5efb56e0c45b0bb21eebfa01e085b.jpeg', '2018-04-18 08:26:44', 3, 1, 21),
+(29, 'สนามหญ้า', '', '5000.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/5023c593ea564247920cb0796a1c2be0.jpg', '2018-04-18 12:01:18', 4, 3, 21),
+(30, 'ธรรมชาติ', '', '12000.00', 5, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/aa1c04f1978a4d5d815ef701bec131ee.jpg', '2018-04-18 16:18:45', 4, 3, 21),
+(31, 'ทริปท่องเที่ยว', '', '5000.00', 5, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/66afb1391ccd4f79b165a513f4d64bc5.jpg', '2018-04-21 16:47:16', 4, 5, 22),
+(32, 'กระเป๋า', '', '100.00', 0, 1, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/e3ae7a384e574e46a5723e1fd686413c.jpeg', '2018-04-24 07:28:45', 4, 1, 22),
+(33, 'ส้นสูง', '', '650.00', 0, 0, 0, 0, 0, 'https://storage.googleapis.com/mejai/product/image/7b79733c995a45328c06f5c2ecdca0bf.jpg', '2018-04-24 12:24:07', 3, 1, 31);
 
 -- --------------------------------------------------------
 
@@ -738,7 +804,12 @@ CREATE TABLE `Product_Attribute` (
 INSERT INTO `Product_Attribute` (`id`, `value`, `quantity`, `product_id`, `name`) VALUES
 (12, 'ปี 2016', 5, 19, 'รุ่น'),
 (13, 'ปี 2017', 4, 19, 'รุ่น'),
-(14, 'ปี 2018', 3, 19, 'รุ่น');
+(14, 'ปี 2018', 3, 19, 'รุ่น'),
+(15, 'แดง', 10, 27, 'สี'),
+(16, 'ดำ', 5, 27, 'สี'),
+(17, 'เล็ก', 50, 33, 'ขนาด'),
+(18, 'กลาง', 50, 33, 'ขนาด'),
+(19, 'ใหญ่', 50, 33, 'ขนาด');
 
 -- --------------------------------------------------------
 
@@ -803,7 +874,24 @@ INSERT INTO `Product_Image` (`id`, `url`, `product_id`) VALUES
 (47, 'https://storage.googleapis.com/mejai/product/image/af2e3addf11448d0a2af7f7a833b4839.jpg', 20),
 (48, 'https://storage.googleapis.com/mejai/product/image/4b0330f229bb455082f244426f959035.jpg', 21),
 (49, 'https://storage.googleapis.com/mejai/product/image/856bc8cbcf824cb69cdd67857900ba97.jpg', 24),
-(50, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', 24);
+(50, 'https://storage.googleapis.com/mejai/product/image/b667b9cb27e5496bac1c807dd8e9eca6.jpg', 24),
+(51, 'https://storage.googleapis.com/mejai/product/image/c686371a3b974a21a9afa51379aab2a2.jpg', 25),
+(52, 'https://storage.googleapis.com/mejai/product/image/ddbcca3814154889b505c567eed45be2.jpg', 26),
+(53, 'https://storage.googleapis.com/mejai/product/image/003e7e7bf4fb4de38788b76ed50e9b97.jpeg', 27),
+(54, 'https://storage.googleapis.com/mejai/product/image/6bd84a2d99be42ccb60382e84b9c184e.jpeg', 27),
+(55, 'https://storage.googleapis.com/mejai/product/image/18e5efb56e0c45b0bb21eebfa01e085b.jpeg', 28),
+(56, 'https://storage.googleapis.com/mejai/product/image/fe35f9b040d64eec9a8305832e05d043.jpg', 29),
+(57, 'https://storage.googleapis.com/mejai/product/image/5023c593ea564247920cb0796a1c2be0.jpg', 29),
+(58, 'https://storage.googleapis.com/mejai/product/image/3ee3b87de35847868dc39ca65248c49a.jpg', 30),
+(59, 'https://storage.googleapis.com/mejai/product/image/aa1c04f1978a4d5d815ef701bec131ee.jpg', 30),
+(60, 'https://storage.googleapis.com/mejai/product/image/05b01da3f8974efa8c83e2447bce6d0d.jpg', 31),
+(61, 'https://storage.googleapis.com/mejai/product/image/1cfadbf4a0124d8eb3bb675b23c9f34e.jpg', 31),
+(62, 'https://storage.googleapis.com/mejai/product/image/a5dbc404ea1142fda3ef52800668e82b.jpg', 31),
+(63, 'https://storage.googleapis.com/mejai/product/image/66afb1391ccd4f79b165a513f4d64bc5.jpg', 31),
+(64, 'https://storage.googleapis.com/mejai/product/image/8167e8be930b4cde9030f9d029dc3767.jpg', 31),
+(65, 'https://storage.googleapis.com/mejai/product/image/3967a15e14d048a2ab1ac0ce9268139d.jpeg', 32),
+(66, 'https://storage.googleapis.com/mejai/product/image/e3ae7a384e574e46a5723e1fd686413c.jpeg', 32),
+(67, 'https://storage.googleapis.com/mejai/product/image/7b79733c995a45328c06f5c2ecdca0bf.jpg', 33);
 
 --
 -- Indexes for dumped tables
@@ -1025,13 +1113,13 @@ ALTER TABLE `Product_Image`
 -- AUTO_INCREMENT for table `Auction`
 --
 ALTER TABLE `Auction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `Auction_Customer`
 --
 ALTER TABLE `Auction_Customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `auth_group`
@@ -1079,19 +1167,19 @@ ALTER TABLE `Bank`
 -- AUTO_INCREMENT for table `Cart`
 --
 ALTER TABLE `Cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `Cart_Product`
 --
 ALTER TABLE `Cart_Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `Customer`
 --
 ALTER TABLE `Customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `Customer_groups`
@@ -1127,7 +1215,7 @@ ALTER TABLE `django_migrations`
 -- AUTO_INCREMENT for table `Order`
 --
 ALTER TABLE `Order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `Organization`
@@ -1151,13 +1239,13 @@ ALTER TABLE `Organization_Promptpay`
 -- AUTO_INCREMENT for table `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `Product_Attribute`
 --
 ALTER TABLE `Product_Attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `Product_Category`
@@ -1169,7 +1257,7 @@ ALTER TABLE `Product_Category`
 -- AUTO_INCREMENT for table `Product_Image`
 --
 ALTER TABLE `Product_Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- Constraints for dumped tables
