@@ -171,7 +171,7 @@ def customer_cart(request, pk):
 
         try:
             cart = Cart.objects.get(customer_id=pk)
-        except model.DoesNotExist:
+        except Cart.DoesNotExist:
             cart = Cart.objects.create(customer_id=pk, time=datetime.now())
 
         product = Product.objects.get(pk=itemId)
