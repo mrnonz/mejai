@@ -125,3 +125,20 @@ def organization_login(request):
             return JsonResponse(serializerOrganization.data, status=200)
         except Organization.DoesNotExist:
             return HttpResponse(status=404)
+
+
+@csrf_exempt
+def organization_promptpay(request, pk):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        name = data['name']
+        number = data['number']
+
+        organizationPromptpay = OrganizationPromptpay.objects.create(
+            name=name, number=number, organization_id=pk)
+
+        serializerOrganizationPromptpay = OrganizationPromptpaySerializer(
+            organizationPromptpay)
+
+        return JsonResponse(serializerOrganizationPromptpay.data, status=200)
