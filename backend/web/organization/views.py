@@ -107,3 +107,21 @@ def organization_sell_order(request, pk):
         data['organizationId'] = pk
 
         return JsonResponse(data)
+
+
+@csrf_exempt
+def organization_login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        email = data['email']
+        password = data['password']
+
+        try:
+            organization = Organization.objects.get(
+                email=email, password=password)
+
+            serializerOrganization = OrganizationSerializer(organization)
+            return JsonResponse(serializerOrganization.data, status=200)
+        except Organization.DoesNotExist:
+            return HttpResponse(status=404)
