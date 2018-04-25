@@ -21,6 +21,11 @@ const organization = (state = {}, action) => {
                 isLogging: action.isLogging,
                 isLoggingError: action.isLoggingError
             }
+        case 'UPDATING_PROMPT_PAY':
+            return {
+                ...state,
+                isUpdating: action.isUpdating
+            }
         case 'SUCCESS_ORGANIZATION':
             return {
                 ...state,
@@ -56,6 +61,12 @@ const organization = (state = {}, action) => {
                 ...state,
                 isLogging: action.isLogging,
                 isLoggingError: action.isLoaggingError
+            }
+        case 'PROMPT_PAY_SUCCESS':
+            return {
+                ...state,
+                isUpdating: action.isUpdating,
+                response: action.response.data
             }
         default:
             return state

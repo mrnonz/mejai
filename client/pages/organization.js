@@ -10,7 +10,8 @@ import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
 import IssueForm from 'molecules/IssueForm'
-import { fetchOrganizationOrders } from 'stores/actions/organization'
+import PaymentForm from 'molecules/PaymentForm'
+import { fetchOrganizationOrders, fetchOrganizationBank, createUpdatePromptPay } from 'stores/actions/organization'
 
 class Organization extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Organization extends Component {
     componentDidMount() {
         const organizationId = cookie.load('organizationId')
         this.props.fetchOrganizationOrders(organizationId)
+        this.props.fetchOrganizationBank(organizationId)
     }
 
     handleBarClick(value) {
@@ -47,7 +49,9 @@ class Organization extends Component {
         const {
             organization: {
                 isLoadingOrders,
-                orders
+                isLoadingBank,
+                orders,
+                bank
             }
         } = this.props
         const SidebarItems = [
@@ -55,6 +59,11 @@ class Organization extends Component {
                 value: 'organization-order',
                 title: 'รายการสั่งซื้อถึงคุณ',
                 icon: 'seller-order'
+            },
+            {
+                value: 'payment',
+                title: 'การเงิน',
+                icon: 'payment'
             },
             {
                 value: 'issue',
@@ -83,6 +92,20 @@ class Organization extends Component {
                                 orders={sortedOrder} /> 
                             }
                         </Container>
+                    </Container>
+                )
+            } else if (activeBar === 'payment') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            การเงิน
+                        </Header>
+                        { isLoadingBank ? <Loader wrapped /> : 
+                        <PaymentForm 
+                            bank={bank} 
+                            onSubmitPromptPay={this.props.createUpdatePromptPay.bind(Organization)} 
+                        /> 
+                        }
                     </Container>
                 )
             } else if (activeBar === 'issue') {
@@ -137,6 +160,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrganizationOrders: (organizationId) => {
             dispatch(fetchOrganizationOrders(organizationId))
+        },
+        fetchOrganizationBank: (organizationId) => {
+            dispatch(fetchOrganizationBank(organizationId))
+        },
+        createUpdatePromptPay: (id, data, isCreate) => {
+            dispatch(createUpdatePromptPay(id, data, isCreate))
         }
     }
 }

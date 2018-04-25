@@ -8,15 +8,29 @@ import Loader from 'molecules/Loader'
 import HelpingTable from 'molecules/HelpingTable'
 import ProductDataCard from 'molecules/ProductDataCard'
 import { fetchProductItem } from 'stores/actions/product'
+import { fetchOrganizationBank } from 'stores/actions/organization'
 
 class ConfirmPost extends Component {
     constructor(props) {
         super(props)
+
+        this.state = {
+            loadingBank: true
+        }
     }
 
     componentDidMount() {
         const { url: { query: { id: productId } } } = this.props
         this.props.fetchProductItem(productId)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(!!nextProps.product && this.state.loadingBank) {
+            this.props.fetchOrganizationBank(nextProps.product.data.organization.organizationId)
+            this.setState({
+                loadingBank: false
+            })
+        }
     }
 
     handleOnSubmit() {
@@ -31,18 +45,28 @@ class ConfirmPost extends Component {
     }
 
     render() {
-        const { product: { data: { organization = {} }, data: product, isLoading } } = this.props
+        const { 
+            product: { 
+                data: { organization = {} }, 
+                data: product, 
+                isLoading 
+            },
+            organization: {
+                isLoadingBank,
+                bank
+            } 
+        } = this.props
         return (
             <Container className="confirm-post-page">
                 <Header as='h2' dividing color="orange" >
                     ข้อมูลสินค้า
                 </Header>
-                { isLoading ? <Loader wrapped /> :
+                { isLoading || isLoadingBank ? <Loader wrapped /> :
                     <div>
                         <Header as='h5' >
                             โครงการที่ช่วยเหลือ
                         </Header>
-                        <HelpingTable hideLabel organization={organization} hidePrice />
+                        <HelpingTable hideLabel organization={organization} hidePrice bank={ bank } />
                         <Header as='h5' >
                             สินค้าที่ลงขาย
                         </Header>
@@ -58,7 +82,8 @@ class ConfirmPost extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        product: state.product
+        product: state.product,
+        organization: state.organization
     }
 )
 
@@ -66,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchProductItem: (productId) => {
             dispatch(fetchProductItem(productId))
+        },
+        fetchOrganizationBank: (organizationId) => {
+            dispatch(fetchOrganizationBank(organizationId))
         }
     }
 }

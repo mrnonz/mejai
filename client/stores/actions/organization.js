@@ -29,6 +29,11 @@ export const organizationLogging = () => ({
     isLoggingError: false,
 })
 
+export const updatingPromptPay = () => ({
+    type: 'UPDATING_PROMPT_PAY',
+    isUpdating: true
+})
+
 export const fetchOrganizationSuccess = (organization) => {
     return {
         type: 'SUCCESS_ORGANIZATION',
@@ -71,6 +76,12 @@ export const organizationLoginFailed = () => ({
     type: 'ORGANIZATION_LOGIN_FAILED',
     isLogging: false,
     isLoggingError: true
+})
+
+export const updatePromptPaySuccess = (response) => ({
+    type: 'PROMPT_PAY_SUCCESS',
+    isUpdating: false,
+    response
 })
 
 export const fetchOrganizations = () => {
@@ -143,6 +154,25 @@ export const organizationLogin = (data) => (
         })
         .catch((error) => {
             dispatch(organizationLoginFailed())
+        })
+    }
+)
+
+export const createUpdatePromptPay = (id, data, isCreate) => (
+    (dispatch) => {
+        dispatch(updatingPromptPay())
+        const updateUrl = `${url}/organization/${id}/bank/promptpay/`
+        const method = isCreate ? 'POST' : 'PUT'
+        return Axios({
+            url: updateUrl,
+            method,
+            data
+        })
+        .then((response) => {
+            dispatch(updatePromptPaySuccess(response))
+        })
+        .catch((error) => {
+            throw(error);
         })
     }
 )

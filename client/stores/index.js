@@ -42,6 +42,8 @@ const intialStore = {
         isLoadingBank: true,
         isLogging: false,
         isLoggingError: false,
+        isUpdating: false,
+        response: {},
         data: [],
         info: {},
         orders: [],
