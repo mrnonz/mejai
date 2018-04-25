@@ -71,7 +71,7 @@ class Order extends Component {
     handleUpdateOrderStatus() {
         const { url: { query: { id: orderId, type } } } = this.props
         this.props.updateOrderStatus(orderId)
-        if(type == organization) {
+        if(type == 'organization') {
             Router.push({
                 pathname: '/organization'
             })

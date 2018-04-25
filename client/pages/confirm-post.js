@@ -25,7 +25,7 @@ class ConfirmPost extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(!!nextProps.product && this.state.loadingBank) {
+        if(!nextProps.product.isLoading && this.state.loadingBank) {
             this.props.fetchOrganizationBank(nextProps.product.data.organization.organizationId)
             this.setState({
                 loadingBank: false
