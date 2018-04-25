@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import cookie from 'react-cookie'
 import { isNil, isEmpty } from 'lodash'
-import { Grid, Header, Form, Select, Button, Table, Transition } from 'semantic-ui-react'
+import { Grid, Header, Form, Select, Icon, Button, Table, Transition } from 'semantic-ui-react'
 
 class PaymentForm extends Component {
     constructor(props) {
@@ -10,7 +10,8 @@ class PaymentForm extends Component {
         this.state = {
             promptpay_name: hasPromptPay ? this.props.bank.promptPay[0].name : '',
             promptpay_value: hasPromptPay ? this.props.bank.promptPay[0].number : '',
-            hasPromptPay
+            hasPromptPay,
+            bankAccount: []
         }        
     }
 
@@ -18,6 +19,35 @@ class PaymentForm extends Component {
         this.setState({
             [name]: value
         })
+    }
+
+    handleBankChange(e, { name, value }, index) {
+        const { bankAccount } = this.state
+        bankAccount[index] = {
+            ...attributes[index],
+            [name]: value
+        }
+        this.setState({
+            bankAccount
+        })
+    }
+
+    handleAddBankAccount = () => {
+        console.log('in')
+        const { bankAccount } = this.state
+        bankAccount.push({
+            bank_name: '',
+            bank_bank: '',
+            bank_number: '',
+            bank_branch: ''
+        })
+        this.setState({ bankAccount })
+    }
+
+    handleAddBankAccount = (index) => {
+        const { bankAccount } = this.state   
+        bankAccount.splice(index, 1);
+        this.setState({ bankAccount })
     }
 
     handleSubmitPromptPay = () => {
@@ -31,9 +61,10 @@ class PaymentForm extends Component {
     }
 
     render() {
-        const { promptpay_name, promptpay_value } = this.state
+        const { promptpay_name, promptpay_value, bankAccount } = this.state
+        const isMaxAccount = bankAccount.length <= 5
         return (
-            <div>
+            <div className="payment-form">
                 <Form>
                     <Header as='h4' color="orange" >
                         ข้อมูลระบบพร้อมเพย์ (PromptPay)
@@ -59,12 +90,51 @@ class PaymentForm extends Component {
                     </Form.Group>
                     <Button color="green" size="large" onClick={this.handleSubmitPromptPay} >บันทึก</Button>
                 </Form>
+                <Header as='h4' color="orange" >
+                    ข้อมูลบัญชีธนาคาร
+                </Header>
                 <Form>
-                    <Header as='h4' color="orange" >
-                        ข้อมูลบัญชีธนาคาร
-                    </Header>
-                    
-                    <Button color="green" size="large" onClick={this.handleSubmit} >บันทึก</Button>
+                    { bankAccount.map((account, index) => (
+                        <div>
+                            <Form.Group widths='equal'>
+                                <Form.Input 
+                                    fluid required
+                                    label='ชื่อ - สกุล' 
+                                    name="bank_name" 
+                                    placeholder="ชื่อ นามสกุลที่ของบัญชี"
+                                    onChange={(e, value) => this.handleBankChange(e, value, index)}
+                                />
+                                <Form.Input 
+                                    fluid required
+                                    label='ธนาคาร' 
+                                    name="bank_bank" 
+                                    placeholder="ธนาคาร"
+                                    onChange={(e, value) => this.handleBankChange(e, value, index)}
+                                />
+                            </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Input 
+                                    fluid required
+                                    label='เลขบัญชี' 
+                                    name="bank_number" 
+                                    placeholder="เลขบัญชีของคุณ"
+                                    onChange={(e, value) => this.handleBankChange(e, value, index)}
+                                />
+                                <Form.Input 
+                                    fluid required
+                                    label='สาขา' 
+                                    name="bank_branch" 
+                                    placeholder="สาขาธนาคารบัญชีของคุณ"
+                                    onChange={(e, value) => this.handleBankChange(e, value, index)}
+                                />
+                            </Form.Group>
+                            <Form.Group className="delete-container">
+                                <Button content='ลบบัญชี' type="button" color="red" size="tiny" onClick={() => this.handleDeleteBankAccount(index)} icon='trash' labelPosition='left' />
+                            </Form.Group>
+                        </div>
+                    ))}
+                    <Button color="green" size="large" onClick={this.handleSubmit}>บันทึก</Button>
+                    <Button color="teal" size="large" onClick={this.handleAddBankAccount} >เพิ่มบัญชี</Button>
                 </Form>
             </div>
         )
