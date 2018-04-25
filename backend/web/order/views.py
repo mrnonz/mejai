@@ -9,6 +9,7 @@ from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from product_attribute.models import ProductAttribute
 from product_attribute.serializers import ProductAttributeSerializer
+from organization.models import Organization
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
@@ -76,6 +77,12 @@ def order_status(request, pk):
     if request.method == 'PUT':
         if order.status < 5:
             order.status += 1
+
+        if order.status == 2:  # Waiting shipping order & Increse fund
+            product = Product.objects.get(pk=order.product_id)
+            organization = Organization.objects.get(pk=product.organization_id)
+            organization.fund += order.price
+            organization.save()
 
         order.save()
         serializerOrder = OrderSerializer(order)
