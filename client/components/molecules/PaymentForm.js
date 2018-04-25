@@ -24,7 +24,7 @@ class PaymentForm extends Component {
     handleBankChange(e, { name, value }, index) {
         const { bankAccount } = this.state
         bankAccount[index] = {
-            ...attributes[index],
+            ...bankAccount[index],
             [name]: value
         }
         this.setState({
@@ -33,7 +33,6 @@ class PaymentForm extends Component {
     }
 
     handleAddBankAccount = () => {
-        console.log('in')
         const { bankAccount } = this.state
         bankAccount.push({
             bank_name: '',
@@ -44,7 +43,7 @@ class PaymentForm extends Component {
         this.setState({ bankAccount })
     }
 
-    handleAddBankAccount = (index) => {
+    handleDeleteBankAccount = (index) => {
         const { bankAccount } = this.state   
         bankAccount.splice(index, 1);
         this.setState({ bankAccount })
@@ -134,7 +133,7 @@ class PaymentForm extends Component {
                         </div>
                     ))}
                     <Button color="green" size="large" onClick={this.handleSubmit}>บันทึก</Button>
-                    <Button color="teal" size="large" onClick={this.handleAddBankAccount} >เพิ่มบัญชี</Button>
+                    <Button color="teal" type="button" size="large" onClick={this.handleAddBankAccount} >เพิ่มบัญชี</Button>
                 </Form>
             </div>
         )
