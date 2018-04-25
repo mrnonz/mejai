@@ -7,7 +7,7 @@ import withTopbar from 'hocs/withTopbar'
 import { Form, Container, Grid, Button, Segment, Icon } from 'semantic-ui-react'
 import SiteLogo from 'molecules/SiteLogo'
 import FormInput from 'molecules/FormInput'
-import { userLogin } from 'stores/actions/user'
+import { organizationLogin } from 'stores/actions/organization'
 
 class LoginOrganizationPage extends Component {
   constructor(props) {
@@ -25,14 +25,14 @@ class LoginOrganizationPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.state.loggingUser) {
-            const { user } = nextProps.user
-            if(user.userId) {
-                cookie.save('userId', user.userId)
+            const { user } = nextProps.organization
+            if(organization.userId) {
+                cookie.save('orgnization', organization.userId)
                 Router.push({
-                    pathname: '/'
+                    pathname: 'user'
                 })
             }
-            if(nextProps.user.isLoggingError) {
+            if(nextProps.organization.isLoggingError) {
                 this.setState({
                     errorLogin: true,
                     loggingUser: false
@@ -45,7 +45,7 @@ class LoginOrganizationPage extends Component {
   handleLoginSubmit() {
       const { email, password } = this.state.loginForm
       const userData = { email, password }
-      this.props.userLogin(userData)
+      this.props.organizationLogin(userData)
       this.setState({
           loggingUser: true
       })
@@ -85,14 +85,14 @@ class LoginOrganizationPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.user
+    organization: state.organization
   }
 )
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userLogin: (userData) => {
-        dispatch(userLogin(userData))
+    organizationLogin: (userData) => {
+        dispatch(organizationLogin(userData))
     }
   }
 }

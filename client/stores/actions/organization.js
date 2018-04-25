@@ -23,6 +23,12 @@ export const fetchingOrganizationBank = () => {
     }
 }
 
+export const organizationLogging = () => ({
+    type: 'ORGANIZATION_LOGGING_IN',
+    isLogging: true,
+    isLoggingError: false,
+})
+
 export const fetchOrganizationSuccess = (organization) => {
     return {
         type: 'SUCCESS_ORGANIZATION',
@@ -54,6 +60,18 @@ export const fetchOrganizationBankSuccess = (bank) => {
         bank
     }
 }
+
+export const organizationLoginSuccess = (organization) => ({
+    type: 'ORGANIZATION_LOGIN_SUCCESS',
+    isLogging: false,
+    organization
+})
+
+export const organizationLoginFailed = () => ({
+    type: 'ORGANIZATION_LOGIN_FAILED',
+    isLogging: false,
+    isLoggingError: true
+})
 
 export const fetchOrganizations = () => {
     return (dispatch) => {
@@ -110,3 +128,21 @@ export const fetchOrganizationBank = (id) => {
             })
     }
 }
+
+export const organizationLogin = (data) => (
+    (dispatch) => {
+        dispatch(organizationLogging())
+        const logUrl = `${url}/organization/login/`
+        return Axios({
+            method: 'POST',
+            url: logUrl,
+            data
+        })
+        .then((response) => {
+            dispatch(organizationLoginSuccess(response))
+        })
+        .catch((error) => {
+            dispatch(organizationLoginFailed())
+        })
+    }
+)

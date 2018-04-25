@@ -40,9 +40,12 @@ const intialStore = {
         isLoading: true,
         isLoadginOrder: true,
         isLoadingBank: true,
+        isLogging: false,
+        isLoggingError: false,
         data: [],
         info: {},
-        orders: []
+        orders: [],
+        organization: {}
     },
     cart: {
         isLoading: true,

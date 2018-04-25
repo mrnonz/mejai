@@ -15,6 +15,12 @@ const organization = (state = {}, action) => {
                 ...state,
                 isLoadingBank: action.isLoadingBank
             }
+        case 'ORGANIZATION_LOGGING_IN':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                isLoggingError: action.isLoggingError
+            }
         case 'SUCCESS_ORGANIZATION':
             return {
                 ...state,
@@ -38,6 +44,18 @@ const organization = (state = {}, action) => {
                 ...state,
                 isLoadingBank: action.isLoadingBank,
                 bank: action.bank.data
+            }
+        case 'ORGANIZATION_LOGIN_SUCCESS':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                organization: action.organization.data
+            }
+        case 'ORGANIZATION_LOGIN_FAILED':
+            return {
+                ...state,
+                isLogging: action.isLogging,
+                isLoggingError: action.isLoaggingError
             }
         default:
             return state
