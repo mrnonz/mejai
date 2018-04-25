@@ -1,8 +1,9 @@
-import { isNil, reduce, find, remove } from 'lodash'
+import { isNil, filter, reduce, find, remove } from 'lodash'
 
 export default class CartModel {
     constructor(userCart) {
         this._cart = userCart
+        this._cart.items = filter(userCart.items, (item) => !isNil(item.product) )
     }
 
     get items() {

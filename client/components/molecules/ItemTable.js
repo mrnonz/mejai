@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { isNil } from 'lodash'
 import Svg from 'react-inlinesvg'
 import { Table, Image, Header, Loader } from 'semantic-ui-react'
 import QuantityInput from 'molecules/QuantityInput'
@@ -18,6 +19,7 @@ class ItemTable extends Component {
                 </Table.Header>
                 <Table.Body>
                     { items.map((item) => {
+                        if (isNil(item.product)) return null
                         const { product: { itemId, name, auction, organization = {}, thumbnail }, productAttribute, price, quantity } = item
                         return (
                             <Table.Row>
