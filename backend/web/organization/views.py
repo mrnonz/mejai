@@ -142,3 +142,21 @@ def organization_promptpay(request, pk):
             organizationPromptpay)
 
         return JsonResponse(serializerOrganizationPromptpay.data, status=200)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+
+        if 'name' in data:
+            OrganizationPromptpay.objects.filter(
+                organization_id=pk).update(name=data['name'])
+        if 'number' in data:
+            OrganizationPromptpay.objects.filter(
+                organization_id=pk).update(number=data['number'])
+
+        organizationPromptpay = OrganizationPromptpay.objects.get(
+            organization_id=pk)
+
+        serializerOrganizationPromptpay = OrganizationPromptpaySerializer(
+            organizationPromptpay)
+
+        return JsonResponse(serializerOrganizationPromptpay.data, status=200)
