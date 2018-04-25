@@ -46,7 +46,7 @@
         aside{
             @include layout-content;
             background: $colorWhite;
-            flex-basis: 250px;
+            flex: 0 0 250px;
 
             padding-left: 10px; 
             padding-right: 10px; 
