@@ -29,7 +29,7 @@ class LoginOrganizationPage extends Component {
             if(organization.userId) {
                 cookie.save('orgnization', organization.userId)
                 Router.push({
-                    pathname: 'user'
+                    pathname: 'organization'
                 })
             }
             if(nextProps.organization.isLoggingError) {
