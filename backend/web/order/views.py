@@ -75,14 +75,25 @@ def order_status(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        if order.status < 5:
-            order.status += 1
 
-        if order.status == 2:  # Waiting shipping order & Increse fund
-            product = Product.objects.get(pk=order.product_id)
+        product = Product.objects.get(pk=order.product_id)
+        if order.status == 0:
+            product.quantity -= 1
+            product.save()
+
+            if order.attribute_id:
+                productAttribute = ProductAttribute.objects.get(
+                    pk=order.attribute_id)
+                productAttribute.quantity -= 1
+                productAttribute.save()
+
+        elif order.status == 1:  # Waiting shipping order & Increse fund
             organization = Organization.objects.get(pk=product.organization_id)
             organization.fund += order.price
             organization.save()
+
+        if order.status < 5:
+            order.status += 1
 
         order.save()
         serializerOrder = OrderSerializer(order)
