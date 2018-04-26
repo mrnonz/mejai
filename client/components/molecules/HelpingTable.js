@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { isEmpty } from 'lodash'
 import { Table, Image, Progress } from 'semantic-ui-react'
 import { generatePayload } from 'utils/promptpay'
 import QRCode from 'qrcode.react'
@@ -26,7 +27,7 @@ const HelpingTable = ({ organization, hideLabel, price, hidePrice, bank }) => {
                         <p className="helping">เลขบัญชี: 123-4-56789-0</p> 
                     </Table.Cell>
                     <Table.Cell className="content" textAlign="right" >
-                        { !!bank ? <QRCode value={generatePayload(bank.promptPay[0].number, +price)} /> :
+                        { !isEmpty(bank.promptPay) ? <QRCode value={generatePayload(bank.promptPay[0].number, +price)} /> :
                             <Image src={'static/qr.jpg'} size="small" inline /> }
                     </Table.Cell>
                     <Table.Cell  verticalAlign="middle" className="content">
