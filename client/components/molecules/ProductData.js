@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNil } from 'lodash'
 import { connect } from 'react-redux'
 import cookie from 'react-cookie'
 import { Button, Progress, Header, Input, Dropdown } from 'semantic-ui-react'
@@ -98,7 +98,7 @@ class ProductData extends Component {
                             action={{ color:"teal", size:"huge", content: "ประมูล", onClick:this.handlePriceSubmit.bind(this) }} 
                             placeholder={ `เพิ่มขั้นต่ำ ${product.auction.price_step} บาท` }
                         /> : 
-                        userId == product.auction.userId ? 
+                        userId == product.auction.userId && !isNil(product.auction.userId) ? 
                         <Button color="red" size="huge" fluid>ราคาของคุณ</Button> : 
                         currentTime > product.auction.exp_time ? <Button color="red" size="huge" fluid>สิ้นสุดการประมูล</Button> : <Button color="teal" size="huge" onClick={this.handleShowPriceInput.bind(this)} fluid>ร่วมประมูล</Button>
                     }

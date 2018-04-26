@@ -17,7 +17,7 @@ const CartSummary = ({ organizations, showButton = true, onSubmit }) => {
                         { organizations.map((organization) => (
                             <Table.Row>
                                 <Table.Cell>
-                                    <Image src={'static/OrganizationImage1.jpg'} size="small" />
+                                    <Image src={organization.thumbnail} size="small" />
                                 </Table.Cell>
                                 <Table.Cell className="cell-item">
                                     <p>{ organization.name }</p>

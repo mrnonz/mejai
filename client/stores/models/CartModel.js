@@ -32,6 +32,7 @@ export default class CartModel {
                 organizations.push({
                     name: item.product.organization.name,
                     value: item.price * item.quantity,
+                    thumbnail: item.product.organization.thumbnail,
                     items: [item.product.name]
                 })
                 return organizations
