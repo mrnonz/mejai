@@ -160,3 +160,22 @@ def organization_promptpay(request, pk):
             organizationPromptpay)
 
         return JsonResponse(serializerOrganizationPromptpay.data, status=200)
+
+
+@csrf_exempt
+def organization_bank_account(request, pk):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        accounts = data['accounts']
+
+        OrganizationBank.objects.filter(organization_id=pk).delete()
+
+        for account in accounts:
+            OrganizationBank.objects.create(name=account['name'],
+                                            type=1,
+                                            number=account['number'],
+                                            branch=account['branch'],
+                                            organization_id=pk,
+                                            bank_id=account['bankId'])
+
+        return HttpResponse(status=200)
