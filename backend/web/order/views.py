@@ -5,6 +5,8 @@ from order.models import Order
 from order.serializers import OrderSerializer
 from product.models import Product
 from product.serializers import ProductSerializer
+from cart.models import Cart
+from cart_product.models import CartProduct
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from product_attribute.models import ProductAttribute
@@ -172,6 +174,10 @@ def order_create(request):
                               attribute_id=attribute,
                               time=datetime.now(),
                               address=newAddress)
+                CartProduct.objects.filter(
+                    cart_id=cartId,
+                    product_id=productId,
+                    attribute_id=attribute).delete()
             except:
                 order = Order(quantity=quantity,
                               price=price,
@@ -180,6 +186,9 @@ def order_create(request):
                               buyer_id=userId,
                               time=datetime.now(),
                               address=newAddress)
+                CartProduct.objects.filter(
+                    cart_id=cartId,
+                    product_id=productId).delete()
 
             order.save()
             # serializerOrder = OrderSerializer(order)
