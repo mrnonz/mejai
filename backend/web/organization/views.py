@@ -119,7 +119,8 @@ def organization_login(request):
 
         try:
             organization = Organization.objects.get(
-                email=email, password=password)
+                email=email, password=hashlib.sha256(
+                    password).hexdigest())
 
             serializerOrganization = OrganizationSerializer(organization)
             return JsonResponse(serializerOrganization.data, status=200)

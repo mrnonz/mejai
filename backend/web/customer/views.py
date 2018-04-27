@@ -21,6 +21,7 @@ from django.core.files.storage import FileSystemStorage
 from datetime import datetime
 import uuid
 import os
+import hashlib
 
 
 @csrf_exempt
@@ -48,7 +49,8 @@ def customer_login(request):
         password = data['password']
 
         try:
-            customer = Customer.objects.get(email=email, password=password)
+            customer = Customer.objects.get(email=email, password=hashlib.sha256(
+                password).hexdigest())
 
             serializerCustomer = CustomerSerializer(customer)
             return JsonResponse(serializerCustomer.data, status=200)
@@ -113,7 +115,8 @@ def customer_create(request):
         customer = Customer(email=email,
                             first_name=firstname,
                             last_name=lastname,
-                            password=password,
+                            password=hashlib.sha256(
+                                password).hexdigest(),
                             username=email)
         customer.save()
 
