@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: mejai_db_1
--- Generation Time: Apr 27, 2018 at 02:48 PM
+-- Host: backend_db_1
+-- Generation Time: Apr 27, 2018 at 03:27 PM
 -- Server version: 5.7.21
--- PHP Version: 7.2.2
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -414,18 +414,19 @@ CREATE TABLE `Customer` (
 --
 
 INSERT INTO `Customer` (`id`, `email`, `username`, `password`, `line_id`, `sex`, `address`, `tel`, `picture`, `order_count`, `buy_count`, `sell_count`, `date_joined`, `first_name`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `last_name`) VALUES
-(20, 'useremail1@mail.com', 'useremail1@mail.com', '123456789', NULL, NULL, 'สมชาย\\ใจดี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10123\\088-1234567', NULL, '', 0, 0, 0, '2018-04-17 08:00:44.101289', 'สุวิทย์', 1, 0, 0, NULL, 'จงใจหมาย'),
-(21, 'useremail2@mail.com', 'useremail2@mail.com', '123456789', NULL, NULL, 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL, '', 0, 0, 0, '2018-04-17 08:02:07.438672', 'ณรง', 1, 0, 0, NULL, 'อิ่มเอม'),
-(22, 'abcmail@mail.com', 'abcmail@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-21 09:46:46.642308', 'สุชาติ', 1, 0, 0, NULL, 'จงใจ'),
-(23, 'testmm@mail.com', 'testmm@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:02:42.042762', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
-(24, 'testmail@mail.com', 'testmail@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:03:56.736289', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
-(25, 'testmail2@mail.com', 'testmail2@mail.com', '123456789', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:04:39.335211', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
-(27, 'mailmailami@mail.com', 'mailmailami@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/0da5a1c3f90b4956ab91799deafd4975.jpg', 0, 0, 0, '2018-04-23 06:06:11.408644', 'john', 1, 0, 0, NULL, 'doe'),
-(28, 'aaaaa@mao.com', 'aaaaa@mao.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/b31e9b7c6e1a4b24b69636e6e34c329c.jpg', 0, 0, 0, '2018-04-23 06:07:14.245865', 'Jhh', 1, 0, 0, NULL, 'DD'),
-(29, 'abcdef@mail.com', 'abcdef@mail.com', '123456789', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/a844a4973245443faafd3c8116bbc8f6.jpg', 0, 0, 0, '2018-04-23 07:37:50.993534', 'ดำ', 1, 0, 0, NULL, 'ขาว'),
-(30, 'aeiou@mail.com', 'aeiou@mail.com', '123456789', NULL, NULL, 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพมหานคร\\10123\\022145787984', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/3641bb4fcfb047c995aea8ca907f09c3.jpeg', 0, 0, 0, '2018-04-24 07:45:02.272902', 'น้ำเงิน', 1, 0, 0, NULL, 'แดง'),
-(31, 'exmail1@mail.com', 'exmail1@mail.com', '123456789', NULL, NULL, 'สมศรี\\อ่าห๊ะ\\11\\11\\bangkok\\1111\\0876543', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/c71327622d9a48c392347a6f549ab9d5.jpg', 0, 0, 0, '2018-04-24 12:21:53.400507', 'จิตใจ', 1, 0, 0, NULL, 'ดี'),
-(32, 'exmail2@mail.com', 'exmail2@mail.com', '123456789', NULL, NULL, '\\จิตใจ\\ไทย\\ไทย\\กทม\\555666\\8889996566', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/73f1b0fb21f74622a0f363bd287d7a77.jpg', 0, 0, 0, '2018-04-24 12:22:40.633507', 'จิตใจ', 1, 0, 0, NULL, 'งาม');
+(20, 'useremail1@mail.com', 'useremail1@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, 'สมชาย\\ใจดี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพ\\10123\\088-1234567', NULL, '', 0, 0, 0, '2018-04-17 08:00:44.101289', 'สุวิทย์', 1, 0, 0, NULL, 'จงใจหมาย'),
+(21, 'useremail2@mail.com', 'useremail2@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, 'ณรง\\อิ่มเอม\\บางนา\\บางนา\\กรุงเทพ\\10633\\091-1254788', NULL, '', 0, 0, 0, '2018-04-17 08:02:07.438672', 'ณรง', 1, 0, 0, NULL, 'อิ่มเอม'),
+(22, 'abcmail@mail.com', 'abcmail@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-21 09:46:46.642308', 'สุชาติ', 1, 0, 0, NULL, 'จงใจ'),
+(23, 'testmm@mail.com', 'testmm@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:02:42.042762', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(24, 'testmail@mail.com', 'testmail@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:03:56.736289', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(25, 'testmail2@mail.com', 'testmail2@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-23 06:04:39.335211', 'จริง', 1, 0, 0, NULL, 'นะนะ'),
+(27, 'mailmailami@mail.com', 'mailmailami@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/0da5a1c3f90b4956ab91799deafd4975.jpg', 0, 0, 0, '2018-04-23 06:06:11.408644', 'john', 1, 0, 0, NULL, 'doe'),
+(28, 'aaaaa@mao.com', 'aaaaa@mao.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/b31e9b7c6e1a4b24b69636e6e34c329c.jpg', 0, 0, 0, '2018-04-23 06:07:14.245865', 'Jhh', 1, 0, 0, NULL, 'DD'),
+(29, 'abcdef@mail.com', 'abcdef@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, NULL, NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/a844a4973245443faafd3c8116bbc8f6.jpg', 0, 0, 0, '2018-04-23 07:37:50.993534', 'ดำ', 1, 0, 0, NULL, 'ขาว'),
+(30, 'aeiou@mail.com', 'aeiou@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, 'สมศักดิ์\\สมศรี\\ลาดกระบัง\\ลาดกระบัง\\กรุงเทพมหานคร\\10123\\022145787984', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/3641bb4fcfb047c995aea8ca907f09c3.jpeg', 0, 0, 0, '2018-04-24 07:45:02.272902', 'น้ำเงิน', 1, 0, 0, NULL, 'แดง'),
+(31, 'exmail1@mail.com', 'exmail1@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, 'สมศรี\\อ่าห๊ะ\\11\\11\\bangkok\\1111\\0876543', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/c71327622d9a48c392347a6f549ab9d5.jpg', 0, 0, 0, '2018-04-24 12:21:53.400507', 'จิตใจ', 1, 0, 0, NULL, 'ดี'),
+(32, 'exmail2@mail.com', 'exmail2@mail.com', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', NULL, NULL, '\\จิตใจ\\ไทย\\ไทย\\กทม\\555666\\8889996566', NULL, 'https://storage.googleapis.com/mejai/customer/image/profile/73f1b0fb21f74622a0f363bd287d7a77.jpg', 0, 0, 0, '2018-04-24 12:22:40.633507', 'จิตใจ', 1, 0, 0, NULL, 'งาม'),
+(34, 'xx@bb.comb', 'xx@bb.comb', '988b327bd7906b2694b9e80e4c3ac9557f69d547abdf73c917a76630068030cb', NULL, NULL, NULL, NULL, '', 0, 0, 0, '2018-04-27 15:24:10.453472', 'JJ', 1, 0, 0, NULL, 'DD');
 
 -- --------------------------------------------------------
 
@@ -742,7 +743,8 @@ CREATE TABLE `Organization_Bank` (
 --
 
 INSERT INTO `Organization_Bank` (`id`, `name`, `type`, `number`, `branch`, `organization_id`, `bank_id`) VALUES
-(1, 'John Doe', 'Savings Account', '123-4-56789-0', 'Bangkok', 1, 1);
+(8, 'John Doe', '1', '123-456-789', 'Bangkok', 1, 1),
+(9, 'John Doe', '1', '123-456-789', 'Bangkok', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -1218,7 +1220,7 @@ ALTER TABLE `Cart_Product`
 -- AUTO_INCREMENT for table `Customer`
 --
 ALTER TABLE `Customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `Customer_groups`
@@ -1266,7 +1268,7 @@ ALTER TABLE `Organization`
 -- AUTO_INCREMENT for table `Organization_Bank`
 --
 ALTER TABLE `Organization_Bank`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `Organization_Promptpay`
