@@ -14,3 +14,5 @@
 @headerColor: #3E4442;
 
 @descriptionColor: @grey;
+
+@extraDivider: 1px solid rgba(0,0,0,0.1);

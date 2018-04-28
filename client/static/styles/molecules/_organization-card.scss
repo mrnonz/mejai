@@ -1,6 +1,19 @@
 .organization-card {
-    .button-group {
-        display: flex;
-        justify-content: space-between;
+    .description {
+        margin-bottom: 0 !important;
     }
+
+    .extra {
+
+        .contribution {
+            margin-bottom: 0.5em;
+            font-size: 1.08em;
+            color: $colorOrange;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    }   
 }

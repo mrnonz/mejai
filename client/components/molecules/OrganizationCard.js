@@ -19,6 +19,9 @@ const OrganizationCard = ({ data, onInfoClick, onHelpClick, type }) => {
                 <Card.Description>
                     { data.description }
                 </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <div className="contribution">ยอดเงินช่วยเหลือ: { data.contribution } บาท</div>
                 <div className="button-group">
                     <Button basic color="orange" fluid onClick={() => onInfoClick(data.organizationId, null)}>รายละเอียด</Button>
                     { type === 'seller' ? <Button color="teal" fluid onClick={() => onHelpClick(data.organizationId)}>ช่วยเหลือ</Button> :
