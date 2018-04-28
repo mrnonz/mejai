@@ -8,7 +8,12 @@
         .contribution {
             margin-bottom: 0.5em;
             font-size: 1.08em;
-            color: $colorOrange;
+            font-weight: 500;
+            color: $colorBlack;
+
+            span {
+                color: $colorGreen;
+            }
         }
 
         .button-group {
