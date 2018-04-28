@@ -3,12 +3,13 @@ from .models import OrganizationBank
 
 
 class OrganizationBankSerializer(serializers.ModelSerializer):
+    bankId = serializers.IntegerField(source='bank_id')
 
     class Meta:
         model = OrganizationBank
         fields = (
             'name',
-            'type',
+            'bankId',
             'number',
             'branch',
         )

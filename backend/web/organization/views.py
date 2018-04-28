@@ -107,3 +107,76 @@ def organization_sell_order(request, pk):
         data['organizationId'] = pk
 
         return JsonResponse(data)
+
+
+@csrf_exempt
+def organization_login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        email = data['email']
+        password = data['password']
+
+        try:
+            organization = Organization.objects.get(
+                email=email, password=hashlib.sha256(
+                    password).hexdigest())
+
+            serializerOrganization = OrganizationSerializer(organization)
+            return JsonResponse(serializerOrganization.data, status=200)
+        except Organization.DoesNotExist:
+            return HttpResponse(status=404)
+
+
+@csrf_exempt
+def organization_promptpay(request, pk):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        name = data['name']
+        number = data['number']
+
+        organizationPromptpay = OrganizationPromptpay.objects.create(
+            name=name, number=number, organization_id=pk)
+
+        serializerOrganizationPromptpay = OrganizationPromptpaySerializer(
+            organizationPromptpay)
+
+        return JsonResponse(serializerOrganizationPromptpay.data, status=200)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+
+        if 'name' in data:
+            OrganizationPromptpay.objects.filter(
+                organization_id=pk).update(name=data['name'])
+        if 'number' in data:
+            OrganizationPromptpay.objects.filter(
+                organization_id=pk).update(number=data['number'])
+
+        organizationPromptpay = OrganizationPromptpay.objects.get(
+            organization_id=pk)
+
+        serializerOrganizationPromptpay = OrganizationPromptpaySerializer(
+            organizationPromptpay)
+
+        return JsonResponse(serializerOrganizationPromptpay.data, status=200)
+
+
+@csrf_exempt
+def organization_bank_account(request, pk):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        accounts = data['accounts']
+
+        OrganizationBank.objects.filter(organization_id=pk).delete()
+
+        for account in accounts:
+            OrganizationBank.objects.create(name=account['name'],
+                                            type=1,
+                                            number=account['number'],
+                                            branch=account['branch'],
+                                            organization_id=pk,
+                                            bank_id=account['bankId'])
+
+        return HttpResponse(status=200)

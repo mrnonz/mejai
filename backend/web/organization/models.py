@@ -11,6 +11,8 @@ class Organization(models.Model):
     thumbnail = models.CharField(max_length=1023, default='')
     category = models.IntegerField(default=0)
     info = models.TextField(default='')
+    email = models.CharField(max_length=254, default='')
+    password = models.CharField(max_length=128, default='')
 
     class Meta:
         managed = True

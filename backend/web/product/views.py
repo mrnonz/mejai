@@ -60,6 +60,14 @@ def product_auction(request):
         serializer = ProductSerializer(product, many=True)
         data = {}
         data['data'] = serializer.data
+
+        for item in data['data']:
+            productId = item['productId']
+
+            auction = Auction.objects.get(product_id=productId)
+            serializerAuction = AuctionSerializer(auction)
+            item['auction'] = serializerAuction.data
+
         return JsonResponse(data, safe=False)
 
     elif request.method == 'POST':

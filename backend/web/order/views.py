@@ -5,10 +5,13 @@ from order.models import Order
 from order.serializers import OrderSerializer
 from product.models import Product
 from product.serializers import ProductSerializer
+from cart.models import Cart
+from cart_product.models import CartProduct
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
 from product_attribute.models import ProductAttribute
 from product_attribute.serializers import ProductAttributeSerializer
+from organization.models import Organization
 from google.cloud import storage
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
@@ -74,7 +77,24 @@ def order_status(request, pk):
         return HttpResponse(status=404)
 
     if request.method == 'PUT':
-        if order.status < 4:
+
+        product = Product.objects.get(pk=order.product_id)
+        if order.status == 0:
+            product.quantity -= 1
+            product.save()
+
+            if order.attribute_id:
+                productAttribute = ProductAttribute.objects.get(
+                    pk=order.attribute_id)
+                productAttribute.quantity -= 1
+                productAttribute.save()
+
+        elif order.status == 1:  # Waiting shipping order & Increse fund
+            organization = Organization.objects.get(pk=product.organization_id)
+            organization.fund += order.price
+            organization.save()
+
+        if order.status < 5:
             order.status += 1
 
         order.save()
@@ -154,6 +174,10 @@ def order_create(request):
                               attribute_id=attribute,
                               time=datetime.now(),
                               address=newAddress)
+                CartProduct.objects.filter(
+                    cart_id=cartId,
+                    product_id=productId,
+                    attribute_id=attribute).delete()
             except:
                 order = Order(quantity=quantity,
                               price=price,
@@ -162,6 +186,9 @@ def order_create(request):
                               buyer_id=userId,
                               time=datetime.now(),
                               address=newAddress)
+                CartProduct.objects.filter(
+                    cart_id=cartId,
+                    product_id=productId).delete()
 
             order.save()
             # serializerOrder = OrderSerializer(order)
