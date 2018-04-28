@@ -5,7 +5,7 @@
             font-weight: 500;
         }
 
-        >.description {
+        .description {
             color: $colorGrey;
         }
 
@@ -13,6 +13,20 @@
             font-weight: 500;
 
             >span {
+                color: $colorOrange;
+            }
+        }
+
+        >.bank-detail {
+            p {
+                margin-bottom: 0.4em;
+            }
+
+            .bank-name {
+                color: $colorGrey;
+            }
+
+            .account-number {
                 color: $colorOrange;
             }
         }
