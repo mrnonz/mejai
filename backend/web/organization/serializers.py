@@ -16,5 +16,6 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'thumbnail',
             'contribution',
             'category',
-            'info'
+            'info',
+            'fund'
         )
