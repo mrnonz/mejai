@@ -21,10 +21,15 @@ const organization = (state = {}, action) => {
                 isLogging: action.isLogging,
                 isLoggingError: action.isLoggingError
             }
-        case 'UPDATING_PROMPT_PAY':
+        case 'UPDATING_PAYMENT':
             return {
                 ...state,
-                isUpdating: action.isUpdating
+                isUpdatingPayment: action.isUpdatingPayment
+            }
+        case 'FETCHING_BANKS_LIST':
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         case 'SUCCESS_ORGANIZATION':
             return {
@@ -62,11 +67,16 @@ const organization = (state = {}, action) => {
                 isLogging: action.isLogging,
                 isLoggingError: action.isLoaggingError
             }
-        case 'PROMPT_PAY_SUCCESS':
+        case 'PAYMENT_SUCCESS':
             return {
                 ...state,
-                isUpdating: action.isUpdating,
-                response: action.response.data
+                isUpdatingPayment: action.isUpdatingPayment
+            }
+        case 'FETCH_BANK_SUCCESS':
+            return {
+                ...state,
+                isFetching: action.isFetching,
+                banks: action.banks.data
             }
         default:
             return state

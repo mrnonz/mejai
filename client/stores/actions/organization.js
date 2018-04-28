@@ -29,9 +29,14 @@ export const organizationLogging = () => ({
     isLoggingError: false,
 })
 
-export const updatingPromptPay = () => ({
-    type: 'UPDATING_PROMPT_PAY',
-    isUpdating: true
+export const updatingPayment = () => ({
+    type: 'UPDATING_PAYMENT',
+    isUpdatingPayment: true
+})
+
+export const fetchingBanks = () => ({
+    type: 'FETCHING_BANKS_LIST',
+    isFetching: true
 })
 
 export const fetchOrganizationSuccess = (organization) => {
@@ -78,10 +83,16 @@ export const organizationLoginFailed = () => ({
     isLoggingError: true
 })
 
-export const updatePromptPaySuccess = (response) => ({
-    type: 'PROMPT_PAY_SUCCESS',
-    isUpdating: false,
-    response
+export const updatePaymentSuccess = () => ({
+    type: 'PAYMENT_SUCCESS',
+    isUpdatingPayment: false
+})
+
+
+export const fetchBankSuccess = (banks) => ({
+    type: 'FETCH_BANK_SUCCESS',
+    isFetching: false,
+    banks
 })
 
 export const fetchOrganizations = () => {
@@ -160,7 +171,7 @@ export const organizationLogin = (data) => (
 
 export const createUpdatePromptPay = (id, data, isCreate) => (
     (dispatch) => {
-        dispatch(updatingPromptPay())
+        dispatch(updatingPayment())
         const updateUrl = `${url}/organization/${id}/bank/promptpay/`
         const method = isCreate ? 'POST' : 'PUT'
         return Axios({
@@ -168,11 +179,43 @@ export const createUpdatePromptPay = (id, data, isCreate) => (
             method,
             data
         })
-        .then((response) => {
-            dispatch(updatePromptPaySuccess(response))
+        .then(() => {
+            dispatch(updatePaymentSuccess())
         })
         .catch((error) => {
             throw(error);
         })
+    }
+)
+
+export const updateOrganizationBank = (id, data) => (
+    (dispatch) => {
+        dispatch(updatingPayment())
+        const updateUrl = `${url}/organization/${id}/bank/account/`
+        return Axios({
+            url: updateUrl,
+            method: 'POST',
+            data
+        })
+        .then(() => {
+            dispatch(updatePaymentSuccess())
+        })
+        .catch((error) => {
+            throw(error);
+        })
+    }
+)
+
+export const fetchBanks = () => (
+    (dispatch) => {
+        dispatch(fetchingBanks())
+        const fetchUrl = `${url}/bank`
+        return Axios.get(fetchUrl)
+            .then((response) => {
+                dispatch(fetchBankSuccess(response))
+            })
+            .catch((error) => {
+                throw(error);
+            })
     }
 )

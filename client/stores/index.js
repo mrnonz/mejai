@@ -37,17 +37,19 @@ const intialStore = {
         auction: []
     },
     organization: {
+        isFetching: true,
         isLoading: true,
         isLoadginOrder: true,
         isLoadingBank: true,
         isLogging: false,
         isLoggingError: false,
-        isUpdating: false,
+        isUpdatingPayment: false,
         response: {},
         data: [],
         info: {},
         orders: [],
-        organization: {}
+        organization: {},
+        banks: []
     },
     cart: {
         isLoading: true,

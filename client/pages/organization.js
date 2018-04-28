@@ -11,14 +11,15 @@ import Loader from 'molecules/Loader'
 import OrderTable from 'molecules/OrderTable'
 import IssueForm from 'molecules/IssueForm'
 import PaymentForm from 'molecules/PaymentForm'
-import { fetchOrganizationOrders, fetchOrganizationBank, createUpdatePromptPay } from 'stores/actions/organization'
+import { fetchBanks, fetchOrganizationOrders, fetchOrganizationBank, createUpdatePromptPay, updateOrganizationBank } from 'stores/actions/organization'
 
 class Organization extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            activeBar: 'organization-order'
+            activeBar: 'organization-order',
+            updatingPayment: false
         }
     }
 
@@ -26,6 +27,18 @@ class Organization extends Component {
         const organizationId = cookie.load('organizationId')
         this.props.fetchOrganizationOrders(organizationId)
         this.props.fetchOrganizationBank(organizationId)
+        this.props.fetchBanks()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.state.updatingPayment && !nextProps.organization.isUpdatingPayment) {
+            const organizationId = cookie.load('organizationId')
+            this.props.fetchOrganizationBank(organizationId)
+            this.setState({
+                activeBar: 'organization-order',
+                updatingPayment: false
+            })
+        }
     }
 
     handleBarClick(value) {
@@ -44,14 +57,23 @@ class Organization extends Component {
         })
     }
 
+    handleUpdatePayment = () => {
+        this.setState({
+            updatingPayment: true
+        })
+    }
+
     render() {
         const { activeBar } = this.state
         const {
             organization: {
                 isLoadingOrders,
                 isLoadingBank,
+                isFetching,
+                isUpdatingPayment,
                 orders,
-                bank
+                bank,
+                banks
             }
         } = this.props
         const SidebarItems = [
@@ -100,10 +122,14 @@ class Organization extends Component {
                         <Header as='h2' dividing color="orange" >
                             การเงิน
                         </Header>
-                        { isLoadingBank ? <Loader wrapped /> : 
+                        { isLoadingBank || isFetching ? <Loader wrapped /> : 
                         <PaymentForm 
                             bank={bank} 
+                            bankList={banks}
+                            isUpdatingPayment={isUpdatingPayment}
+                            onSubmitPayment={this.handleUpdatePayment.bind(Organization)}
                             onSubmitPromptPay={this.props.createUpdatePromptPay.bind(Organization)} 
+                            onSubmitBankAccount={this.props.updateOrganizationBank.bind(Organization)} 
                         /> 
                         }
                     </Container>
@@ -166,6 +192,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         createUpdatePromptPay: (id, data, isCreate) => {
             dispatch(createUpdatePromptPay(id, data, isCreate))
+        },
+        updateOrganizationBank: (id, data) => {
+            dispatch(updateOrganizationBank(id, data))
+        },
+        fetchBanks: () => {
+            dispatch(fetchBanks())
         }
     }
 }
