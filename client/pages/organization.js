@@ -148,6 +148,7 @@ class Organization extends Component {
                 )
             } else if (activeBar === 'logout') {
                 cookie.remove('userId')
+                cookie.remove('organizationId')
                 Router.push({
                     pathname: '/'
                 })

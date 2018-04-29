@@ -68,6 +68,7 @@ const Topbar = (props) => {
             </Grid.Row>
         </Grid>
     )
+    const loginLink = !!userId ? '/user' : '/organization'
     return (
         <div className="topbar">
             <Link href="/"><a><SiteLogo /></a></Link>
@@ -80,7 +81,7 @@ const Topbar = (props) => {
                 </a></Link> }
                 <div className="separator" />
                 { !!userId || !!organizationId ? 
-                    <Link href="/user"><a>
+                    <Link href={loginLink}><a>
                         <div className="user-wrapper">
                             <Svg src={`static/icons/user.svg`} />
                             <span>ข้อมูลผู้ใช้งาน</span>
