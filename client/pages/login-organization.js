@@ -33,7 +33,7 @@ class LoginOrganizationPage extends Component {
               })
             }
             else if(!isNil(nextProps.organization.organization)) {
-                cookie.save('orgnization', nextProps.organization.organization.userId)
+                cookie.save('organizationId', nextProps.organization.organization.organizationId)
                 Router.push({
                     pathname: '/organization'
                 })
