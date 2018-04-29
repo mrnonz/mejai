@@ -6,6 +6,7 @@ import { isEmpty } from 'lodash'
 import { makeStore } from '../stores'
 import withTopbar from 'hocs/withTopbar'
 import Loader from 'molecules/Loader'
+import cookie from 'react-cookie'
 import OrderItemCard from 'molecules/OrderItemCard'
 import OrderInfo from 'molecules/OrderInfo'
 import OrderButton from 'molecules/OrderButton'
@@ -13,7 +14,7 @@ import OrderModel from 'stores/models/Order'
 import HelpingTable from 'molecules/HelpingTable'
 import UploadForm from 'molecules/UploadForm'
 import { fetchOrder, uploadSlip, updateOrderStatus } from 'stores/actions/order'
-import { fetchOrganizationBank } from 'stores/actions/organization'
+import { fetchOrganizationBank, fetchOrganizationOrders } from 'stores/actions/organization'
 
 class Order extends Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class Order extends Component {
             submitingSlip: false,
             submitedSlip: false,
             loadingBank: true,
+            updatingStatus: false,
             slip: []
         }
     }
@@ -48,6 +50,21 @@ class Order extends Component {
                 loadingBank: false
             })
         }
+
+        if(this.state.updatingStatus) {
+            const { url: { query: { type } } } = this.props
+            if(type == 'organization') {
+
+                Router.push({
+                    pathname: '/organization'
+                })
+            } else {
+
+                Router.push({
+                    pathname: '/user'
+                })
+            }
+        }
     }
 
     showSlipForm() {
@@ -71,14 +88,25 @@ class Order extends Component {
     handleUpdateOrderStatus() {
         const { url: { query: { id: orderId, type } } } = this.props
         this.props.updateOrderStatus(orderId)
+        this.setState({
+            updatingStatus: true
+        })
         if(type == 'organization') {
-            Router.push({
-                pathname: '/organization'
-            })
+            const organizationId = cookie.load('organizationId')
+            this.props.fetchOrganizationOrders(organizationId)
+            if(!nextProps.organization.isLoadingOrder) {
+                Router.push({
+                    pathname: '/organization'
+                })
+            }
         } else {
-            Router.push({
-                pathname: '/user'
-            })
+            const userId = cookie.load('userId')
+            this.props.fetchOrders(userId)
+            if(!nextProps.user.isLoadingOrder) {
+                Router.push({
+                    pathname: '/user'
+                })
+            }
         }
     }
 
@@ -199,6 +227,7 @@ class Order extends Component {
 
 const mapStateToProps = (state) => ({
         order: state.order,
+        user: state.order,
         organization: state.organization
     }
 )
@@ -216,6 +245,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateOrderStatus: (orderId) => {
             dispatch(updateOrderStatus(orderId))
+        },
+        fetchOrganizationOrders: (organizationId) => {
+            dispatch(fetchOrganizationOrders(organizationId))
         }
     }
 }
