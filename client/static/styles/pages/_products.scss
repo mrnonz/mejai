@@ -68,6 +68,7 @@
         .list-container{
             @include layout-content;
             display: grid;
+            flex-grow: 1;
             grid-template-rows: min-content 1fr;
             grid-template-columns: auto auto;
             height: auto;
