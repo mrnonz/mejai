@@ -16,7 +16,7 @@ const OrganizationCard = ({ data, onInfoClick, onHelpClick, type }) => {
             <Image src={ data.thumbnail } />
             <Card.Content>
                 <Card.Header>
-                    { data.title }
+                    { data.name }
                 </Card.Header>
                 <Card.Description>
                     { data.description }
