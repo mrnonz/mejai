@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React, {
+    Component
+} from 'react'
 import Svg from 'react-inlinesvg'
 import classNames from 'classnames'
 
-const OrganizationCategory = ({ activeIndex, categoryClick }) => {
-    const categories = [
-        {
+const OrganizationCategory = ({
+    activeIndex,
+    categoryClick
+}) => {
+    const categories = [{
             name: 'ทั้งหมด',
             value: 'all'
         },
@@ -21,7 +25,7 @@ const OrganizationCategory = ({ activeIndex, categoryClick }) => {
             value: 'health'
         },
         {
-            name: 'เทคโยโลยี',
+            name: 'เทคโนโลยี',
             value: 'tech'
         },
         {
@@ -29,19 +33,33 @@ const OrganizationCategory = ({ activeIndex, categoryClick }) => {
             value: 'misc'
         }
     ]
-    
-    return (
-        <header className="organization-category">
-            { categories.map((category, index) => {
-                const categoryClass = classNames('category', {'active': activeIndex === index})
-                return (
-                <div className={categoryClass} onClick={() => categoryClick(index)}>
-                    <Svg src={`static/icons/${category.value}.svg`} />
-                    <span>{category.name}</span>
-                </div>
+
+    return ( <
+        header className = "organization-category" > {
+            categories.map((category, index) => {
+                const categoryClass = classNames('category', {
+                    'active': activeIndex === index
+                })
+                return ( <
+                    div className = {
+                        categoryClass
+                    }
+                    onClick = {
+                        () => categoryClick(index)
+                    } >
+                    <
+                    Svg src = {
+                        `static/icons/${category.value}.svg`
+                    }
+                    /> <
+                    span > {
+                        category.name
+                    } < /span> <
+                    /div>
                 )
-            })}
-        </header>
+            })
+        } <
+        /header>
     )
 }
 
