@@ -36,6 +36,20 @@ class Order extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if(this.state.updatingStatus) {
+            const { url: { query: { type } } } = this.props
+            if(type == 'organization') {
+                Router.push({
+                    pathname: '/organization'
+                })
+            } else {
+
+                Router.push({
+                    pathname: '/user'
+                })
+            }
+        }
+        
         if(this.state.submitingSlip) {
             if(!nextProps.order.isUploading) {
                 this.setState({
@@ -51,19 +65,7 @@ class Order extends Component {
             })
         }
 
-        if(this.state.updatingStatus) {
-            const { url: { query: { type } } } = this.props
-            if(type == 'organization') {
-                Router.push({
-                    pathname: '/organization'
-                })
-            } else {
-
-                Router.push({
-                    pathname: '/user'
-                })
-            }
-        }
+        
     }
 
     showSlipForm() {
