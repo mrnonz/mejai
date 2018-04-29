@@ -54,14 +54,17 @@ class Order extends Component {
         if(this.state.updatingStatus) {
             const { url: { query: { type } } } = this.props
             if(type == 'organization') {
-                Router.push({
-                    pathname: '/organization'
-                })
+                if(!nextProps.organization.isLoadingOrder) {
+                    Router.push({
+                        pathname: '/organization'
+                    })
+                }
             } else {
-
-                Router.push({
-                    pathname: '/user'
-                })
+                if(!nextProps.orders.isLoadingOrder) {
+                    Router.push({
+                        pathname: '/user'
+                    })
+                }
             }
         }
     }
@@ -93,19 +96,9 @@ class Order extends Component {
         if(type == 'organization') {
             const organizationId = cookie.load('organizationId')
             this.props.fetchOrganizationOrders(organizationId)
-            if(!this.props.organization.isLoadingOrder) {
-                Router.push({
-                    pathname: '/organization'
-                })
-            }
         } else {
             const userId = cookie.load('userId')
             this.props.fetchOrders(userId)
-            if(!this.props.user.isLoadingOrder) {
-                Router.push({
-                    pathname: '/user'
-                })
-            }
         }
     }
 
@@ -232,6 +225,7 @@ class Order extends Component {
 
 const mapStateToProps = (state) => ({
         order: state.order,
+        orders: state.orders,
         user: state.order,
         organization: state.organization
     }
