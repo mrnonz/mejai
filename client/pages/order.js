@@ -54,7 +54,6 @@ class Order extends Component {
         if(this.state.updatingStatus) {
             const { url: { query: { type } } } = this.props
             if(type == 'organization') {
-
                 Router.push({
                     pathname: '/organization'
                 })
@@ -120,10 +119,16 @@ class Order extends Component {
     }
 
     redirectPage() {
-        const { url: { query: { id: orderId } } } = this.props
-        Router.push({
-            pathname: '/user'
-        })
+        const { url: { query: { id: orderId, type } } } = this.props
+        if(type == 'organization') {
+            Router.push({
+                pathname: '/organization'
+            })
+        } else {
+            Router.push({
+                pathname: '/user'
+            })
+        }
     }
 
     render() {
