@@ -13,7 +13,7 @@ import OrderButton from 'molecules/OrderButton'
 import OrderModel from 'stores/models/Order'
 import HelpingTable from 'molecules/HelpingTable'
 import UploadForm from 'molecules/UploadForm'
-import { fetchOrder, uploadSlip, updateOrderStatus } from 'stores/actions/order'
+import { fetchOrder, uploadSlip, updateOrderStatus, fetchOrders } from 'stores/actions/order'
 import { fetchOrganizationBank, fetchOrganizationOrders } from 'stores/actions/organization'
 
 class Order extends Component {
@@ -241,6 +241,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchOrder: (orderId) => {
             dispatch(fetchOrder(orderId))
+        },
+        fetchOrders: (userId) => {
+            dispatch(fetchOrders(userId))
         },
         fetchOrganizationBank: (organizationId) => {
             dispatch(fetchOrganizationBank(organizationId))
