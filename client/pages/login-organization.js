@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withRedux from 'next-redux-wrapper'
 import Router from 'next/router'
 import { makeStore } from '../stores'
+import { isNil } from 'lodash'
 import cookie from 'react-cookie'
 import withTopbar from 'hocs/withTopbar'
 import { Form, Container, Grid, Button, Segment, Icon } from 'semantic-ui-react'
@@ -25,19 +26,19 @@ class LoginOrganizationPage extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.state.loggingUser) {
-            const { user } = nextProps.organization
-            if(organization.userId) {
-                cookie.save('orgnization', organization.userId)
-                Router.push({
-                    pathname: 'organization'
-                })
-            }
             if(nextProps.organization.isLoggingError) {
-                this.setState({
-                    errorLogin: true,
-                    loggingUser: false
+              this.setState({
+                  errorLogin: true,
+                  loggingUser: false
+              })
+            }
+            else if(!isNil(nextProps.organization.organization)) {
+                cookie.save('orgnization', nextProps.organization.organization.userId)
+                Router.push({
+                    pathname: '/organization'
                 })
             }
+            
         }
     }
 

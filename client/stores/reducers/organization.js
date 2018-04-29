@@ -65,7 +65,7 @@ const organization = (state = {}, action) => {
             return {
                 ...state,
                 isLogging: action.isLogging,
-                isLoggingError: action.isLoaggingError
+                isLoggingError: action.isLoggingError
             }
         case 'PAYMENT_SUCCESS':
             return {
