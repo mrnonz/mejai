@@ -115,7 +115,7 @@ class MainPage extends Component {
                                     productId={item.productId} 
                                     name={item.name} 
                                     price={item.price} 
-                                    // onCardClick={onCardClick} 
+                                    onCardClick={this.handleCardClick.bind(this)} 
                                     thumbnail={item.thumbnail}
                                 />
                             )) }
