@@ -6,14 +6,15 @@ import BankModel from 'stores/models/BankModel'
 import QRCode from 'qrcode.react'
 
 const HelpingTable = ({ organization, hideLabel, price, hidePrice, bank }) => {
+    const descriptionWidth = !hidePrice ? 4 : 6 
     return (
         <Table basic className="helping-table" fixed>
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell width={5} singleLine>{ !hideLabel && "องค์กรที่ช่วยเหลือ" }</Table.HeaderCell>
-                    <Table.HeaderCell width={4} />
-                    <Table.HeaderCell width={3}></Table.HeaderCell>
-                    <Table.HeaderCell width={4}></Table.HeaderCell>
+                    <Table.HeaderCell width={descriptionWidth} />
+                    { !hidePrice && <Table.HeaderCell width={3}></Table.HeaderCell> }
+                    { !hidePrice && <Table.HeaderCell width={4}></Table.HeaderCell> }
                 </Table.Row>
             </Table.Header>
             <Table.Body>    
@@ -25,16 +26,15 @@ const HelpingTable = ({ organization, hideLabel, price, hidePrice, bank }) => {
                         <p className="header">{organization.name}</p>
                         <p className="description">{organization.description}</p>                         
                     </Table.Cell>
-                    <Table.Cell className="content" textAlign="right" >
-                    {console.log(price)}
+                    { !hidePrice && <Table.Cell className="content" textAlign="right" >
                         { !isEmpty(bank.promptPay) ? 
                         <div>
                             <QRCode value={generatePayload(bank.promptPay[0].number, +price)} />
                             <p className="description">ชื่อบัญชี: {bank.promptPay[0].name}</p>
                         </div> :
                             <Image src={'static/qr.jpg'} size="small" inline /> }
-                    </Table.Cell>
-                    <Table.Cell  verticalAlign="middle" className="content">
+                    </Table.Cell> }
+                    { !hidePrice && <Table.Cell  verticalAlign="middle" className="content">
                         {bank.bankAccount.map((account) => {
                             const bankName = new BankModel(account.bankId).BankName
                             return (
@@ -44,7 +44,7 @@ const HelpingTable = ({ organization, hideLabel, price, hidePrice, bank }) => {
                                 </div>
                             )
                         })}
-                    </Table.Cell>
+                    </Table.Cell> }
                 </Table.Row>
             </Table.Body>
         </Table>
