@@ -31,11 +31,12 @@ class Shipping extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.order.isCreated) {
+        if(nextProps.order.isCreated && this.state.creatingOrder) {
             Router.push({
                 pathname: '/user'
             })
         }
+
         if(nextProps.user.address) {
             const userAddress = new UserAddress(nextProps.user.address)
             const { name, tel, district, subDistrict, province, postcode } = userAddress

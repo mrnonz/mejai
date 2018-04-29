@@ -39,7 +39,7 @@ const intialStore = {
     organization: {
         isFetching: true,
         isLoading: true,
-        isLoadginOrder: true,
+        isLoadingOrder: true,
         isLoadingBank: true,
         isLogging: false,
         isLoggingError: false,
