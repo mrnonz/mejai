@@ -75,8 +75,8 @@ class Products extends Component {
         const filteredProduct = allProducts.filter((product) => product.category_id == filterCategory)
         const products = filterApplied ? filteredProduct : allProducts
         const itemCount = products.length
-        const totalPage = Math.ceil(itemCount / 12)
-        const pageItems = products.slice(productPage * 12, productPage * 12 + 12)
+        const totalPage = Math.ceil(itemCount / 10)
+        const pageItems = products.slice(productPage * 10, productPage * 10 + 10)
         
         return (
             <div className="products-page">    
