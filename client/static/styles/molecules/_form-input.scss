@@ -1,0 +1,40 @@
+.input-wrapper {
+    position: relative;
+    margin-top: 30px;
+
+    >label {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        color: white;
+        font-size: 1.1em;
+        pointer-events: none;
+
+        transition-duration: 0.5s;
+    }
+
+    >input {
+        padding-left: 15px;
+        box-sizing: border-box;
+        font-size: 18px;
+        background: none !important;
+        border-style: solid !important;
+        border-color: rgb(175, 175, 175) !important;
+        border-width: 0 0 1.5px 0 !important;
+        border-radius: 0 !important;
+        color: white !important;
+        outline: 0 !important;
+    }
+
+    >input:focus ~ label {
+        top: -1em;
+        left: 0;
+        font-size: 0.8em;
+    }
+
+    >input:valid ~ label {
+        top: -1em;
+        left: 0;
+        font-size: 0.8em;
+    }
+}

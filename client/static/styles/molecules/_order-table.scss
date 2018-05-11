@@ -1,0 +1,41 @@
+.order-table {
+    border-collapse: separate !important;
+    border-spacing: 0 1em !important;
+
+    thead {
+        text-indent: 2.5em;
+    }
+
+    tbody {
+        text-indent: 2.5em;
+        
+        td {
+            border-top: none !important;
+        }
+        
+        tr {
+            cursor: pointer;
+            transition-duration: 0.3s;
+        }
+
+        tr:hover {
+            box-shadow: 0px 3px 20px 0px rgba(29, 29, 29, 0.4);
+        }
+
+        p {
+            font-size: 1.1em;
+        }
+
+        .wait {
+            color: $colorRed;
+        }
+
+        .shipping {
+            color: $colorOrange;   
+        }
+
+        .success {
+            color: $colorGreen;
+        }
+    }
+}

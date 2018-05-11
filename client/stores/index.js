@@ -1,10 +1,87 @@
-import { combineReducers } from 'redux'
-import mock from './reducers/mock'
-import repository from './reducers/repo'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import product from './reducers/product'
+import products from './reducers/products'
+import organization from './reducers/organization'
+import cart from './reducers/cart'
+import user from './reducers/user'
+import order from './reducers/order'
+import orders from './reducers/orders'
+import auction from './reducers/auction'
 
 const storeApp = combineReducers({
-    mock,
-    repository
+    product,
+    products,
+    organization,
+    cart,
+    user,
+    order,
+    orders,
+    auction
 })
 
-export default storeApp
+const intialStore = {
+    product: {
+        isCreating: false,
+        isLoading: true,
+        data: {
+            seller: {}
+        },
+        productId: 1
+    },
+    products: {
+        isLoading: true,
+        data: [],
+        buying: [],
+        auction: []
+    },
+    organization: {
+        isFetching: true,
+        isLoading: true,
+        isLoadingOrder: true,
+        isLoadingBank: true,
+        isLogging: false,
+        isLoggingError: false,
+        isUpdatingPayment: false,
+        response: {},
+        data: [],
+        info: {},
+        orders: [],
+        organization: {},
+        banks: []
+    },
+    cart: {
+        isLoading: true,
+        data: []
+    },
+    user: {
+        isLoading: true,
+        isLoadingAddress: true,
+        isLoadingOrder: true,
+        isUpdating: false,
+        isCreating: false,
+        isLogging: false,
+        isLoggingError: false,
+        user: {},
+        address: '',
+        orders: []
+    },
+    order: {
+        isCreating: false,
+        isLoading: true,
+        data: {}
+    },
+    orders: {
+        isLoading: true,
+        data: []
+    },
+    auction: {
+        isLoading: false,
+        isTimeLoading: true,
+        time: null
+    }
+}
+export const makeStore = () => {
+    return createStore(storeApp, intialStore, composeWithDevTools(applyMiddleware(thunk)))
+}

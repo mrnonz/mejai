@@ -1,4 +1,6 @@
 .product-data {
+    position: relative;
+
     .price {
         color: $colorOrange;
     }
@@ -17,4 +19,15 @@
         }
     }
     
+    >button {
+       position: absolute;
+       bottom: 0;
+    }
+
+    .data-auction {
+        >button, >.input {
+            position: absolute;
+            bottom: 0;
+        }   
+    }
 }

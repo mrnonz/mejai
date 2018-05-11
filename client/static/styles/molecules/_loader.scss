@@ -1,0 +1,27 @@
+.loader-wrapper {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+}
+
+.web-loader > .logo-wrapper {
+    .web-logo {
+        font-family: 'Kanit', sans-serif;
+        font-size: 64px;
+    }
+    .left-logo {
+        color: #316CB0;
+    }
+    .right-logo {
+        color: #F4B333;
+    }
+  animation: loading 2s;
+  animation-iteration-count:infinite;
+}
+
+@keyframes loading {
+  0% { opacity: 0; }
+  90% { opacity: 1; }
+  100% { opacity: 1; }
+}

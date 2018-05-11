@@ -1,60 +1,206 @@
 import React, { Component } from 'react'
-import { Header, Container } from 'semantic-ui-react'
-import Pagination from 'molecules/Pagination'
-import OrganizationCategory from 'organisms/OrganizationCategory'
-import OrganizationCard from 'molecules/OrganizationCard'
-import organizations from 'stores/mock/organization.json'
+import Router from 'next/router'
+import Svg from 'react-inlinesvg'
+import { sortBy, reverse } from 'lodash'
+import { Header, Menu, Container, Button } from 'semantic-ui-react'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import cookie from 'react-cookie'
+import withTopbar from 'hocs/withTopbar'
+import Loader from 'molecules/Loader'
+import OrderTable from 'molecules/OrderTable'
+import IssueForm from 'molecules/IssueForm'
+import PaymentForm from 'molecules/PaymentForm'
+import { fetchBanks, fetchOrganizationOrders, fetchOrganizationBank, createUpdatePromptPay, updateOrganizationBank } from 'stores/actions/organization'
 
 class Organization extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.state = {
-            activeCategory: 0,
-            organizationPage: 0
+            activeBar: 'organization-order',
+            updatingPayment: false
         }
     }
 
-    handleCategoryClick = (index) => {
+    componentDidMount() {
+        const organizationId = cookie.load('organizationId')
+        this.props.fetchOrganizationOrders(organizationId)
+        this.props.fetchOrganizationBank(organizationId)
+        this.props.fetchBanks()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.state.updatingPayment && !nextProps.organization.isUpdatingPayment) {
+            const organizationId = cookie.load('organizationId')
+            this.props.fetchOrganizationBank(organizationId)
+            this.setState({
+                activeBar: 'organization-order',
+                updatingPayment: false
+            })
+        }
+    }
+
+    handleBarClick(value) {
         this.setState({
-            activeCategory: index
+            activeBar: value
+        })
+    }
+    
+    handleOrderRowClick = (orderId) => {
+        Router.push({
+            pathname: '/order',
+            query: {
+                id: orderId,
+                type: 'organization'
+            }
         })
     }
 
-    handlePageClick = (page) => {
+    handleUpdatePayment = () => {
         this.setState({
-            organizationPage: page.selected
+            updatingPayment: true
         })
     }
 
     render() {
-        const { activeCategory, organizationPage } = this.state
-        const organizationCount = organizations.data.length
-        const totalPage = Math.ceil(organizations.data.length / 12)
-        const pageItems = organizations.data.slice(organizationPage * 12, organizationPage * 12 + 12)
+        const { activeBar } = this.state
+        const {
+            organization: {
+                isLoadingOrders,
+                isLoadingBank,
+                isFetching,
+                isUpdatingPayment,
+                orders,
+                bank,
+                banks
+            }
+        } = this.props
+        const SidebarItems = [
+            {
+                value: 'organization-order',
+                title: 'รายการสั่งซื้อถึงคุณ',
+                icon: 'seller-order'
+            },
+            {
+                value: 'payment',
+                title: 'การเงิน',
+                icon: 'payment'
+            },
+            {
+                value: 'issue',
+                title: 'แจ้งปัญหา',
+                icon: 'issue'
+            },
+            {
+                value: 'logout',
+                title: 'ออกจากระบบ',
+                icon: 'logout'
+            }
+        ]
+
+        const renderContent = () => {
+            if (activeBar === 'organization-order') {
+                const sortedOrder = reverse(sortBy(orders, (order) => order.created_by))
+                return (
+                    <Container>
+                        <Container>
+                            <Header as='h2' dividing color="orange" >
+                                รายการสั่งซื้อถึงองค์กรของคุณ
+                            </Header>
+                            { isLoadingOrders ? <Loader wrapped /> : 
+                            <OrderTable 
+                                handleOrderRowClick={this.handleOrderRowClick.bind(Organization)} 
+                                orders={sortedOrder} /> 
+                            }
+                        </Container>
+                    </Container>
+                )
+            } else if (activeBar === 'payment') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            การเงิน
+                        </Header>
+                        { isLoadingBank || isFetching ? <Loader wrapped /> : 
+                        <PaymentForm 
+                            bank={bank} 
+                            bankList={banks}
+                            isUpdatingPayment={isUpdatingPayment}
+                            onSubmitPayment={this.handleUpdatePayment.bind(Organization)}
+                            onSubmitPromptPay={this.props.createUpdatePromptPay.bind(Organization)} 
+                            onSubmitBankAccount={this.props.updateOrganizationBank.bind(Organization)} 
+                        /> 
+                        }
+                    </Container>
+                )
+            } else if (activeBar === 'issue') {
+                return (
+                    <Container>
+                        <Header as='h2' dividing color="orange" >
+                            แจ้งปัญหาการใช้งาน
+                        </Header>
+                        <IssueForm />
+                        <div className="button-group">
+                            <Button color="green" size="large">แจ้งปัญหา</Button>
+                        </div>
+                    </Container>
+                )
+            } else if (activeBar === 'logout') {
+                cookie.remove('userId')
+                cookie.remove('organizationId')
+                Router.push({
+                    pathname: '/'
+                })
+                return (
+                    <Container>
+                        <Loader wrapped />
+                    </Container>
+                )
+            }
+        }
 
         return (
-            <div className="organization-page">
-                <OrganizationCategory activeIndex={activeCategory} categoryClick={this.handleCategoryClick} />
-                <Container className="content">
-                    <div className="page-header">
-                        <Header as="h2">โครงการ</Header>
-                        <span>พบ { organizationCount } รายการ</span>
-                    </div>
-                    <div className="organization-list">
-                        { pageItems.map((organization) => (
-                            <OrganizationCard data={organization} />
-                        ))}
-                        <Pagination 
-                            pageCount={totalPage}
-                            pageRangeDisplayed={4}
-                            onPageChange={(page) => this.handlePageClick(page)}
-                        />
-                    </div>
-                </Container>
+            <div className="user-page">
+                <div className="sidebar">
+                    { SidebarItems.map((item) => (
+                        <div onClick={() => this.handleBarClick(item.value)} className={item.value === activeBar ? 'item active' : 'item'}>
+                            <Svg src={`static/icons/${item.icon}.svg`} />
+                            <p>{item.title}</p>
+                        </div>
+                    ))}
+                </div> 
+                <div className="content">
+                    { renderContent() }
+                </div>
             </div>
         )
     }
 }
 
-export default Organization
+const mapStateToProps = (state) => ({
+        organization: state.organization   
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOrganizationOrders: (organizationId) => {
+            dispatch(fetchOrganizationOrders(organizationId))
+        },
+        fetchOrganizationBank: (organizationId) => {
+            dispatch(fetchOrganizationBank(organizationId))
+        },
+        createUpdatePromptPay: (id, data, isCreate) => {
+            dispatch(createUpdatePromptPay(id, data, isCreate))
+        },
+        updateOrganizationBank: (id, data) => {
+            dispatch(updateOrganizationBank(id, data))
+        },
+        fetchBanks: () => {
+            dispatch(fetchBanks())
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Organization))

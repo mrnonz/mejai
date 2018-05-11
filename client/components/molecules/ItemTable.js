@@ -1,55 +1,57 @@
 import React, { Component } from 'react'
+import { isNil } from 'lodash'
 import Svg from 'react-inlinesvg'
-import { Table, Image, Header } from 'semantic-ui-react'
-
+import { Table, Image, Header, Loader } from 'semantic-ui-react'
+import QuantityInput from 'molecules/QuantityInput'
 class ItemTable extends Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const { items } = this.props
+        const { items, editable, onEdit, onDelete, isUpdating = false } = this.props
         return (
-            <div className="item-table">
-                <Table basic>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>สินค้า {items.length} ชิ้น</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        { items.map((item) => {
-                            const { product: { name, attribute }, organization, price, quantity } = item
-                            return (
-                                <Table.Row>
-                                    <Table.Cell>
-                                        <Image src={'static/shirt1.jpeg'} size="small" />
-                                    </Table.Cell>
-                                    <Table.Cell className="cell-item">
-                                        <Header as='h4'>{name}</Header>
-                                        { attribute && <p>{attribute.name}: {attribute.value}</p> }
-                                        <p>ช่วยเหลือ: {organization}</p>
-                                    </Table.Cell>
-                                    <Table.Cell textAlign="center">
-                                        <p>จำนวน</p>
-                                        <div className="quantity-input">
-                                            <a>-</a><span>{quantity}</span><a>+</a>
-                                        </div>
-                                    </Table.Cell>
-                                    <Table.Cell className="cell-price" textAlign="center">
-                                        <p>ราคา</p>
-                                        <p className="price">{quantity * price} บาท</p>
-                                    </Table.Cell>
-                                    <Table.Cell verticalAlign="top">
-                                        <Svg src={`static/icons/close.svg`} />
-                                    </Table.Cell>
-                                </Table.Row>
-                                )
-                            })
-                        }
-                    </Table.Body>
-                </Table>
-            </div>
+            <Table basic className="item-table">
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell>สินค้า {items.length} ชิ้น</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    { items.map((item) => {
+                        if (isNil(item.product)) return null
+                        const { product: { itemId, name, auction, organization = {}, thumbnail }, productAttribute, price, quantity } = item
+                        return (
+                            <Table.Row>
+                                <Table.Cell>
+                                    <Image src={thumbnail} size="small" />
+                                </Table.Cell>
+                                <Table.Cell className="cell-item">
+                                    <Header as='h4'>{name}</Header>
+                                    { productAttribute && <p>{productAttribute.name}: {productAttribute.value}</p> }
+                                    <p>ช่วยเหลือ: { organization.name }</p>
+                                </Table.Cell>
+                                <Table.Cell textAlign="center">
+                                    <p>จำนวน</p>
+                                    <QuantityInput
+                                        item={item}
+                                        onEdit={onEdit}
+                                        editable={!auction && editable}
+                                        quantity={quantity} 
+                                        isUpdating = {isUpdating}
+                                    />
+                                </Table.Cell>
+                                <Table.Cell className="cell-price" textAlign="center">
+                                    <p>ราคา</p>
+                                    <p className="price">{(quantity * price).toFixed(2)} บาท</p>
+                                </Table.Cell>
+                                { editable && <a onClick={() => onDelete(item)}><Svg className="delete-icon" src={`static/icons/close.svg`} /></a> }
+                            </Table.Row>
+                            )
+                        })
+                    }
+                </Table.Body>
+            </Table>
         )
     }
 }

@@ -1,6 +1,9 @@
 {
+    "cartId": 123,
+    "userId": 5,
     "items": [
         {
+            "itemId": 1,
             "product": {
                 "name": "เสื้อสีดำ",
                 "attribute": {
@@ -13,6 +16,7 @@
             "quantity": 3
         },
         {
+            "itemId": 2,
             "product": {
                 "name": "กางเกงสีน้ำเงิน",
                 "attribute": {
@@ -25,6 +29,7 @@
             "quantity": 2
         },
         {
+            "itemId": 3,
             "product": {
                 "name": "กางเกงสีขาว",
                 "attribute": {

@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
-import { Card, Image, Progress, Header } from 'semantic-ui-react'
+import { Card, Image, Header } from 'semantic-ui-react'
 
-const ProductCard = ({ name, organization, price, auction }) => {
+const ProductCard = ({ productId, className, name, organization, auctionData, thumbnail, price, auction, onCardClick }) => {
+    const cardClass = `${className} product-card`
     return (
-        <Card className="product-card">
-            <Image src="static/shirt.jpg" size="small" centered />
+        <Card key={productId} className={cardClass} onClick={() => onCardClick(productId)}>
+            <Image src={thumbnail} size="small" centered />
                 {
                     auction ? (
                     <Card.Content> 
-                        <Card.Header>
-                            {name}
-                        </Card.Header>
-                        <Progress percent={75} size="tiny" color="orange"/>
-                        <span className="card-price"> {price.toLocaleString()} Baht </span>
-                        <span className="card-expired"> Expired </span>
+                        <Header as="h5" dividing>{name}</Header>
+                        <p className="card-organization">{ organization.name }</p>
+                        <span className="card-price">เริ่มต้นที่ {+price} บาท </span>
                     </Card.Content>
                     ) : (
                     <Card.Content> 
                         <Header as="h5" dividing>{name}</Header>
-                        <p className="card-organization">  organization </p>
-                        <p className="card-price"> {price.toLocaleString()} Baht </p>
+                        <p className="card-organization">{ organization.name }</p>
+                        <p className="card-price"> {+price} บาท </p>
                     </Card.Content>
                     )
                 }

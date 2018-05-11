@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
-import ProductCard from 'molecules/ProductCard'
-import Pagination from 'molecules/Pagination'
-import FilterProduct from 'organisms/FilterProduct'
+import withRedux from 'next-redux-wrapper'
+import { makeStore } from '../stores'
+import Router from 'next/router'
+import withTopbar from 'hocs/withTopbar'
 import { Dropdown, Menu } from 'semantic-ui-react'
+import ProductList from 'molecules/ProductList'
+import Pagination from 'molecules/Pagination'
+import Loader from 'molecules/Loader'
+import FilterProduct from 'organisms/FilterProduct'
 import categories from 'stores/mock/categories.json'
-import products from 'stores/mock/auction_products.json'
-import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
+import { fetchBuyProducts, fetchAuctionProducts } from 'stores/actions/product'
+import Categories from 'stores/models/Categories'
 
 class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productPage: 0
+            productPage: 0,
+            filterApplied: false,
+            filterCategory: null,
         }
     }
 
@@ -21,52 +28,83 @@ class Products extends Component {
         })
     }
 
-    render() {
-        const { productPage } = this.state
-        const itemCount = products.data.length
-        const totalPage = Math.ceil(products.data.length / 12)
-        const pageItems = products.data.slice(productPage * 12, productPage * 12 + 12)
-        const sortOptions = [
-            {
-                text: 'Featured',
-                value: 'featured'
-            },
-            {
-                text: 'Price: Low to High',
-                value: 'priceLow'
-            },
-            {
-                text: 'Price: Hight to Low',
-                value: 'priceHigh'
-            }
-        ]
+    handleCardClick = (productId) => {
+        const { url: { query: { type: productType } } } = this.props
+        Router.push({
+            pathname: '/product',
+            query: { type: productType, id: productId }
+        })
+    }
 
+    handleFilter = (filterCategory) => {
+        this.setState({
+            filterApplied: true,
+            filterCategory
+        })
+    }
+
+    handleClearFilter = () => {
+        this.setState({
+            filterApplied: false
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.url.query.type !== this.props.url.query.type) {
+            if (nextProps.url.query.type === 'auction') {
+                this.props.fetchAuctionProducts()
+            } else {
+                this.props.fetchBuyProducts()
+            }
+        }
+    }
+
+    componentDidMount() {
+        const { url: { query: { type: productType } } } = this.props
+        if (productType === 'auction') {
+            this.props.fetchAuctionProducts()
+        } else {
+            this.props.fetchBuyProducts()
+        }
+    }
+
+    render() {
+        const { productPage, filterApplied, filterCategory } = this.state
+        const { products: { data: allProducts = [], isLoading } } = this.props
+        const { url: { query: { type: productType } } } = this.props
+        const filteredProduct = allProducts.filter((product) => product.category_id == filterCategory)
+        const products = filterApplied ? filteredProduct : allProducts
+        const itemCount = products.length
+        const totalPage = Math.ceil(itemCount / 10)
+        const pageItems = products.slice(productPage * 10, productPage * 10 + 10)
+        
         return (
             <div className="products-page">    
+                {/* TODO Dynamic header */}
                 <header>
                     <div className="background-mask">
-                        <h1>Auction Page</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum , consectetur adipiscing elit. Maecenas posuere, augue vitae molestie bibendum</p>
+                        <h1>เลือกสินค้า</h1>
+                        <p>ผู้ใช้เลือกสินค้าที่ถูกใจ โดยรายได้จากสินค้าเหล่านั้นจะนำไปช่วยเหลือองค์กรการกุศลที่ผู้ขายเลือก</p>
                     </div>
                 </header>
                 <main>
                     <aside>
-                        <FilterProduct categories={categories.list} />
-                    </aside>
+                        <FilterProduct 
+                            categories={categories.list} 
+                            onFilterSelected={this.handleFilter.bind(this)}
+                            onFilterClear={this.handleClearFilter.bind(this)}
+                        />
+                    </aside>                    
                     <section className="list-container">
+                        { isLoading && <section className="page-loader-wrapper"><Loader /></section> }
                         <div className="product-count">
-                            <h3>List All</h3>
-                            <p>Found {products.data.length} Items</p>
+                            { filterApplied ? <h3>{new Categories(filterCategory).categoryName}</h3> :
+                            <h3>แสดงทั้งหมด</h3> }
+                            <p>พบ {products.length} ชิ้น</p>
                         </div>
                         <div className="product-sort">
-                            <span>Sort By </span>
-                            <Dropdown selection defaultValue="featured" options={sortOptions}/>
                         </div>
-                        <main className="product-list">
-                            {pageItems.map((item) => (
-                                <ProductCard name={item.name} price={item.price} />
-                            ))}
-                        </main>
+                        <ProductList productType={productType} products={pageItems} onCardClick={this.handleCardClick}/>
                         <Pagination 
                             pageCount={totalPage}
                             pageRangeDisplayed={4}
@@ -79,4 +117,20 @@ class Products extends Component {
     }
 }
 
-export default Products
+const mapStateToProps = (state) => ({
+        products: state.products
+    }
+)
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchBuyProducts: () => {
+            dispatch(fetchBuyProducts())
+        },
+        fetchAuctionProducts: () => {
+            dispatch(fetchAuctionProducts())
+        }
+    }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(withTopbar(Products))

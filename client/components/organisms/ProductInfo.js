@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Segment, Header, Image, Grid } from 'semantic-ui-react'
 
 class ProductInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            menuActive: null
+            menuActive: 'helping'
         }
     }
 
     handleMenuClick = (name) => {
-    this.setState({
-            menuActive: name
+        this.setState({
+                menuActive: name
         })
     }
 
     render() {
         const { menuActive } = this.state
+        const { product, product: { organization } } = this.props
         return (
             <div className="product-info">
                 <Menu>
@@ -35,6 +36,30 @@ class ProductInfo extends Component {
                         ช่วยเหลือ
                     </Menu.Item>
                 </Menu>
+                { menuActive === 'helping' && (
+                    <Grid container>
+                        <Grid.Row>
+                            <Header as="h3">{organization.name}</Header>
+                        </Grid.Row>
+                        <Grid.Row centered columns={2}>
+                            <Grid.Column>
+                                <Image src={organization.thumbnail} size="large"/>
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Segment className="helping-content">
+                                <td dangerouslySetInnerHTML={{__html: organization.info}} />
+                            </Segment>    
+                        </Grid.Row>
+                    </Grid>
+                )}
+                { menuActive === 'info' && (
+                    <Grid container>
+                        <Segment className="info-content">
+                            {product.info}
+                        </Segment>    
+                    </Grid>
+                )}
             </div>
         )
     }
