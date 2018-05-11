@@ -13,6 +13,7 @@ from product.models import Product
 from product.serializers import ProductSerializer
 from order.models import Order
 from order.serializers import OrderSerializer
+import hashlib
 
 
 @csrf_exempt
