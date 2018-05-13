@@ -1,107 +1,167 @@
 import React, { Component } from 'react'
-import Head from 'next/head'
-import { Form, Container, Grid } from 'semantic-ui-react'
-import styled from 'styled-components'
+import withRedux from 'next-redux-wrapper'
+import Router from 'next/router'
+import { makeStore } from '../stores'
+import cookie from 'react-cookie'
+import withTopbar from 'hocs/withTopbar'
+import { Form, Container, Grid, Button, Segment } from 'semantic-ui-react'
+import SiteLogo from 'molecules/SiteLogo'
+import FormInput from 'molecules/FormInput'
+import AvatarUpload from 'molecules/AvatarUpload'
+import { createUser, userLogin } from 'stores/actions/user'
 
-const PageWrapper = styled.div`
-  background-image: url('/static/loginBG.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`
-
-const FormWrapper = styled.div`
-  background: rgba(135,135,135,0.8);
-  padding: 50px 30px;
-`
-const LogoWrapper = styled.div` 
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-  .web-logo {
-    font-family: 'Kanit', sans-serif;
-    font-size: 62px;
-  }
-
-  .left-logo {
-    color: #316CB0;
-  }
-
-  .right-logo {
-    color: #F4B333;
-  }
-`
-
-const InputBox = styled.input`
-  padding-left: 15px !important;
-  box-sizing: border-box !important;
-  font-size: 18px !important;
-  background-color: rgba(0,0,0,0) !important;
-  border-style: solid !important;
-  border-color: rgb(175, 175, 175) !important;
-  border-width: 0 0 1.5px 0 !important;
-  color: white !important;
-  outline: 0 !important;
-`
-
-class FormExampleCaptureValues extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', submittedName: '', submittedEmail: '' }
+    this.state = {
+      showLoginForm: true,
+      creatingUser: false,
+      loggingUser: false,
+      errorLogin: false,
+      loginForm: {
+        email: '',
+        password: '',
+      },
+      registerForm: {
+        avatar: null,
+        email: '',
+        name: '',
+        password: '',
+        confirmPassword: ''
+      }
+    }
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+    componentWillReceiveProps(nextProps) {
+        if(this.state.creatingUser) {
+            if(!nextProps.user.isCreating) {
+                this.setState({
+                    creatingUser: false,
+                    showLoginForm: true
+                })
+            }
+        }
+        if(this.state.loggingUser) {
+            const { user } = nextProps.user
+            if(user.userId) {
+                cookie.save('userId', user.userId)
+                Router.push({
+                    pathname: '/'
+                })
+            }
+            if(nextProps.user.isLoggingError) {
+                this.setState({
+                    errorLogin: true,
+                    loggingUser: false
+                })
+            }
+        }
+    }
 
-  handleSubmit = () => {
-    const { name, email } = this.state
+  hideLoginForm() {
+    this.setState({
+      showLoginForm: false
+    })
+  }
 
-    this.setState({ submittedName: name, submittedEmail: email })
+  showLoginForm() {
+    this.setState({
+      showLoginForm: true
+    })
+  }
+
+  handleLoginSubmit() {
+      const { email, password } = this.state.loginForm
+      const userData = { email, password }
+      this.props.userLogin(userData)
+      this.setState({
+          loggingUser: true
+      })
+  }
+
+  handleRegisterSubmit() {
+    const { avatar, email, name, password, confirmPassword } = this.state.registerForm
+    const userData = {
+      email,
+      firstname: name.split(' ')[0],
+      lastname: name.split(' ')[1],
+      password
+    }
+    this.props.createUser(userData, avatar)
+    this.setState({
+        creatingUser: true
+    })
+  }
+
+  handleLoginChange = ({ target: { name , value } }) => {
+    this.setState({
+      loginForm: {
+        ...this.state.loginForm,
+        [name]: value
+      }
+    })
+  }
+
+  handleRegisterChange = ({ target: { name , value } }) => {
+    this.setState({
+      registerForm: {
+        ...this.state.registerForm,
+        [name]: value
+      }
+    })
   }
 
   render() {
-    const { name, email, submittedName, submittedEmail } = this.state
-
+    const { showLoginForm, loggingUser, errorLogin } = this.state
+    const { user: { isCreating } } = this.props
     return (
-      <PageWrapper>
-        <Head>
-            <link rel="stylesheet" type="text/css" href="/static/dist/semantic.min.css"></link>
-            <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet"></link>
-        </Head>
-        <FormWrapper>
-          <LogoWrapper>
-            <span className="left-logo web-logo">Mejai</span><span className="right-logo web-logo">Charity</span>
-          </LogoWrapper>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Field>
-              <InputBox placeholder='Username' name='username' />
-            </Form.Field>
-            <Form.Group widths="equal">
-              <Form.Field>
-                <InputBox placeholder='Firstname' name='firstname' />
-              </Form.Field>
-              <Form.Field>
-                <InputBox placeholder='Lastname' name='lastname' />
-              </Form.Field>
-            </Form.Group>
-            <Form.Field>
-              <InputBox placeholder='Password' name='password' type='password' />
-            </Form.Field>
-            <Form.Field>
-              <InputBox placeholder='Confirm Password' name='confirmPassword' type='password' />
-            </Form.Field>  
-            <Form.Button content='Register' color="green" />
-          </Form>
-        </FormWrapper>
-      </PageWrapper>
+      <div className="login-page">
+        <div className="login-form">
+          <SiteLogo />
+            {
+              showLoginForm ?
+              <Form>
+                <FormInput onChange={this.handleLoginChange} autocomplete="off" label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleLoginChange} label="รหัสผ่าน" name="password" type="password" required />
+                <Button fluid loading={ loggingUser }  className="login-button" color="green" onClick={this.handleLoginSubmit.bind(this)}>เข้าสู่ระบบ</Button>
+                <Button fluid loading={ loggingUser } className="login-button" color="teal" onClick={this.hideLoginForm.bind(this)}>สมัครสมาชิก</Button>
+              </Form>
+              :
+              <Form>
+                <AvatarUpload onFileChange={this.handleRegisterChange.bind(this)} />
+                <FormInput onChange={this.handleRegisterChange} autocomplete="off" label="อีเมล์" name="email" required />
+                <FormInput onChange={this.handleRegisterChange} autocomplete="off" label="ชื่อ - สกุล" name="name" required />
+                <FormInput onChange={this.handleRegisterChange} label="รหัสผ่าน" name="password" required type="password" />
+                <FormInput onChange={this.handleRegisterChange} label="ยืนยันรหัสผ่าน" name="confirmPassword" required type="password" />
+                <div className="button-group">
+                  <Button loading={ isCreating } color="green" onClick={this.handleRegisterSubmit.bind(this)} >Register</Button>
+                  <Button disabled={ isCreating } basic onClick={this.showLoginForm.bind(this)}>Cancel</Button>
+                </div> 
+              </Form>
+            }
+            { errorLogin && <Segment inverted color='red'>
+                อีเมล์ หรือ รหัสผ่านผิดพลาด
+            </Segment> }
+        </div>
+      </div>
     )
   }
 }
 
-export default FormExampleCaptureValues
+const mapStateToProps = (state) => ({
+    user: state.user
+  }
+)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createUser: (userData, avatar) => {
+        dispatch(createUser(userData, avatar))
+    },
+    userLogin: (userData) => {
+        dispatch(userLogin(userData))
+    }
+  }
+}
+
+export default withRedux(makeStore, mapStateToProps, mapDispatchToProps)(LoginPage)

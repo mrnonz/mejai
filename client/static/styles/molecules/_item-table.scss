@@ -16,8 +16,14 @@
         >.price {
             color: $colorOrange;
         }
+        
     }
 
+    .delete-icon {
+        position: absolute;
+        transform: translateX(-30px) translateY(10px);
+    }
+    
     p {
         color: $colorGrey;
     }

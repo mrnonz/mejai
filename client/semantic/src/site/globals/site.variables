@@ -7,6 +7,7 @@
 
 /* Colors */
 @teal: #2CC0E4;
+@green: #2BE47B;
 @orange: #F4B333;
 @grey: #938A8A;
 
@@ -43,3 +44,5 @@
 @computerBreakpoint          : 1024px;
 @largeMonitorBreakpoint      : 1200px;
 @widescreenMonitorBreakpoint : 1920px;
+
+@defaultDuration: 0.3s;

@@ -1,4 +1,8 @@
 .cart-summary {
+    .content-wrapper {
+        max-height: 390px;
+        overflow-y: auto;
+    }
     .cell-item {
         >.item {
             color: $colorGrey;
@@ -7,6 +11,10 @@
         >.price {
             text-align: right;
         }
+    }
+
+    .summary-table {
+        margin-top: 0 !important;
     }
 
     .summary-row {

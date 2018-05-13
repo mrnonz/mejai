@@ -16,6 +16,7 @@
     }
 
     li.active >a {
+        cursor: default;
         color: $colorDarkBlue;
     }
 

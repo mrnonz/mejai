@@ -1,3 +1,20 @@
 /*******************************
          Site Overrides
 *******************************/
+.ui.basic.orange.buttons .button:hover,
+.ui.basic.orange.button:hover {
+    background: @orange !important;
+    color: @white !important;
+}
+
+.ui.basic.orange.buttons .button:focus,
+.ui.basic.orange.button:focus {
+    background-color: @orangeFocus !important;
+    color: @white !important;
+}
+
+.ui.basic.orange.buttons .button:active,
+.ui.basic.orange.button:active {
+    background-color: @orangeDown !important;
+    color: @white !important;
+}

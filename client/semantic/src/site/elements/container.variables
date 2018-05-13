@@ -4,4 +4,6 @@
 @maxWidth: 75vw;
 
 @computerWidth: 800px;
+@computerGridWidth: 800px;
 @largeMonitorWidth: 1200px;
+@largeMonitorGridWidth: 1200px;

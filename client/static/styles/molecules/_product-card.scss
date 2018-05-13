@@ -1,6 +1,11 @@
 .product-card {
     min-width: 225px !important;
 
+    img {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
     .card-price {
         float: left;
         font-size: 14px;
@@ -15,5 +20,11 @@
     h5 {
         white-space: nowrap !important;
         margin-bottom: 0.5em !important;
+    }
+
+    .card-organization {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 }

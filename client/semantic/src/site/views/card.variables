@@ -4,6 +4,7 @@
 @width: auto;
 @border: none;
 @boxShadow: 1px 3px 5px 0px rgba(161,161,161,1);
+@linkHoverBoxShadow: 1px 3px 5px 0px rgba(161,161,161,1);
 
 @contentFontSize: 0.9em;
 @contentDivider: none;
@@ -13,3 +14,5 @@
 @headerColor: #3E4442;
 
 @descriptionColor: @grey;
+
+@extraDivider: 1px solid rgba(0,0,0,0.1);

@@ -21,6 +21,7 @@ from django.core.files.storage import FileSystemStorage
 from datetime import datetime
 import uuid
 import os
+import hashlib
 
 
 @csrf_exempt
@@ -37,6 +38,24 @@ def customer_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def customer_login(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+
+        email = data['email']
+        password = data['password']
+
+        try:
+            customer = Customer.objects.get(email=email, password=hashlib.sha256(
+                password).hexdigest())
+
+            serializerCustomer = CustomerSerializer(customer)
+            return JsonResponse(serializerCustomer.data, status=200)
+        except Customer.DoesNotExist:
+            return HttpResponse(status=404)
 
 
 @csrf_exempt
@@ -96,7 +115,8 @@ def customer_create(request):
         customer = Customer(email=email,
                             first_name=firstname,
                             last_name=lastname,
-                            password=password,
+                            password=hashlib.sha256(
+                                password).hexdigest(),
                             username=email)
         customer.save()
 
@@ -152,7 +172,12 @@ def customer_cart(request, pk):
         itemId = data['itemId']
         quantity = data['quantity']
 
-        cart, created = Cart.objects.get_or_create(customer_id=pk)
+        try:
+            cart = Cart.objects.get(customer_id=pk)
+        except Cart.DoesNotExist:
+            cart = Cart.objects.create(customer_id=pk, time=datetime.now())
+            cart = Cart.objects.get(customer_id=pk)
+
         product = Product.objects.get(pk=itemId)
 
         if 'productAttributeId' in data:

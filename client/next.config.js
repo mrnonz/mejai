@@ -1,7 +1,7 @@
 var path = require('path');
 var glob = require('glob')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
-
+var Dotenv = require('dotenv-webpack');
 module.exports = {
   webpack: (config, { dev }) => {
     // Perform customizations to webpack config
@@ -43,6 +43,7 @@ module.exports = {
       loader: 'json-loader'
     }
   ]
+  config.plugins.push(new Dotenv())
     // Important: return the modified config
     return config
   },

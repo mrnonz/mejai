@@ -5,8 +5,7 @@ class Gallery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mainImage: 'static/shirt1.jpeg',
-            images: ['static/shirt1.jpeg','static/shirt2.jpeg','static/shirt3.jpeg'],
+            mainImage: this.props.images[0].url
         }
     }
 
@@ -17,7 +16,8 @@ class Gallery extends Component {
     }
 
     render () {
-        const { mainImage, images } = this.state
+        const { mainImage } = this.state
+        const { images } = this.props
         return (
             <div className="gallery">
                 <div className="main-image">
@@ -26,8 +26,8 @@ class Gallery extends Component {
                 <div className="images">
                     {images.map((image) => (
                         <div><Image 
-                            src={image} 
-                            onClick={() => this.handleImageClick(image)} 
+                            src={image.url} 
+                            onClick={() => this.handleImageClick(image.url)} 
                             size="small"
                             bordered
                         /></div>
